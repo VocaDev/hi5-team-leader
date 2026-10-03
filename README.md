@@ -1,13 +1,12 @@
-# ShiftRescue — Team Hi5
+# AI Team Leader — Team Hi5
 
-**One person goes missing. Your operation doesn't have to.**
+**Your leader talks to the client. The agent turns the deal into a plan and gives every person their task, in detail.**
 
-An AI agent for businesses that run on people, schedules and fixed-time jobs. When someone can't come, it asks *"if I move this person, what breaks next?"*, finds the smallest safe change, offers the job on Telegram, books only after ACCEPT, verifies recovery, and escalates to the owner with options when there is no safe plan.
+An AI agent that works as a team leader and task delegator: it takes a job in free text, checks capacity (people, vehicles, equipment, travel, rules) in deterministic code, splits the job into tasks, assigns them, gets the leader's approval, and sends each worker a detailed task on Telegram with ACCEPT / CAN'T buttons.
 
-**The LLM understands and talks. Deterministic code decides.**
+**The LLM understands, plans and writes. Code checks the rules. A human approves.**
 
-- Plan, criteria, scaling, stack, split: [`PLAN.md`](PLAN.md)
-- Technical design: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- Plan, criteria, demand, industries, stack: [`PLAN.md`](PLAN.md)
 
 ## Layout
 

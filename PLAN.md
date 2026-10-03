@@ -1,8 +1,8 @@
 # PLAN — AI Team Leader (Team Hi5)
 
 > Genpact × Agilyti AI Hackathon · Prishtinë · e shtunë 3 tetor 2026 · track **AI Agent for Business**
-> **Ndryshim i idesë: 3 tetor ~13:50.** Pas mentorëve, ShiftRescue u bë pjesë e një ideje më të madhe: **AI Team Leader**. Motori i ShiftRescue-s (rregullat, koha, udhëtimi, riplanifikimi) mbetet bërthama.
-> `docs/ARCHITECTURE.md` dhe `docs/FLOW.md` janë shkruar për ShiftRescue. Motori dhe rregullat vlejnë ende, por rrjedha e re është këtu. Kur nuk përputhen, vlen **ky skedar**.
+> **Ideja finale (3 tetor ~14:00): AI Agent si Team Leader dhe shpërndarës detyrash.** ShiftRescue është hequr plotësisht.
+> Dokumentet e vjetra janë te `docs/archive/` vetëm si histori. **Ky skedar është burimi i vetëm i së vërtetës.**
 > ✅ = i verifikuar · ⬜ = për t'u bërë · ❓ = ende i panjohur. Pa hamendje.
 
 ---
@@ -19,7 +19,7 @@
    - **e ndan** punën në detyra dhe zgjedh kush e bën secilën;
    - ia tregon planin liderit për **miratim**;
    - u dërgon **4 punëtorëve detyrat në detaje** në Telegram (çka, ku, kur, çka marrin me vete, me kë punojnë, kontakti), dhe secili shtyp **ACCEPT**.
-4. Kur diçka prishet (dikush anulon ose mungon), **e riplanifikon**. Kjo është pjesa e ShiftRescue-s.
+4. Kur dikush shtyp **S'MUNDEM**, ia jep detyrën personit tjetër të përshtatshëm dhe e njofton liderin.
 
 **Parimi:** *AI-ja kupton, planifikon dhe shkruan. Kodi i kontrollon rregullat. Njeriu miraton.* Asnjë rregull s'jeton në prompt, dhe asnjë urdhër s'e anashkalon.
 
@@ -42,7 +42,7 @@
 2. Ekrani tregon si mendon agjenti: kapaciteti → detyrat → kush dhe pse ("pse jo Dritoni: 16:00 + 40 min = 16:40 > 16:30").
 3. Lideri e miraton planin me një buton.
 4. 4 telefona marrin detyrat në detaje dhe shtypin ACCEPT. Ekrani gjelbërohet.
-5. *(nëse ka kohë)* një punëtor anulon → agjenti riplanifikon dhe e njofton liderin.
+5. *(nëse ka kohë)* një punëtor shtyp S'MUNDEM → agjenti ia jep detyrën tjetrit dhe e njofton liderin.
 6. *(kurthi)* lideri: "vendose X gjithsesi" → **BLOCKED** me arsyen.
 
 **E përgatitur:** bota (kompania, njerëzit, pajisjet, orari). **Live:** çdo mesazh, çdo vendim, çdo detyrë, çdo ACCEPT. Skenarin e demos e shkruan ekipi.
@@ -85,7 +85,7 @@ Kontakti i klientit: te lideri
 | **Shpejtësia:** nga "po" e klientit te ekipi i konfirmuar për 1–2 minuta, jo me një orë telefonatash | minutat, nga `evidence/` + intervista |
 | **Rritja pa koordinator të ri:** një lider menaxhon më shumë punë | punët në javë për një lider |
 | **Dija s'rri në një kokë:** kur lideri mungon, rregullat dhe plani janë në sistem | — |
-| **Kur prishet diçka:** riplanifikim në sekonda (ShiftRescue) | koha deri te rikthimi |
+| **Kur dikush refuzon:** detyra kalon te personi tjetër i përshtatshëm brenda sekondave | koha deri te ACCEPT |
 
 **Tregu (✅):** kompanitë paguajnë tashmë për këtë: ServiceTitan (elektrikë dhe zanate), QGenda (spitale), ServiceNow dhe Atlassian (IT). Kjo dëshmon kërkesën. Por këto janë platforma të mëdha, në anglisht, të shtrenjta, me implementim të gjatë. **Bizneset e vogla dhe të mesme në rajon s'kanë asgjë dhe punojnë me Viber.**
 
@@ -124,7 +124,7 @@ Lideri (Telegram/konsola) ──► AI TEAM LEADER (Claude)
                                  ▼
                      Runtime ──► 4 punëtorët në Telegram [ACCEPT] [S'MUNDEM]
                                  │  ACCEPT → ri-validim → rezervim → ekrani
-                                 │  S'MUNDEM → riplanifikim (ShiftRescue) → Lideri
+                                 │  S'MUNDEM → detyra te personi tjetër → Lideri
 ```
 - **LLM-i:** kupton kërkesën, pyet çka mungon, zgjedh planin nga ato që i jep motori, shkruan detyrat dhe shpjegimet.
 - **Kodi:** kapaciteti, rregullat, caktimi, rezervimi, verifikimi. **Modeli s'ka mjet për rezervim.**
@@ -147,7 +147,7 @@ Lideri (Telegram/konsola) ──► AI TEAM LEADER (Claude)
 
 ## 8. Çka ndërtojmë sot dhe çka jo
 
-**Po:** lideri → agjenti → kapaciteti → plani → miratimi → 4 detyra në Telegram → ACCEPT → ekrani · kurthi (BLOCKED) · *(nëse ka kohë)* anulimi → riplanifikimi.
+**Po:** lideri → agjenti → kapaciteti → plani → miratimi → 4 detyra në Telegram → ACCEPT → ekrani · kurthi (BLOCKED) · *(nëse ka kohë)* S'MUNDEM → detyra te tjetri.
 **Slajd, jo kod:** korporata/IT, spitalet, elektrikët, raporti javor, kanalet e tjera.
 **Jo:** pagesa, fatura, GPS, login, databazë, çmime nga puna e askujt.
 
