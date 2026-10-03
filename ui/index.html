@@ -9,8 +9,10 @@
 <body>
 <div id="blocked" class="redbar" hidden></div>
 <header class="top">
-  <h1>AI Team Leader <span class="sub">paneli i liderit</span></h1>
+  <h1>AI Team Leader <span class="sub">paneli i liderit · <span id="company"></span></span></h1>
   <div class="pills">
+    <button id="ind_events" class="btn btn-sm">Evente · pa PM</button>
+    <button id="ind_it_services" class="btn btn-sm">IT · me PM</button>
     <span id="jobPill" class="pill"></span>
     <span id="busy" class="pill pill-busy" hidden>Agjenti po mendon…</span>
     <span id="conn" class="pill pill-off">pa lidhje</span>
@@ -32,7 +34,10 @@
     <div class="card">
       <div class="row head">
         <h2 id="jobTitle">Plani</h2>
-        <button id="approveBtn" class="btn btn-go" disabled>MIRATO</button>
+        <div>
+          <button id="checkinBtn" class="btn btn-sm" disabled>⏰ Check-in</button>
+          <button id="approveBtn" class="btn btn-go" disabled>MIRATO</button>
+        </div>
       </div>
       <div id="summary" class="note"></div>
       <div id="plan" class="plan"></div>
