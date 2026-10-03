@@ -3,6 +3,10 @@
 > Ideja dhe arsyet: [`PLAN.md`](PLAN.md). Ky skedar = **detyra e secilës, skedarët, teknologjia, afati.**
 > Ora e nisjes: 14:05 · **FEATURE FREEZE 16:00** · **DORËZIMI 17:50**. Pas 16:00 s'shtohet asgjë.
 
+> **✅ 14:20 — backend-i (Genti) është në `main` dhe punon.** Nisja: `python -m src.server` → http://localhost:8000. API-ja dhe hapat janë te `README.md`.
+> Pa `industries/events/` përdoren të dhënat e zhvillimit te `src/dev_data/`. Flutura: kopjo formatin prej aty. Data duhet të jetë **e shtunë** (`"date": "2026-10-10"`).
+> Erza: `GET /api/view` kthen edhe `job.summary`, `tasks[].note`, `existing_jobs`, `busy` (true = agjenti po mendon) përveç kontratës më poshtë. Butonat: MIRATO → `POST /api/approve {}`; telefonat e panelit → `POST /api/callback {job_id, task_id, action}`.
+
 ## Si punojmë
 
 1. Secila punon **vetëm në folderin e vet**, në branch-in e vet: `flutura/data`, `erza/ui`, `devlete/tests`, `tringa/pitch`.

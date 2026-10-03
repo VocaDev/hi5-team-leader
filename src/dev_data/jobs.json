@@ -1,0 +1,18 @@
+{
+  "birthday_bounce": {
+    "label": "Ditëlindje me bounce",
+    "tasks": [
+      {"id": "drive",    "role": "Shofer",           "skills": ["driver"], "start_offset_min": -100, "end_offset_min": 150, "vehicle": true},
+      {"id": "setup",    "role": "Montimi i bounce", "skills": ["setup"],  "start_offset_min": -60,  "end_offset_min": 0,   "equipment": ["bounce", "compressor"]},
+      {"id": "mascot",   "role": "Maskota",          "skills": ["mascot"], "start_offset_min": 0,    "end_offset_min": 90,  "equipment": ["mascot_costume"]},
+      {"id": "teardown", "role": "Çmontimi",         "skills": ["setup"],  "start_offset_min": 120,  "end_offset_min": 150}
+    ]
+  },
+  "birthday_mascot": {
+    "label": "Ditëlindje vetëm me maskotë",
+    "tasks": [
+      {"id": "drive",  "role": "Shofer",  "skills": ["driver"], "start_offset_min": -60, "end_offset_min": 120, "vehicle": true},
+      {"id": "mascot", "role": "Maskota", "skills": ["mascot"], "start_offset_min": 0,   "end_offset_min": 90,  "equipment": ["mascot_costume"]}
+    ]
+  }
+}
