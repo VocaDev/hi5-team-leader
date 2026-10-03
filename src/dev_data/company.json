@@ -17,14 +17,6 @@
   },
   "workers": [
     {
-      "id": "w_tringa",
-      "name": "Tringa",
-      "skills": [
-        "driver",
-        "setup"
-      ]
-    },
-    {
       "id": "w_dritoni",
       "name": "Dritoni",
       "skills": [
@@ -43,7 +35,8 @@
       "id": "w_flutura",
       "name": "Flutura",
       "skills": [
-        "mascot"
+        "mascot",
+        "setup"
       ]
     },
     {
@@ -51,13 +44,6 @@
       "name": "Erza",
       "skills": [
         "driver"
-      ]
-    },
-    {
-      "id": "w_devlete",
-      "name": "Devlete",
-      "skills": [
-        "setup"
       ]
     }
   ],
