@@ -64,6 +64,18 @@ Ekrani i Erzës në projektor, 4 telefona në duar. Skenarin e shkruan ekipi (`d
 
 **Titulli:** *I njëjti Team Leader, rregulla të tjera*
 
+### Slajdi 3: dy kolona (15:35, zëvendëson tabelën e industrive si pjesë kryesore)
+| **Pa PM: koordinatori i punëve** (biznes i vogël në terren) | **Me PM: asistenti i PM-it** (kompani e madhe) |
+|---|---|
+| Pronari i përgjigjet klientit **"a mundemi?" në sekonda**, me gjithë kapacitetin e kontrolluar | **Raporte sipas rolit**: Product Manager, PM, Team Lead, zhvillues |
+| Asnjë van, pajisje ose person i rezervuar dyfish | **Rregullat e garantuara në kod**: 4-eyes, aftësitë, qasja, ngarkesa, me gjurmë |
+| Një mesazh në vend të telefonatave; secili: detyrë + ACCEPT | Arrin **ekipet në terren** që s'e hapin Jira/Planner |
+| **Check-in**: problemi del herët, jo 30 min para | **Shtresë mbi** Jira / ServiceNow / Excel, pa migrim |
+
+Rreshti poshtë: *"Mjetet ekzistojnë (Connecteam për ekipet e vogla; Microsoft, Asana dhe Jira për zyrat). Ato japin aplikacione dhe dashboard-e. Ne japim një agjent që e bën koordinimin, në chat, pa thyer asnjë rregull."*
+Kutia e fundit: **Hapi tjetër:** pilot me Magic Events (4 të shtuna) · pilot me një ekip IT/BPO përmes partnerit.
+
+
 **Tabela me 4 rreshta:**
 | Industria | Çka kontrollon kodi |
 |---|---|
