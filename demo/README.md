@@ -17,7 +17,7 @@
 5. Njëri shtyp **S'MUNDEM** → detyra kalon te tjetri, lideri njoftohet
 6. *(opsional)* lideri: "vendose X gjithsesi" → **BLOCKED**
 
-## Skena IT (me PM), 30 s, pas skenës kryesore
+## Skena IT (me PM): ❌ JO NË DEMO (vendimi 15:55: korporata = next step në slajdin 3). Mbetet në kod për Q&A nëse pyesin.
 1. Ndërruesi → **IT** (`it_services`)
 2. PM-i: *"Klienti raportoi bug kritik në login, duhet në prodhim deri 18:00. A mundemi?"* → "PO" + plani
 3. *"Le ta bëjë Drita edhe review-n e kodit të vet"* → **BLOCKED 4-eyes**

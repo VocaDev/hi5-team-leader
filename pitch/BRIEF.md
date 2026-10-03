@@ -10,7 +10,7 @@
 | 0:00–0:50 | **SLAJDI 1: Problemi** | Flutura |
 | 0:50–3:20 | **DEMO LIVE** (pa slajd: ekrani + telefonat) | Genti, ekipi luan rolet |
 | 3:20–4:10 | **SLAJDI 2: Si punon dhe pse e përdor** | Genti |
-| 4:10–4:50 | **SLAJDI 3: Çdo industri + hapi tjetër** | Tringa |
+| 4:10–4:50 | **SLAJDI 3: Sot ekipet e vogla, nesër korporatat (next step)** | Tringa |
 | 4:50–5:00 | Mbyllja: një fjali, mbi slajdin 3 | Tringa |
 
 ---
@@ -58,37 +58,26 @@ Ekrani i Erzës në projektor, 4 telefona në duar. Skenarin e shkruan ekipi (`d
 
 ---
 
-## SLAJDI 3: Çdo industri + hapi tjetër (0:40 + mbyllja)
+## SLAJDI 3: Hapi tjetër: nga ekipet e vogla te korporatat (0:40 + mbyllja)  ← VERSIONI FINAL (15:55)
 
-> **Me PM / pa PM (15:25):** demoja tregon të dyja: biznesi i vogël (pronari bëhet PM pa punësuar) dhe kompania IT si Genpact (asistent i Product Manager → PM → Team Lead → zhvilluesit, me 4-eyes). Në slajd: një rresht *"Pa PM: pronari bëhet PM. Me PM: PM-i bëhet vendimmarrës, jo telefonist."*
+**Titulli:** *Sot: ekipet e vogla. Nesër: asistenti i PM-it në korporata.*
 
-**Titulli:** *I njëjti Team Leader, rregulla të tjera*
+**Majtas, "Sot (demo)": biznes i vogël pa PM**
+- pronari shkruan punën → agjenti kontrollon njerëzit, vanin, pajisjet, rrugën
+- secili merr detyrën: çka bën, ku, kur, **çka merr me vete** → ACCEPT
+- gjatë punës: **check-in** ("A je gati?"), **🚗 e nisa / ✅ përfundova**
+- raporti për pronarin: orët, rreziku për orë shtesë, problemet
 
-### Slajdi 3: dy kolona (15:35, zëvendëson tabelën e industrive si pjesë kryesore)
-| **Pa PM: koordinatori i punëve** (biznes i vogël në terren) | **Me PM: asistenti i PM-it** (kompani e madhe) |
-|---|---|
-| Pronari i përgjigjet klientit **"a mundemi?" në sekonda**, me gjithë kapacitetin e kontrolluar | **Raporte sipas rolit**: Product Manager, PM, Team Lead, zhvillues |
-| Asnjë van, pajisje ose person i rezervuar dyfish | **Rregullat e garantuara në kod**: 4-eyes, aftësitë, qasja, ngarkesa, me gjurmë |
-| Një mesazh në vend të telefonatave; secili: detyrë + ACCEPT | Arrin **ekipet në terren** që s'e hapin Jira/Planner |
-| **Check-in**: problemi del herët, jo 30 min para | **Shtresë mbi** Jira / ServiceNow / Excel, pa migrim |
+**Djathtas, "Next: korporata me PM"** (diagram me shigjeta):
+`Product Manager` → `PM i shkruan agjentit çka ndërtohet` → `Agjenti e ndan te Team Lead-ët dhe zhvilluesit` → `ndjek progresin live, kontrollon rregullat (4-eyes, aftësitë, ngarkesa), raporton te secili rol`
+- Raporti sipas rolit: Product Manager (premtimi ndaj klientit) · PM (afati, rreziqet) · Team Lead (pengesat, review) · zhvilluesi (detyrat e veta)
+- Shtresë mbi Jira / ServiceNow, jo mjet i ri
 
-Rreshti poshtë: *"Mjetet ekzistojnë (Connecteam për ekipet e vogla; Microsoft, Asana dhe Jira për zyrat). Ato japin aplikacione dhe dashboard-e. Ne japim një agjent që e bën koordinimin, në chat, pa thyer asnjë rregull."*
-Kutia e fundit: **Hapi tjetër:** pilot me Magic Events (4 të shtuna) · pilot me një ekip IT/BPO përmes partnerit.
+**Rreshti poshtë:** *"Mjetet ekzistojnë (Connecteam për ekipet e vogla; Microsoft, Asana dhe Jira për zyrat). Ato japin aplikacione. Ne japim një agjent që e bën koordinimin, në chat, pa thyer asnjë rregull."*
 
+**Kutia e fundit, hapi tjetër konkret:** *Pilot me Magic Events (4 të shtuna): matim kohën e koordinimit dhe gabimet.*
 
-**Tabela me 4 rreshta:**
-| Industria | Çka kontrollon kodi |
-|---|---|
-| Evente (sot) | njerëz, van, pajisje, rruga |
-| Elektrikë / servis | licenca, pajisjet në van, urgjenca |
-| Spitale | certifikimi, pushimi mes turneve |
-| IT, si Genpact | SLA, aftësitë, 4-eyes (kush e bën s'e miraton) |
-
-**Rreshti nën tabelë:** *Platforma të mëdha ekzistojnë për kompanitë e mëdha. Ne jemi team leader-i në chat-in që e keni, në shqip, i gatshëm brenda një dite.*
-
-**Hapi tjetër (kutia në fund):** *Pilot me Magic Events, 4 të shtuna: matim kohën e koordinimit dhe gabimet.*
-
-**Mbyllja (Tringa, 10s):** *"Lideri juaj mban klientin. Ne e kthejmë 'po'-në në një plan që s'prish asgjë."*
+**Mbyllja (Tringa, 10s):** *"Lideri juaj mban klientin. Ne e kthejmë 'po'-në në një plan që s'prish asgjë dhe e ndjekim deri në fund."*
 
 ---
 
