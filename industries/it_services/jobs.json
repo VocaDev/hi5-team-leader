@@ -1,0 +1,20 @@
+{
+  "hotfix_critical": {
+    "label": "Hotfix kritik në prodhim (start = afati i deploy-it)",
+    "tasks": [
+      {"id": "analyze", "role": "Analiza e bug-ut",      "skills": ["backend"],                 "start_offset_min": -300, "end_offset_min": -240},
+      {"id": "fix",     "role": "Fix-i (kodi)",           "skills": ["backend", "python"],       "start_offset_min": -240, "end_offset_min": -120},
+      {"id": "review",  "role": "Code review (4-eyes)",   "skills": ["backend"],                 "start_offset_min": -120, "end_offset_min": -90, "not_same_as": ["fix"]},
+      {"id": "qa",      "role": "QA / testimi",           "skills": ["qa"],                      "start_offset_min": -90,  "end_offset_min": -30},
+      {"id": "deploy",  "role": "Deploy në prodhim",      "skills": ["devops", "prod_access"],   "start_offset_min": -30,  "end_offset_min": 0}
+    ]
+  },
+  "feature_small": {
+    "label": "Feature e vogël për klientin (start = afati)",
+    "tasks": [
+      {"id": "build",  "role": "Zhvillimi",              "skills": ["backend", "python"], "start_offset_min": -360, "end_offset_min": -120},
+      {"id": "review", "role": "Code review (4-eyes)",   "skills": ["backend"],           "start_offset_min": -120, "end_offset_min": -90, "not_same_as": ["build"]},
+      {"id": "qa",     "role": "QA / testimi",           "skills": ["qa"],                "start_offset_min": -90,  "end_offset_min": 0}
+    ]
+  }
+}

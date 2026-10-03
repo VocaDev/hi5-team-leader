@@ -62,6 +62,14 @@ class Notifier:
                                    {"text": "❌ S'MUNDEM", "callback_data": f"d:{job_id}:{task_id}"}]]}
         return bool(tg("sendMessage", chat_id=chat, text=text, reply_markup=kb).get("ok"))
 
+    def send_checkin(self, worker_id: str, job_id: str, task_id: str, text: str) -> bool:
+        chat = self.by_who.get(worker_id)
+        if not chat:
+            return False
+        kb = {"inline_keyboard": [[{"text": "👍 PO, JAM GATI", "callback_data": f"c:{job_id}:{task_id}"},
+                                   {"text": "⚠️ KAM PROBLEM", "callback_data": f"p:{job_id}:{task_id}"}]]}
+        return bool(tg("sendMessage", chat_id=chat, text=text, reply_markup=kb).get("ok"))
+
     def send_leader(self, text: str) -> None:
         chat = self.by_who.get("leader")
         if chat:
@@ -104,6 +112,16 @@ def _on_callback(n: Notifier, cq: dict) -> None:
         res = R.approve(parts[1], by="Telegram")
         tg("editMessageText", chat_id=chat, message_id=mid,
            text=original + ("\n\n✅ U miratua — detyrat u dërguan." if "error" not in res else f"\n\n⚠️ {res['error']}"))
+        return
+    if parts[0] in ("c", "p") and len(parts) == 3 and who and who != "leader":
+        res = R.checkin_answer(parts[1], parts[2], who, ok=parts[0] == "c")
+        if res.get("stale"):
+            stamp = "\n\nℹ️ Kjo detyrë s'është më aktive."
+        elif parts[0] == "c":
+            stamp = "\n\n👍 Faleminderit, suksese!"
+        else:
+            stamp = "\n\n⚠️ U njoftua lideri. Detyra i kalon dikujt tjetër."
+        tg("editMessageText", chat_id=chat, message_id=mid, text=original + stamp)
         return
     if parts[0] in ("a", "d") and len(parts) == 3 and who and who != "leader":
         res = R.respond(parts[1], parts[2], who, accept=parts[0] == "a")
