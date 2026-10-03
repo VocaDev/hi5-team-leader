@@ -114,7 +114,7 @@ function render(v) {
     else { cls = 'free'; label = 'i lirë'; }
     const d = el('div', 'worker w-' + cls);
     const head = el('div', 'whead');
-    head.append(el('b', '', w.name));
+    head.append(el('span', 'avatar av-' + cls, w.name.slice(0, 1)), el('b', '', w.name));
     d.append(head, el('span', 'badge b-' + cls, label), el('div', 'skills', (w.skills || []).map(s => SKILL[s] || s).join(' · ')));
     return d;
   }));
@@ -130,7 +130,7 @@ function render(v) {
 
 function setConn(ok) {
   const c = $('conn');
-  c.textContent = ok ? 'live' : 'pa lidhje';
+  c.textContent = ok ? '● live' : '● pa lidhje';
   c.className = 'pill ' + (ok ? 'pill-on' : 'pill-off');
 }
 
