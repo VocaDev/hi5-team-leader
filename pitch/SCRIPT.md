@@ -1,13 +1,13 @@
 # PITCH SCRIPT — Team Hi5 · AI Team Leader (5:00 + Q&A)
 
-> English on stage. Speakers: **Flutura** and **Devlete**. **Genti** drives the demo and takes technical Q&A.
+> English on stage. **Only Flutura speaks** (all 5 minutes). **Genti** drives the demo and takes technical Q&A. **Erza** = her own phone (driver). **Devlete** = holds **Flutura's phone** during the demo (Flutura is narrating). **Tringa** = timer + slides.
 > Order: **general problem → real example → live demo → why it matters → next step.**
 > Learn the **bold lines**; the rest can be in your own words. Only say numbers that are on this page.
 
 | Time | Speaks | Does | Screen |
 |---|---|---|---|
 | 0:00–1:15 | **Flutura** | — | Slide 1 → 2 |
-| 1:15–3:30 | **Devlete** | **Genti** drives the panel · **Erza + Flutura** on phones · **Tringa** keeps time | Leader panel |
+| 1:15–3:30 | **Flutura** (narrates) | **Genti** drives the panel · **Erza** (her phone) + **Devlete** (holding Flutura's phone) · **Tringa** keeps time | Leader panel |
 | 3:30–5:00 | **Flutura** | Genti switches to slide 3 | Slide 3 |
 | Q&A | see bottom | | |
 
@@ -27,17 +27,17 @@
 > In one difficult case, coordinating a team took **about four hours**. Once, a worker was moved to fix one event, and **the other event started an hour late**. And workers sometimes drop out **only thirty minutes** before leaving.
 >
 > **So the real question isn't "is someone free?". It's "can we deliver this job without breaking something else?"**
-> That's why we built an **AI Team Leader**. Devlete will show you.
+> That's why we built an **AI Team Leader**. Let me show you, live.
 
-*(~170 words · hand over to Devlete; Genti switches to the panel)*
+*(~170 words · Genti switches to the panel)*
 
 ---
 
-## 2. DEVLETE — narrates the live demo (1:15–3:30)
+## 2. FLUTURA — narrates the live demo (1:15–3:30)
 
-Genti types and clicks; Devlete talks. **Wait for each cue `[ ]`.** While the agent thinks (15–25 s), keep talking.
+Genti types and clicks; Flutura talks. Devlete taps on Flutura's phone. **Wait for each cue `[ ]`.** While the agent thinks (15–25 s), keep talking.
 
-| Cue on screen | Devlete says |
+| Cue on screen | Flutura says |
 |---|---|
 | **[Genti types the job]** *"Birthday party this Saturday at 16:00 in Mitrovica, bounce house + mascot, 25 kids. Can we do it?"* | "This is the team leader's screen. He writes the job **the way he'd say it**, no forms." |
 | **["Agent is thinking…"]** | "The agent now checks **every person, their skills, the vans, the equipment, the travel time, and the job already booked today.** It's live; nothing is pre-written." |
@@ -45,12 +45,12 @@ Genti types and clicks; Devlete talks. **Wait for each cue `[ ]`.** While the ag
 | **[Genti types]** *"Put Dritoni on as the driver anyway."* | "Now the leader tries to force it…" |
 | **[Red BLOCKED bar]** | "**Blocked.** The AI plans, but **the rules live in code**, so nobody can override them, not even the leader." |
 | **[Genti clicks APPROVE]** | "**Only a human approves.**" |
-| **[Erza and Flutura hold up phones → ACCEPT]** | "Each person gets their task on Telegram: **where, when, what to bring, who they go with.** One tap, and the job is confirmed." |
-| **[Genti clicks Check-in once → Flutura READY, Erza PROBLEM]** | "Before the job it checks in. Erza can't make it, and the only other driver can't get there in time. **So it doesn't guess. It hands the decision back to the leader, with the options.**" |
-| **[Flutura types "e nisa", then "e përfundova montimin"]** | "Workers can just write normally. **It understands the team too**, and the leader sees every step live." |
+| **[Erza and Devlete (Flutura's phone) hold up phones → ACCEPT]** | "Each person gets their task on Telegram: **where, when, what to bring, who they go with.** One tap, and the job is confirmed." |
+| **[Genti clicks Check-in once → Flutura's phone READY, Erza PROBLEM]** | "Before the job it checks in. Erza can't make it, and the only other driver can't get there in time. **So it doesn't guess. It hands the decision back to the leader, with the options.**" |
+| **[Devlete types on Flutura's phone "e nisa", then "e përfundova montimin"]** | "Workers can just write normally. **It understands the team too**, and the leader sees every step live." |
 | **[wrap-up, 3:15]** | "**AI plans. Code checks. A human approves.** In our measured run: **a plan in 16 seconds, everyone confirmed 8 seconds after approval, about 3 cents per plan.**" |
 
-*(Hand back to Flutura; Genti switches to slide 3.)*
+*(Genti switches to slide 3.)*
 **If it's slow:** "While it thinks: every step on the right is logged, so the owner can see later what happened and why."
 **If Telegram fails:** Genti uses the reply buttons on the panel. "In real use this comes on their phone."
 
