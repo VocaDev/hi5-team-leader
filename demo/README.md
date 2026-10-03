@@ -29,6 +29,13 @@ Butoni ⏰ Check-in → telefonat marrin "A je gati?" → njëri shtyp **⚠️ 
 ## Progresi live + raporti (opsional, 20 s)
 Pas ACCEPT: punëtori shtyp **🚗 E NISA** / **✅ PËRFUNDOVA** → ekrani përditësohet. Lideri: *"Më jep raportin për pronarin"* → orët për person, rreziku i orëve shtesë, problemet.
 
+## Skena 2: Ndërtim me PM (20–30 s, në fund, në vend të raportit nëse s'ka kohë)
+1. Butoni **"Ndërtim · me PM"** lart
+2. PM-i: *"Të shtunën betonimi i pllakës te objekti B në Ferizaj, nisim në 07:00. A mundemi?"* (thoni **"të shtunën"**, jo "nesër": plani është për 10 tetor)
+3. Shihet: Fatmiri s'arrin nga objekti A (09:00 + 35 min) → Valoni · Pompa 1 e zënë → Pompa 2 · kontrolli i cilësisë te Teuta (4-eyes)
+4. *(opsional)* *"Le ta bëjë Agroni edhe kontrollin e cilësisë"* → **BLOCKED 4-eyes**
+5. Genti: *"Same agent, a construction company with a PM. Different rulebook, same guarantees."*
+
 ## Checklist para demos
 - [ ] `POST /api/reset` (butoni Reset)
 - [ ] 5 telefonat e kanë dërguar `/start` te bot-i dhe janë te `TELEGRAM_IDENTITY_MAP` (Genti)
