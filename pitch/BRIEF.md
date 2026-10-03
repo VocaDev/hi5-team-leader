@@ -27,7 +27,7 @@
 **Djathtas, 3 fakte nga intervista** (kuti të mëdha, fjalë për fjalë):
 1. **~4 orë** koordinim në një rast të vështirë
 2. **1 orë vonesë** te një event, sepse personi u mor për të rregulluar një ekip tjetër
-3. Anulimi vjen ndonjëherë **30 min** para nisjes
+3. Punëtori lajmëron ndonjëherë vetëm **30 min** para nisjes (rregulli është 4 orë)
 
 **Fjalia e Flutures në fund:** *"Pyetja s'është 'a kemi dikë të lirë?' Është 'a mund ta kryejë kompania këtë punë pa prishur diçka tjetër?'"*
 

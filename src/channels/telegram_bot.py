@@ -103,6 +103,9 @@ def _on_message(n: Notifier, msg: dict) -> None:
         with open(S.EVENTS_FILE.parent / "telegram_starts.txt", "a", encoding="utf-8") as f:
             f.write(f"{chat} | {first} | {who or 'unmapped'}\n")
         return
+    if text.startswith("/"):
+        tg("sendMessage", chat_id=chat, text="Komandë e panjohur. Më shkruaj punën me fjalë, p.sh. \"Ditëlindje të shtunën 16:00 në Mitrovicë. A mundemi?\"")
+        return
     if who == "leader":
         from ..agent.loop import run
         tg("sendChatAction", chat_id=chat, action="typing")
