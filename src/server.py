@@ -12,6 +12,8 @@ API (contract in TASKS.md):
   POST /api/checkin   {job_id?}       ask everyone who accepted "are you ready?"
   POST /api/checkin_answer {job_id, task_id, ok}   panel fallback for the check-in buttons
   POST /api/industry  {name}          switch rulebook: "events" | "it_services" (resets state)
+  POST /api/progress {job_id, task_id, kind: start|done}   panel fallback for the progress buttons
+  GET  /api/report                    real-time supervision: hours per person (overtime risk), late starts, problems
   POST /api/reset                     clean state before a demo
 """
 from __future__ import annotations
@@ -116,6 +118,23 @@ def api_industry(i: Industry):
         return JSONResponse({"error": f"unknown industry {i.name}"}, status_code=400)
     set_industry(i.name)
     return {**api_reset(), "industry": i.name}
+
+
+class Progress(BaseModel):
+    job_id: str
+    task_id: str
+    kind: str  # "start" | "done"
+
+
+@app.post("/api/progress")
+def api_progress(p: Progress):
+    return R.progress(p.job_id, p.task_id, None, p.kind)
+
+
+@app.get("/api/report")
+def api_report():
+    from .report import build
+    return build()
 
 
 @app.post("/api/reset")

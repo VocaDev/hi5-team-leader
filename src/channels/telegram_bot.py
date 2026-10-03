@@ -70,6 +70,15 @@ class Notifier:
                                    {"text": "⚠️ KAM PROBLEM", "callback_data": f"p:{job_id}:{task_id}"}]]}
         return bool(tg("sendMessage", chat_id=chat, text=text, reply_markup=kb).get("ok"))
 
+    def send_progress(self, worker_id: str, job_id: str, task_id: str, role: str) -> bool:
+        chat = self.by_who.get(worker_id)
+        if not chat:
+            return False
+        kb = {"inline_keyboard": [[{"text": "🚗 E NISA", "callback_data": f"s:{job_id}:{task_id}"},
+                                   {"text": "✅ PËRFUNDOVA", "callback_data": f"f:{job_id}:{task_id}"}]]}
+        return bool(tg("sendMessage", chat_id=chat, text=f"Gjatë punës '{role}': shtyp kur e nis dhe kur e përfundon.",
+                       reply_markup=kb).get("ok"))
+
     def send_leader(self, text: str) -> None:
         chat = self.by_who.get("leader")
         if chat:
@@ -112,6 +121,11 @@ def _on_callback(n: Notifier, cq: dict) -> None:
         res = R.approve(parts[1], by="Telegram")
         tg("editMessageText", chat_id=chat, message_id=mid,
            text=original + ("\n\n✅ U miratua — detyrat u dërguan." if "error" not in res else f"\n\n⚠️ {res['error']}"))
+        return
+    if parts[0] in ("s", "f") and len(parts) == 3 and who and who != "leader":
+        res = R.progress(parts[1], parts[2], who, "start" if parts[0] == "s" else "done")
+        tg("sendMessage", chat_id=chat, text=("ℹ️ Kjo detyrë s'është më aktive." if res.get("stale") else
+                                             f"Regjistruar: {'nisja' if parts[0] == 's' else 'përfundimi'} në {res['at'][:5]}."))
         return
     if parts[0] in ("c", "p") and len(parts) == 3 and who and who != "leader":
         res = R.checkin_answer(parts[1], parts[2], who, ok=parts[0] == "c")
