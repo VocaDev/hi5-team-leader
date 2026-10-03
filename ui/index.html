@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Team Leader — Paneli i liderit</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="blocked" class="redbar" hidden></div>
+<header class="top">
+  <h1>AI Team Leader <span class="sub">paneli i liderit</span></h1>
+  <div class="pills">
+    <span id="jobPill" class="pill"></span>
+    <span id="busy" class="pill pill-busy" hidden>Agjenti po mendon…</span>
+    <span id="conn" class="pill pill-off">pa lidhje</span>
+    <button id="resetBtn" class="btn btn-sm">Reset</button>
+  </div>
+</header>
+
+<main class="grid">
+  <section class="col">
+    <div class="card">
+      <h2>Puna e re</h2>
+      <textarea id="msg" rows="3" placeholder="p.sh. Ditëlindje, 25 fëmijë, e shtunë 16:00, Mitrovicë, bounce + maskotë"></textarea>
+      <div class="row">
+        <span id="msgNote" class="note"></span>
+        <button id="sendBtn" class="btn">Dërgo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row head">
+        <h2 id="jobTitle">Plani</h2>
+        <button id="approveBtn" class="btn btn-go" disabled>MIRATO</button>
+      </div>
+      <div id="summary" class="note"></div>
+      <div id="plan" class="plan"></div>
+    </div>
+  </section>
+
+  <section class="col">
+    <div class="card">
+      <h2>Punëtorët</h2>
+      <div id="workers" class="workers"></div>
+    </div>
+    <div class="card">
+      <h2>Punët ekzistuese</h2>
+      <div id="existing" class="note"></div>
+    </div>
+    <div class="card">
+      <h2>Telefonat (rezervë)</h2>
+      <div id="phones" class="note"></div>
+    </div>
+    <div class="card feedcard">
+      <h2>Si mendon agjenti</h2>
+      <div id="feed" class="feed"></div>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
