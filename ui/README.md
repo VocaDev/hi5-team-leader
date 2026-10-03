@@ -7,15 +7,15 @@ S'MUNDEM dhe manager override mbeten të disponueshme, por **nuk janë pjesë e 
 
 Biznesi: Magic Events (shembull). Emrat e punëtorëve janë të shpikur.
 
-## Kush është kush (FINAL, 17:00): telefona kanë vetëm Erza dhe Flutura
-| Roli | Kush | Ku përgjigjet | Çka i ndodh në demo |
-|---|---|---|---|
-| **Lideri / Manageri** | **Genti** | laptopi (paneli) | shkruan punën, kurthi, MIRATO, Check-in; përgjigjet për Devleten dhe Tringën te "Telefonat (rezervë)" |
-| Punëtorja | **Erza** | **📱 Telegram** | **Shofere + Van 1** → ACCEPT → te check-in **⚠️ KAM PROBLEM** |
-| Punëtorja | **Flutura** | **📱 Telegram** | **Maskota + Kostumi Ariu** → ACCEPT → 👍 GATI → **🚗 E NISA / ✅ PËRFUNDOVA** |
-| Punëtorja | Devlete | paneli | **Montimi + Çmontimi** → ACCEPT (në panel) |
-| Punëtorja | Tringa | paneli | **pas problemit të Erzës i vjen shoferi** → ACCEPT (në panel) |
-| (vetëm në ekran) | Dritoni, Blerta | — | të zënë në Vushtrri; kurthi me Dritonin → BLOCKED |
+## Kush është kush (FINAL, 17:30): vetëm Erza dhe Flutura (Telegram)
+| Roli | Kush | Çka i ndodh në demo |
+|---|---|---|
+| **Lideri / Manageri** | **Genti** (paneli + Telegram) | shkruan punën, kurthi, MIRATO, Check-in; merr njoftimet |
+| Punëtorja | **Erza** 📱 | **Shofere + Van 1** → ACCEPT → te check-in **⚠️ KAM PROBLEM** → s'ka zëvendësues të sigurt → **eskalim te lideri** |
+| Punëtorja | **Flutura** 📱 | **Montimi + Maskota + Çmontimi** → ACCEPT → 👍 GATI → **🚗 E NISA / ✅ PËRFUNDOVA** |
+| (vetëm në ekran) | Dritoni, Blerta | të zënë në Vushtrri deri 17:00. Kurthi: *"Vendose Dritonin shofer gjithsesi"* → BLOCKED |
+
+**Pse eskalim dhe jo zëvendësim:** kur Erza s'mundet, i vetmi shofer tjetër (Dritoni) s'arrin në kohë (17:00 + 20 min = 17:20 > 14:20). Agjenti s'improvizon dhe s'thyen rregulla, prandaj ia kthen vendimin liderit me arsyen. Kjo është **human in the loop**, live.
 
 ## Rrjedha
 | # | Hapi | Kush | Çka thotë / bën | Çka duhet të shihet |
