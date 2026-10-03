@@ -38,7 +38,7 @@ def reset() -> dict:
     with LOCK:
         st = empty_state()
         save(st)
-        EVENTS_FILE.write_text("", encoding="utf-8")
+        # keep events.jsonl (evidence across scenes); the UI feed starts clean
         feed(st, "system", "Gjendja u rivendos. Gati për punë të re.")
         return st
 
