@@ -1,0 +1,350 @@
+{
+ "job": {
+  "id": "J2",
+  "title": "Ditëlindje, 25 fëmijë",
+  "client": "familja Krasniqi",
+  "zone": "Mitrovice",
+  "start": "16:00",
+  "status": "awaiting_approval",
+  "summary": "Ditëlindje për familjen Krasniqi në Mitrovicë në 16:00 (25 fëmijë): Erioni e nget Van 1-shin (14:20–18:30), Leart e monton dhe e çmonton bounce Pirati me Kompresorin 2, Arta del me kostumin e Ariut 16:00–17:30. Të gjitha detyrat janë të mbuluara."
+ },
+ "tasks": [
+  {
+   "id": "drive",
+   "role": "Shofer",
+   "worker": "Erioni",
+   "from": "14:20",
+   "to": "18:30",
+   "bring": [
+    "Van 1"
+   ],
+   "status": "sent",
+   "note": "Nisu me Van 1 në 14:20 nga depoja në Prishtinë; rruga deri në Mitrovicë zgjat 45 min. Ngarko bounce Pirati, Kompresorin 2 dhe kostumin e Ariut. Kthimi pas çmontimit, në 18:30."
+  },
+  {
+   "id": "setup",
+   "role": "Montimi i bounce",
+   "worker": "Leart",
+   "from": "15:00",
+   "to": "16:00",
+   "bring": [
+    "Bounce Pirati",
+    "Kompresori 2"
+   ],
+   "status": "accepted",
+   "note": "Monto bounce Pirati me Kompresorin 2 nga 15:00 deri në 16:00; duhet të jetë gati e sigurt para se të vijnë 25 fëmijët."
+  },
+  {
+   "id": "mascot",
+   "role": "Maskota",
+   "worker": "Leart",
+   "from": "16:00",
+   "to": "17:30",
+   "bring": [
+    "Kostumi Ariu"
+   ],
+   "status": "declined",
+   "note": "Me kostumin e Ariut nga 16:00 deri në 17:30; janë rreth 25 fëmijë, kështu që lëviz me kujdes pranë bounce-it."
+  },
+  {
+   "id": "teardown",
+   "role": "Çmontimi",
+   "worker": "Leart",
+   "from": "18:00",
+   "to": "18:30",
+   "bring": [],
+   "status": "planned",
+   "note": "Çmontimi i bounce Pirati nga 18:00 deri në 18:30; fike kompresorin dhe paloje bounce-in mirë para se ta ngarkosh në Van 1."
+  }
+ ],
+ "workers": [
+  {
+   "id": "w_erioni",
+   "name": "Erioni",
+   "skills": [
+    "driver",
+    "setup"
+   ],
+   "status": "assigned"
+  },
+  {
+   "id": "w_dritoni",
+   "name": "Dritoni",
+   "skills": [
+    "driver",
+    "setup"
+   ],
+   "status": "busy"
+  },
+  {
+   "id": "w_blerta",
+   "name": "Blerta",
+   "skills": [
+    "setup"
+   ],
+   "status": "busy"
+  },
+  {
+   "id": "w_arta",
+   "name": "Arta",
+   "skills": [
+    "mascot"
+   ],
+   "status": "free"
+  },
+  {
+   "id": "w_leart",
+   "name": "Leart",
+   "skills": [
+    "setup",
+    "mascot"
+   ],
+   "status": "assigned"
+  },
+  {
+   "id": "w_naim",
+   "name": "Naim",
+   "skills": [
+    "driver"
+   ],
+   "status": "free"
+  }
+ ],
+ "feed": [
+  {
+   "n": 1,
+   "t": "14:16:37",
+   "type": "system",
+   "text": "Gjendja u rivendos. Gati për punë të re."
+  },
+  {
+   "n": 2,
+   "t": "14:16:47",
+   "type": "message",
+   "text": "💬 Lideri: Ditëlindje të shtunën në 16:00 në Mitrovicë, me bounce dhe maskotë, 25 fëmijë. Klienti: familja Krasniqi."
+  },
+  {
+   "n": 3,
+   "t": "14:16:51",
+   "type": "tool",
+   "text": "🧠 create_job(template_id=birthday_bounce, title=Ditëlindje, 25 fëmijë, client=familja Krasniqi, zone=Mitrovice, start=16:00)"
+  },
+  {
+   "n": 4,
+   "t": "14:16:51",
+   "type": "tool",
+   "text": "Puna e re: Ditëlindje, 25 fëmijë · Mitrovice · 16:00 · 4 detyra"
+  },
+  {
+   "n": 5,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "OK Van 1 i lirë 14:20–18:30"
+  },
+  {
+   "n": 6,
+   "t": "14:16:51",
+   "type": "blocked",
+   "text": "R6 Bounce Kështjella i zënë te 'Ditëlindje (ekzistuese)' 12:25–17:35"
+  },
+  {
+   "n": 7,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "OK Bounce Pirati i lirë"
+  },
+  {
+   "n": 8,
+   "t": "14:16:51",
+   "type": "blocked",
+   "text": "R6 Kompresori 1 i zënë te 'Ditëlindje (ekzistuese)' 12:25–17:35"
+  },
+  {
+   "n": 9,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "OK Kompresori 2 i lirë"
+  },
+  {
+   "n": 10,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "OK Kostumi Ariu i lirë"
+  },
+  {
+   "n": 11,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✗ Shofer: R2 Dritoni është te 'Ditëlindje (ekzistuese)' (Vushtrri) deri 17:00; + 20 min rrugë = 17:20 > 14:20"
+  },
+  {
+   "n": 12,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✗ Shofer: R1 Blerta s'ka aftësinë: driver"
+  },
+  {
+   "n": 13,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✓ Shofer 14:20–18:30 → Erioni"
+  },
+  {
+   "n": 14,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✗ Montimi i bounce: R2 Dritoni është te 'Ditëlindje (ekzistuese)' (Vushtrri) deri 17:00; + 20 min rrugë = 17:20 > 15:00"
+  },
+  {
+   "n": 15,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✗ Montimi i bounce: R2 Blerta është te 'Ditëlindje (ekzistuese)' (Vushtrri) deri 17:00; + 20 min rrugë = 17:20 > 15:00"
+  },
+  {
+   "n": 16,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✓ Montimi i bounce 15:00–16:00 → Leart"
+  },
+  {
+   "n": 17,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✗ Maskota: R1 Dritoni s'ka aftësinë: mascot"
+  },
+  {
+   "n": 18,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✗ Maskota: R1 Blerta s'ka aftësinë: mascot"
+  },
+  {
+   "n": 19,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✓ Maskota 16:00–17:30 → Arta"
+  },
+  {
+   "n": 20,
+   "t": "14:16:51",
+   "type": "check",
+   "text": "✓ Çmontimi 18:00–18:30 → Leart"
+  },
+  {
+   "n": 21,
+   "t": "14:16:58",
+   "type": "tool",
+   "text": "🧠 propose_plan(job_id=J2, summary=Ditëlindje për familjen Krasniqi në Mitrovicë në 16:00 (25 fëmijë): Erioni e nget Van 1-shin (14:20–18:30), Leart e monton dhe e çmonton boun)"
+  },
+  {
+   "n": 22,
+   "t": "14:16:58",
+   "type": "tool",
+   "text": "📋 Plani gati — pret miratimin e liderit (butoni MIRATO)"
+  },
+  {
+   "n": 23,
+   "t": "14:17:04",
+   "type": "reply",
+   "text": "🤖 E kuptova kështu: ditëlindje me bounce dhe maskotë për familjen Krasniqi, të shtunën 10 tetor në 16:00 në Mitrovicë, me 25 fëmijë.\n\nPlani (J2) është i plotë dhe çdo detyrë ka njeriun e vet:\n• Shoferi: Erioni me Van 1, nga 14:20 deri në 18:30 (Prishtinë → Mitrovicë, 45 min rrugë)\n• Montimi i bounce: Leart, nga 15:00 deri në 16:00 (bounce Pirati + Kompresori 2)\n• Maskota: Arta me kostumin e Ariut, nga 16:00 deri në 17:30\n• Çmontimi: Leart, nga 18:00 deri në 18:30\n\nNuk ka përplasje me punën J1 në Vushtrri (Dritoni, Blerta, Van 2, bounce Kështjella).\n\nPlani pret miratimin tënd. Shtyp butonin MIRATO që t'u dërgohen detyrat punëtorëve."
+  },
+  {
+   "n": 24,
+   "t": "14:17:08",
+   "type": "accepted",
+   "text": "✅ Lideri e miratoi planin (paneli). Detyrat po dërgohen…"
+  },
+  {
+   "n": 25,
+   "t": "14:17:08",
+   "type": "sent",
+   "text": "📨 Erioni: 'Shofer' 14:20–18:30 (pa Telegram — përdor panelin)"
+  },
+  {
+   "n": 26,
+   "t": "14:17:08",
+   "type": "sent",
+   "text": "📨 Leart: 'Montimi i bounce' 15:00–16:00 (pa Telegram — përdor panelin)"
+  },
+  {
+   "n": 27,
+   "t": "14:17:08",
+   "type": "sent",
+   "text": "📨 Arta: 'Maskota' 16:00–17:30 (pa Telegram — përdor panelin)"
+  },
+  {
+   "n": 28,
+   "t": "14:17:08",
+   "type": "sent",
+   "text": "📨 Leart: 'Çmontimi' 18:00–18:30 (pa Telegram — përdor panelin)"
+  },
+  {
+   "n": 29,
+   "t": "14:17:10",
+   "type": "blocked",
+   "text": "↩️ Arta s'mundet për 'Maskota' → po kërkoj tjetrin…"
+  },
+  {
+   "n": 30,
+   "t": "14:17:10",
+   "type": "check",
+   "text": "✓ 'Maskota' → Leart (rregullat OK)"
+  },
+  {
+   "n": 31,
+   "t": "14:17:10",
+   "type": "sent",
+   "text": "📨 Leart: 'Maskota' 16:00–17:30 (pa Telegram — përdor panelin)"
+  },
+  {
+   "n": 32,
+   "t": "14:17:12",
+   "type": "accepted",
+   "text": "✅ Erioni pranoi 'Shofer'"
+  },
+  {
+   "n": 33,
+   "t": "14:17:14",
+   "type": "accepted",
+   "text": "✅ Leart pranoi 'Montimi i bounce'"
+  },
+  {
+   "n": 34,
+   "t": "14:17:16",
+   "type": "accepted",
+   "text": "✅ Leart pranoi 'Maskota'"
+  },
+  {
+   "n": 35,
+   "t": "14:17:18",
+   "type": "accepted",
+   "text": "✅ Leart pranoi 'Çmontimi'"
+  },
+  {
+   "n": 36,
+   "t": "14:17:18",
+   "type": "accepted",
+   "text": "🎉 Të gjitha detyrat u pranuan. 'Ditëlindje, 25 fëmijë' është konfirmuar."
+  }
+ ],
+ "blocked": [
+  {
+   "text": "BLOCKED: Dritoni → drive. R2 Dritoni është te 'Ditëlindje (ekzistuese)' (Vushtrri) deri 17:00; + 20 min rrugë = 17:20 > 14:20"
+  }
+ ],
+ "existing_jobs": [
+  {
+   "title": "Ditëlindje (ekzistuese)",
+   "zone": "Vushtrri",
+   "from": "13:00",
+   "to": "17:00",
+   "workers": [
+    "Dritoni",
+    "Blerta"
+   ]
+  }
+ ],
+ "busy": false,
+ "jobs_count": 1
+}
