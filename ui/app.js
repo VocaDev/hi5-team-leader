@@ -1,15 +1,30 @@
-const VIEW_URL = 'sample_view.json';
+// Served by the backend (python -m src.server -> http://localhost:8000) = same origin.
+// Opened as a file -> sample_view.json (read-only preview).
+const LIVE = location.protocol.startsWith('http') && !location.pathname.endsWith('sample.html');
+const API = LIVE ? '' : 'http://localhost:8000';
+const VIEW_URL = LIVE ? '/api/view' : 'sample_view.json';
+let VIEW = {};
 
-// ===== GENTI: lidh këto 4 funksione me serverin (UI-ja vetëm i thërret) =====
-async function sendMessage(text) { console.log('sendMessage', text); }
-async function approve() { console.log('approve'); }
-async function answer(taskId, action) { console.log('answer', taskId, action); } // action: "accept" | "decline"
-async function reset() { console.log('reset'); }
-// =============================================================================
+async function post(path, body) {
+  const r = await fetch(API + path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body || {})});
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok || data.error) throw new Error(data.error || r.status);
+  return data;
+}
+const jobId = () => (VIEW.job || {}).id;
+async function sendMessage(text) { return post('/api/message', {text}); }
+async function approve() { return post('/api/approve', {job_id: jobId()}); }
+async function answer(taskId, action) { return post('/api/callback', {job_id: jobId(), task_id: taskId, action}); }
+async function reset() { return post('/api/reset'); }
+async function checkin() { return post('/api/checkin', {job_id: jobId()}); }
+async function checkinAnswer(taskId, ok) { return post('/api/checkin_answer', {job_id: jobId(), task_id: taskId, ok}); }
+async function progress(taskId, kind) { return post('/api/progress', {job_id: jobId(), task_id: taskId, kind}); }
+async function setIndustry(name) { return post('/api/industry', {name}); }
 
 const $ = id => document.getElementById(id);
 const STATUS = {planned: 'Planifikuar', sent: 'Dërguar', accepted: '✅ Pranuar', declined: '❌ Refuzuar'};
-const JOB = {draft: 'Draft', awaiting_approval: 'Pret miratimin', sent: 'Dërguar', confirmed: '✅ Konfirmuar'};
+const JOB = {draft: 'Draft', awaiting_approval: 'Pret miratimin', sent: 'Dërguar', confirmed: '✅ Konfirmuar', done: '🏁 Përfunduar'};
+const CHK = {asked: '⏰ check-in', ok: '👍 gati', problem: '⚠️ problem'};
 let last = '';
 
 function el(tag, cls, text) {
@@ -19,8 +34,18 @@ function el(tag, cls, text) {
   return e;
 }
 
+function phoneBtn(label, cls, fn) {
+  const b = el('button', 'btn btn-sm ' + cls, label);
+  b.onclick = async () => { b.disabled = true; try { await fn(); } catch (e) { $('msgNote').textContent = 'Dështoi: ' + e.message; } poll(); };
+  return b;
+}
+
 function render(v) {
+  VIEW = v;
   const job = v.job || {};
+  $('checkinBtn').disabled = job.status !== 'confirmed';
+  $('company').textContent = v.company || '';
+  ['events', 'it_services'].forEach(n => $('ind_' + n).classList.toggle('btn-go', v.industry === n));
   $('jobTitle').textContent = job.title ? `${job.title} · ${job.zone || ''} · ${job.start || ''}` : 'Plani';
   const jp = $('jobPill');
   jp.textContent = job.status ? (JOB[job.status] || job.status) : 'S\'ka punë';
@@ -38,7 +63,16 @@ function render(v) {
       r.append(b);
     });
     return r;
-  }) : [el('div', 'empty', 'S\'ka detyra në pritje.')]));
+  }) : []).concat((v.tasks || []).filter(t => t.status === 'accepted').map(t => {
+    const r = el('div', 'ph'); r.append(el('span', '', `${t.worker}: ${t.role}`));
+    if (t.checkin === 'asked') {
+      r.append(phoneBtn('👍 GATI', 'btn-go', () => checkinAnswer(t.id, true)), phoneBtn('⚠️ PROBLEM', '', () => checkinAnswer(t.id, false)));
+    } else if (!t.done_at) {
+      r.append(phoneBtn(t.started_at ? '✅ PËRFUNDOVA' : '🚗 E NISA', '', () => progress(t.id, t.started_at ? 'done' : 'start')));
+    } else r.append(el('span', 'badge b-accepted', '✅ ' + t.done_at.slice(0, 5)));
+    return r;
+  })));
+  if (!$('phones').children.length) $('phones').append(el('div', 'empty', 'S\'ka detyra në pritje.'));
 
   const bl = $('blocked'), blocked = v.blocked || [];
   bl.hidden = !blocked.length;
@@ -60,6 +94,8 @@ function render(v) {
       mid.append(el('div', '', t.role));
       if (t.bring && t.bring.length) mid.append(el('div', 'bring', 'Merr: ' + t.bring.join(', ')));
       if (t.note) mid.append(el('div', 'bring', t.note));
+      if (t.checkin) mid.append(el('div', 'bring', CHK[t.checkin] || t.checkin));
+      if (t.started_at) mid.append(el('div', 'bring', '🚗 nisi ' + t.started_at.slice(0, 5) + (t.done_at ? ' · ✅ ' + t.done_at.slice(0, 5) : '')));
       row.append(mid, el('span', 'badge b-' + t.status, STATUS[t.status] || t.status));
       p.append(row);
     });
@@ -115,6 +151,15 @@ $('resetBtn').onclick = async () => {
   try { await reset(); $('msgNote').textContent = 'U rivendos.'; } catch (e) { $('msgNote').textContent = 'Reset dështoi.'; }
   poll();
 };
+
+$('checkinBtn').onclick = async () => {
+  try { await checkin(); } catch (e) { $('msgNote').textContent = 'Check-in dështoi.'; }
+  poll();
+};
+['events', 'it_services'].forEach(n => $('ind_' + n).onclick = async () => {
+  try { await setIndustry(n); last = ''; $('msgNote').textContent = n === 'events' ? 'Evente (pa PM)' : 'IT (me PM)'; } catch (e) { $('msgNote').textContent = 'Ndërrimi dështoi.'; }
+  poll();
+});
 
 $('approveBtn').onclick = async () => {
   $('approveBtn').disabled = true;
