@@ -12,7 +12,7 @@ An AI agent that works as a team leader and task delegator: it takes a job in fr
 
 | Folder | What |
 |---|---|
-| `src/engine/` | deterministic planner, rules, impact chain, recovery check (no LLM) |
+| `src/engine/` | deterministic capacity check, rules, task assignment (no LLM) |
 | `src/agent/` | Claude loop, tools, prompt, validators |
 | `src/channels/` | Telegram bot, stage console |
 | `industries/` | one config pack per industry (`events` = demo, `corporate` = next, `_template`) |
@@ -22,7 +22,7 @@ An AI agent that works as a team leader and task delegator: it takes a job in fr
 | `evidence/` | run outputs (JSON); every number in the deck comes from here |
 | `pitch/` | presentation |
 | `demo/` | demo script (written by the team), phone setup, backup video |
-| `docs/` | architecture, interview notes |
+| `docs/` | interview notes; `archive/` = dropped ShiftRescue design |
 
 ## Run (once the code exists)
 
