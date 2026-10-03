@@ -187,3 +187,12 @@ $('approveBtn').onclick = async () => {
 };
 
 poll(); setInterval(poll, 1000);
+// Q&A only: Alt+1 = events, Alt+2 = construction (the switch is hidden in the demo)
+document.addEventListener('keydown', async e => {
+  if (!e.altKey) return;
+  const n = {'1': 'events', '2': 'construction'}[e.key];
+  if (!n) return;
+  e.preventDefault();
+  try { await setIndustry(n); last = ''; } catch (err) { $('msgNote').textContent = 'Ndërrimi dështoi.'; }
+  poll();
+});
