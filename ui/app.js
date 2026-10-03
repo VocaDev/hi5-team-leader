@@ -76,7 +76,7 @@ function render(v) {
 
   const bl = $('blocked'), blocked = v.blocked || [];
   bl.hidden = !blocked.length;
-  bl.replaceChildren(...blocked.map(b => el('div', '', '⛔ BLLOKUAR: ' + b.text)));
+  bl.replaceChildren(...blocked.map(b => el('div', '', 'BLLOKUAR · ' + b.text.replace(/^BLOCKED:\s*/, ''))));
 
   // plani: sipas personit, pastaj sipas orës
   const tasks = (v.tasks || []).slice().sort((a, b) => (a.from || '').localeCompare(b.from || ''));
@@ -109,9 +109,9 @@ function render(v) {
     let st = mine.includes('declined') ? 'declined' : mine.length && mine.every(s => s === 'accepted') ? 'accepted'
       : mine.includes('sent') ? 'sent' : 'planned';
     let cls, label;
-    if (mine.length) { cls = st === 'planned' ? 'assigned' : st; label = st === 'planned' ? '📋 në plan' : STATUS[st]; }
-    else if (w.status === 'busy') { cls = 'busy'; label = '● i zënë'; }
-    else { cls = 'free'; label = '● i lirë'; }
+    if (mine.length) { cls = st === 'planned' ? 'assigned' : st; label = st === 'planned' ? 'në plan' : STATUS[st]; }
+    else if (w.status === 'busy') { cls = 'busy'; label = 'i zënë'; }
+    else { cls = 'free'; label = 'i lirë'; }
     const d = el('div', 'worker w-' + cls);
     const head = el('div', 'whead');
     head.append(el('b', '', w.name));
@@ -122,7 +122,7 @@ function render(v) {
   const feed = $('feed'), atBottom = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 20;
   feed.replaceChildren(...(v.feed || []).map(f => {
     const d = el('div', 'fi ' + f.type);
-    d.append(el('span', 't', f.t), el('span', '', f.text));
+    d.append(el('span', 't', f.t), el('span', '', f.text.replace(/^(\p{Extended_Pictographic}|[☀-➿])️?\s*/u, '')));
     return d;
   }));
   if (atBottom) feed.scrollTop = feed.scrollHeight;
