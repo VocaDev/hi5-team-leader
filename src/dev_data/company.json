@@ -1,0 +1,25 @@
+{
+  "company": {"name": "Festa Events (fictional, dev data)", "date": "2026-10-10", "day_label": "e shtunë 10 tetor", "depot_zone": "Prishtine"},
+  "zones": ["Prishtine", "Mitrovice", "Vushtrri"],
+  "travel_min": {"Prishtine-Mitrovice": 45, "Prishtine-Vushtrri": 35, "Mitrovice-Vushtrri": 20},
+  "workers": [
+    {"id": "w_erioni",  "name": "Erioni",  "skills": ["driver", "setup"]},
+    {"id": "w_dritoni", "name": "Dritoni", "skills": ["driver", "setup"]},
+    {"id": "w_blerta",  "name": "Blerta",  "skills": ["setup"]},
+    {"id": "w_arta",    "name": "Arta",    "skills": ["mascot"]},
+    {"id": "w_leart",   "name": "Leart",   "skills": ["setup", "mascot"]},
+    {"id": "w_naim",    "name": "Naim",    "skills": ["driver"]}
+  ],
+  "vehicles": [{"id": "van1", "name": "Van 1"}, {"id": "van2", "name": "Van 2"}],
+  "equipment": [
+    {"id": "bounce1", "type": "bounce", "name": "Bounce Kështjella"},
+    {"id": "bounce2", "type": "bounce", "name": "Bounce Pirati"},
+    {"id": "comp1", "type": "compressor", "name": "Kompresori 1"},
+    {"id": "comp2", "type": "compressor", "name": "Kompresori 2"},
+    {"id": "mascot_bear", "type": "mascot_costume", "name": "Kostumi Ariu"}
+  ],
+  "existing_jobs": [
+    {"id": "J1", "title": "Ditëlindje (ekzistuese)", "zone": "Vushtrri", "from": "13:00", "to": "17:00",
+     "assignments": {"w_dritoni": "driver", "w_blerta": "setup"}, "vehicle": "van2", "equipment": ["bounce1", "comp1"]}
+  ]
+}
