@@ -73,7 +73,9 @@ Ekrani i Erzës në projektor, 4 telefona në duar. Skenarin e shkruan ekipi (`d
 - Raporti sipas rolit: Product Manager (premtimi ndaj klientit) · PM (afati, rreziqet) · Team Lead (pengesat, review) · zhvilluesi (detyrat e veta)
 - Shtresë mbi Jira / ServiceNow, jo mjet i ri
 
-**Rreshti poshtë:** *"Mjetet ekzistojnë (Connecteam për ekipet e vogla; Microsoft, Asana dhe Jira për zyrat). Ato japin aplikacione. Ne japim një agjent që e bën koordinimin, në chat, pa thyer asnjë rregull."*
+**Rreshti poshtë (korrigjuar sipas research-it të Devletes, 16:23):** *"Connecteam, Microsoft Planner, Asana and Jira already help teams, some with AI agents. What we show is the full handoff in one flow: client request → AI plan → rules checked in code → human approval → workers act in their chat → follow-through when something changes."*
+- **"Pa thyer asnjë rregull" = parim i arkitekturës** (e tregon kurthi BLOCKED në demo), **jo pretendim** që të tjerët s'e bëjnë.
+- **Kurrë mos thoni** "existing tools give apps, we give an agent": Planner, Asana dhe Rovo kanë agjentë.
 
 **Kutia e fundit, hapi tjetër konkret:** *Pilot me Magic Events (4 të shtuna): matim kohën e koordinimit dhe gabimet.*
 
