@@ -179,7 +179,7 @@ def approve(job_id: str | None = None, by: str = "leader") -> dict:
 def _dispatch(job: dict, task: dict, company: dict) -> None:
     name = (worker_by_id(company, task["worker_id"]) or {}).get("name", "?")
     delivered = notifier.send_task(task["worker_id"], job["id"], task["id"], briefing_text(job, task, company)) if notifier else False
-    S.log("sent", f"📨 {name}: '{task['role']}' {task['from']}–{task['to']}" + ("" if delivered else " (pa Telegram — përdor panelin)"))
+    S.log("sent", f"📨 {name}: '{task['role']}' {task['from']}–{task['to']}" + (" · Telegram" if delivered else " · paneli"))
 
 
 def respond(job_id: str, task_id: str, worker_id: str | None, accept: bool) -> dict:
