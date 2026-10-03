@@ -83,7 +83,9 @@ def view() -> dict:
             if t.get("worker_id") and t.get("status") in ("planned", "sent", "accepted"):
                 assigned[t["worker_id"]] = "assigned"
     busy_existing = {wid for ej in company.get("existing_jobs", []) for wid in ej.get("assignments", {})}
-    workers = [{"id": w["id"], "name": w["name"], "skills": w.get("skills", []),
+    from . import runtime as _rt
+    tg = set(getattr(_rt.notifier, "by_who", {}) or {}) if _rt.notifier else set()
+    workers = [{"id": w["id"], "name": w["name"], "skills": w.get("skills", []), "telegram": w["id"] in tg,
                 "status": assigned.get(w["id"]) or ("busy" if w["id"] in busy_existing else "free")}
                for w in company["workers"]]
     out_job, tasks = None, []
@@ -100,4 +102,4 @@ def view() -> dict:
             "existing_jobs": [{"title": e["title"], "zone": e["zone"], "from": e["from"], "to": e["to"],
                                "workers": [names.get(w, w) for w in e.get("assignments", {})]} for e in company.get("existing_jobs", [])],
             "busy": st.get("busy", False), "jobs_count": len(st["jobs"]),
-            "industry": current_industry(), "company": company.get("company", {}).get("name", "")}
+            "industry": current_industry(), "leader_telegram": "leader" in tg, "company": company.get("company", {}).get("name", "")}

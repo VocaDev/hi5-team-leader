@@ -103,13 +103,21 @@ function render(v) {
   }));
 
   // punëtorët: statusi vjen nga detyrat e tyre
+  const SKILL = {driver: 'shofer', setup: 'montim', mascot: 'maskotë', rebar: 'armaturë', quality: 'cilësi', pump_operator: 'pompë', concrete: 'betonim', backend: 'backend', python: 'python', qa: 'QA', ml: 'ML', devops: 'devops', prod_access: 'prod'};
+  $('leaderTg').textContent = v.leader_telegram ? '📱 Lideri në Telegram' : '📵 Lideri pa Telegram';
+  $('leaderTg').className = 'pill ' + (v.leader_telegram ? 'pill-on' : 'pill-off');
   $('workers').replaceChildren(...(v.workers || []).map(w => {
     const mine = tasks.filter(t => t.worker === w.name).map(t => t.status);
     let st = mine.includes('declined') ? 'declined' : mine.length && mine.every(s => s === 'accepted') ? 'accepted'
       : mine.includes('sent') ? 'sent' : 'planned';
-    const label = mine.length ? STATUS[st] : (w.status === 'busy' ? 'i zënë' : 'i lirë');
-    const d = el('div', 'worker');
-    d.append(el('b', '', w.name), el('span', 'badge b-' + (mine.length ? st : 'planned'), label));
+    let cls, label;
+    if (mine.length) { cls = st === 'planned' ? 'assigned' : st; label = st === 'planned' ? '📋 në plan' : STATUS[st]; }
+    else if (w.status === 'busy') { cls = 'busy'; label = '● i zënë'; }
+    else { cls = 'free'; label = '● i lirë'; }
+    const d = el('div', 'worker w-' + cls);
+    const head = el('div', 'whead');
+    head.append(el('b', '', w.name), el('span', 'tg ' + (w.telegram ? 'tg-on' : 'tg-off'), w.telegram ? '📱 lidhur' : '📵 pa Telegram'));
+    d.append(head, el('span', 'badge b-' + cls, label), el('div', 'skills', (w.skills || []).map(s => SKILL[s] || s).join(' · ')));
     return d;
   }));
 
