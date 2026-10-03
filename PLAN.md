@@ -183,3 +183,30 @@ Lideri (Telegram/konsola) ──► AI TEAM LEADER (Claude)
 | Emri i produktit (punues: "AI Team Leader") | Genti |
 | Username-i GitHub i Tringës | Tringa |
 | Çka dorëzohet saktësisht, gjuha e pitch-it, repo publike? | organizatorët |
+
+## 13. Dy demo: kompani pa PM dhe kompani me PM (vendimi 15:25)
+
+| | **Pa PM** (biznes i vogël në terren) | **Me PM** (kompani IT si Genpact) |
+|---|---|---|
+| Paketa | `events` | `it_services` (`POST /api/industry {"name": "it_services"}`) |
+| Kush i shkruan agjentit | pronari | Delivery/Project Manager ose Team Lead |
+| Roli i agjentit | **pronari bëhet PM pa punësuar dikë**: agjenti bën kontrollin, ndarjen dhe ndjekjen | **asistent i gjithë hierarkisë**: Product Manager → PM → Team Lead → zhvilluesit |
+| Rregulli që shihet live | rruga + vani + pajisjet (Dritoni s'arrin) | **4-eyes** (code review ≠ autori), ngarkesa nga sprinti i një klienti tjetër, qasja në prodhim |
+| Skena | "A mundemi?" → plani → MIRATO → ACCEPT → **check-in** → "kam problem" → zëvendësim | "Bug kritik, deri 18:00. A mundemi?" → plani → BLOCKED 4-eyes → raport për Product Manager-in |
+
+### Raportet sipas rolit (agjenti i shkruan nga gjendja reale)
+| Roli | Çka merr |
+|---|---|
+| **Product Manager** | çka i premtuam klientit dhe a rrezikohet |
+| **PM** | plani, varësitë, rreziku i afatit, opsionet |
+| **Team Lead** | kush çka bën, ngarkesa, pengesat, review-t |
+| **Zhvilluesi / punëtori** | vetëm detyrat e veta, në detaje, me ACCEPT dhe check-in |
+
+### A zëvendëson ndonjë rol? (e ndershme)
+- **Asnjë rol të plotë.** Gjykimi, klienti, njerëzit dhe përgjegjësia mbeten te njeriu: MIRATO, ACCEPT, eskalimi.
+- **Pjesa që automatizohet më shumë** është puna koordinuese e **Team Lead-it** (ndarja e detyrave, ndjekja, konfirmimet) dhe ndjekja e statusit nga **PM-i**.
+- **Roli që mund të mos punësohet më** në një kompani në rritje: **koordinatori i projektit / PMO-ja administrative**, pra ai që sot vetëm ndjek statuset dhe dërgon mesazhe. Kjo thuhet vetëm në Q&A, me kujdes: *"you may not need to hire an extra coordinator, and nobody who has a job loses it."*
+- Fjalia: *"The agent does the coordinating. A human always makes the call."*
+
+### Check-in (zakonet, jo heroizmat)
+Para punës, çdo kush që ka pranuar merr *"A je gati?"* [👍 PO] [⚠️ KAM PROBLEM]. Problemi del herët dhe kalon nëpër të njëjtin zëvendësim të sigurt (ose eskalohet). Kjo i përgjigjet gjetjes 3 të intervistës (anulim 30 min para).

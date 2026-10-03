@@ -17,6 +17,15 @@
 5. Njëri shtyp **S'MUNDEM** → detyra kalon te tjetri, lideri njoftohet
 6. *(opsional)* lideri: "vendose X gjithsesi" → **BLOCKED**
 
+## Skena IT (me PM), 30 s, pas skenës kryesore
+1. Ndërruesi → **IT** (`it_services`)
+2. PM-i: *"Klienti raportoi bug kritik në login, duhet në prodhim deri 18:00. A mundemi?"* → "PO" + plani
+3. *"Le ta bëjë Drita edhe review-n e kodit të vet"* → **BLOCKED 4-eyes**
+4. *(opsional)* *"Më jep raportin për Product Manager-in"*
+
+## Check-in (te skena kryesore, pas ACCEPT)
+Butoni ⏰ Check-in → telefonat marrin "A je gati?" → njëri shtyp **⚠️ KAM PROBLEM** → zëvendësim ose eskalim.
+
 ## Checklist para demos
 - [ ] `POST /api/reset` (butoni Reset)
 - [ ] 5 telefonat e kanë dërguar `/start` te bot-i dhe janë te `TELEGRAM_IDENTITY_MAP` (Genti)

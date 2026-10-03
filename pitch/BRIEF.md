@@ -60,6 +60,8 @@ Ekrani i Erzës në projektor, 4 telefona në duar. Skenarin e shkruan ekipi (`d
 
 ## SLAJDI 3: Çdo industri + hapi tjetër (0:40 + mbyllja)
 
+> **Me PM / pa PM (15:25):** demoja tregon të dyja: biznesi i vogël (pronari bëhet PM pa punësuar) dhe kompania IT si Genpact (asistent i Product Manager → PM → Team Lead → zhvilluesit, me 4-eyes). Në slajd: një rresht *"Pa PM: pronari bëhet PM. Me PM: PM-i bëhet vendimmarrës, jo telefonist."*
+
 **Titulli:** *I njëjti Team Leader, rregulla të tjera*
 
 **Tabela me 4 rreshta:**
