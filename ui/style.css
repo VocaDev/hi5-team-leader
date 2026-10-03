@@ -106,3 +106,11 @@ textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba
 .ph span{flex:1}
 .empty{color:var(--muted);font-size:14px}
 @media(max-width:900px){.grid{grid-template-columns:1fr;padding:14px}.top{padding:12px 14px}.task{grid-template-columns:1fr}}
+
+/* history */
+.history{display:flex;flex-direction:column}
+.hrow{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.hrow:last-child{border:0}
+.htitle{font-weight:700}
+.hright{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.feed{max-height:340px}

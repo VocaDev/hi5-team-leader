@@ -34,9 +34,23 @@ def save(state: dict) -> None:
         os.replace(tmp, STATE_FILE)
 
 
+def _archive(old: dict) -> list:
+    hist = list(old.get("history", []))
+    for j in old.get("jobs", []):
+        if j.get("status") in ("confirmed", "done", "sent"):
+            hist.append({"id": j["id"], "title": j["title"], "zone": j["zone"], "start": j["start"],
+                         "status": j["status"], "industry": old.get("industry", ""),
+                         "tasks": [{"role": t["role"], "worker_id": t.get("worker_id"), "status": t.get("status"),
+                                    "started_at": t.get("started_at"), "done_at": t.get("done_at"),
+                                    "checkin": t.get("checkin")} for t in j["tasks"]]})
+    return hist[-30:]
+
+
 def reset() -> dict:
     with LOCK:
+        old = load() if STATE_FILE.exists() else {}
         st = empty_state()
+        st["history"] = _archive(old)
         save(st)
         # keep events.jsonl (evidence across scenes); the UI feed starts clean
         feed(st, "system", "Gjendja u rivendos. Gati për punë të re.")
@@ -67,6 +81,20 @@ def job_by_id(state: dict, job_id: str) -> dict | None:
 def current_job(state: dict) -> dict | None:
     live = [j for j in state["jobs"] if j.get("status") != "cancelled"]
     return live[-1] if live else None
+
+
+def _history_view(st: dict, current: dict | None, names: dict) -> list:
+    rows = list(st.get("history", []))
+    rows += [j for j in st["jobs"] if j is not current and j.get("status") in ("confirmed", "done", "sent")]
+    out = []
+    for j in reversed(rows[-12:]):
+        ts = j.get("tasks", [])
+        out.append({"title": j["title"], "zone": j["zone"], "start": j["start"], "status": j.get("status"),
+                    "accepted": sum(t.get("status") == "accepted" for t in ts), "total": len(ts),
+                    "done": sum(bool(t.get("done_at")) for t in ts),
+                    "problems": sum(t.get("checkin") == "problem" for t in ts),
+                    "people": sorted({names.get(t.get("worker_id"), "") for t in ts if t.get("worker_id")} - {""})})
+    return out
 
 
 def view() -> dict:
@@ -102,4 +130,5 @@ def view() -> dict:
             "existing_jobs": [{"title": e["title"], "zone": e["zone"], "from": e["from"], "to": e["to"],
                                "workers": [names.get(w, w) for w in e.get("assignments", {})]} for e in company.get("existing_jobs", [])],
             "busy": st.get("busy", False), "jobs_count": len(st["jobs"]),
+            "history": _history_view(st, job, names),
             "industry": current_industry(), "leader_telegram": "leader" in tg, "company": company.get("company", {}).get("name", "")}

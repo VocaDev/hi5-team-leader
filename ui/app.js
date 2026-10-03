@@ -119,6 +119,19 @@ function render(v) {
     return d;
   }));
 
+  const HST = {done: '🏁 Përfunduar', confirmed: '✅ Konfirmuar', sent: 'Në pritje'};
+  const hist = v.history || [];
+  $('history').replaceChildren(...(hist.length ? hist.map(h => {
+    const r = el('div', 'hrow');
+    const left = el('div');
+    left.append(el('div', 'htitle', `${h.title}`), el('div', 'bring', `${h.zone} · ${h.start} · ${h.people.join(', ')}`));
+    const right = el('div', 'hright');
+    right.append(el('span', 'badge b-' + (h.status === 'sent' ? 'sent' : 'accepted'), HST[h.status] || h.status),
+                 el('div', 'bring', `${h.accepted}/${h.total} pranuar · ${h.done}/${h.total} kryer` + (h.problems ? ` · ${h.problems} problem` : '')));
+    r.append(left, right);
+    return r;
+  }) : [el('div', 'empty', 'Ende s\'ka punë të kryera.')]));
+
   const feed = $('feed'), atBottom = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 20;
   feed.replaceChildren(...(v.feed || []).map(f => {
     const d = el('div', 'fi ' + f.type);
