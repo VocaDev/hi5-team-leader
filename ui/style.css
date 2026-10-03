@@ -64,3 +64,21 @@ textarea:focus{outline:2px solid rgba(111,156,240,.5);border-color:transparent}
 .ph{display:flex;align-items:center;gap:8px;padding:6px 0;color:var(--text)}
 .ph span{flex:1}
 #summary{margin:-4px 0 12px}
+/* --- polish 16:55: projector-friendly, free = green, busy = red, Telegram status --- */
+body{font-size:16px}
+h1{font-size:24px}
+.feed{font-size:14.5px;max-height:440px}
+.redbar{font-size:17px;padding:14px 24px;box-shadow:0 6px 24px rgba(200,50,50,.45)}
+.worker{border-left:4px solid var(--grey);display:flex;flex-direction:column;gap:6px}
+.whead{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.whead b{margin:0}
+.skills{color:var(--muted);font-size:12px}
+.tg{font-size:11px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
+.tg-on{color:var(--green);border-color:rgba(62,207,142,.5);background:rgba(62,207,142,.08)}
+.tg-off{color:var(--muted);opacity:.7}
+.w-free{border-left-color:var(--green)} .b-free{color:var(--green);border-color:rgba(62,207,142,.55);background:rgba(62,207,142,.1)}
+.w-busy{border-left-color:var(--red)} .b-busy{color:var(--red);border-color:rgba(239,107,107,.55);background:rgba(239,107,107,.1)}
+.w-assigned{border-left-color:var(--blue)} .b-assigned{color:var(--blue);border-color:rgba(111,156,240,.55)}
+.w-sent{border-left-color:var(--orange)} .w-accepted{border-left-color:var(--green)} .w-declined{border-left-color:var(--red)}
+.badge{width:max-content}
+.workers{grid-template-columns:repeat(auto-fill,minmax(185px,1fr))}
