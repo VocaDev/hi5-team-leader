@@ -317,6 +317,9 @@ def progress(job_id: str, task_id: str, worker_id: str | None, kind: str) -> dic
                 job["status"] = "done"
                 S.feed(st, "accepted", f"🏁 '{job['title']}' përfundoi. Raporti: GET /api/report")
         S.save(st)
-    if notifier and kind == "done" and job.get("status") == "done":
-        notifier.send_leader(f"🏁 '{job['title']}' përfundoi. Të gjitha detyrat u kryen.")
+    if notifier:
+        verb = "e nisi" if kind == "start" else "e përfundoi"
+        notifier.send_leader(f"{'🚗' if kind == 'start' else '✅'} {name} {verb} '{task['role']}' në {now[:5]}.")
+        if kind == "done" and job.get("status") == "done":
+            notifier.send_leader(f"🏁 '{job['title']}' përfundoi. Të gjitha detyrat u kryen.")
     return {"status": kind, "at": now}
