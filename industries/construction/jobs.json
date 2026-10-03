@@ -1,0 +1,12 @@
+{
+  "slab_pour": {
+    "label": "Betonimi i pllakës (start = nisja e betonimit)",
+    "tasks": [
+      {"id": "rebar_check", "role": "Kontrolli i armaturës",           "skills": ["rebar"],         "start_offset_min": -60, "end_offset_min": 0},
+      {"id": "pump",        "role": "Operatori i pompës (licencë)",    "skills": ["pump_operator"], "start_offset_min": -30, "end_offset_min": 240, "equipment": ["concrete_pump"]},
+      {"id": "pour_lead",   "role": "Betonimi: përgjegjësi i ekipit",  "skills": ["concrete"],      "start_offset_min": -30, "end_offset_min": 240, "equipment": ["vibrator"]},
+      {"id": "pour",        "role": "Betonimi: punëtor",               "skills": ["concrete"],      "start_offset_min": 0,   "end_offset_min": 240},
+      {"id": "quality",     "role": "Kontrolli i cilësisë (4-eyes)",   "skills": ["quality"],       "start_offset_min": 240, "end_offset_min": 300, "not_same_as": ["rebar_check"]}
+    ]
+  }
+}
