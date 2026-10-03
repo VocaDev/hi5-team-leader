@@ -101,27 +101,27 @@ def check_worker(world: World, worker: dict, task: dict, zone: str, extra: list[
     reasons = []
     missing = [sk for sk in task["skills"] if sk not in worker.get("skills", [])]
     if missing:
-        reasons.append(f"R1 {name} s'ka aftësinë: {', '.join(missing)}")
+        reasons.append(f"R1 {name} lacks skill: {', '.join(missing)}")
     if worker["id"] in task.get("declined_by", []):
-        reasons.append(f"R5 {name} e ka refuzuar këtë detyrë")
+        reasons.append(f"R5 {name} declined this task")
     for u in worker.get("unavailable", []):
         if to_min(u["from"]) < e and s < to_min(u["to"]):
-            reasons.append(f"R5 {name} s'është në dispozicion {u['from']}–{u['to']}")
+            reasons.append(f"R5 {name} is unavailable {u['from']}–{u['to']}")
     busy = list(world.workers.get(worker["id"], [])) + list(extra or [])
     for b in busy:
         t_in, t_out = travel(c, b.zone, zone), travel(c, zone, b.zone)
         if b.end + t_in <= s or e + t_out <= b.start:
             continue
         if b.start <= s:
-            reasons.append(f"R2 {name} është te '{b.label}' ({b.zone}) deri {hhmm(b.end)}; "
-                           f"+ {t_in} min rrugë = {hhmm(b.end + t_in)} > {hhmm(s)}")
+            reasons.append(f"R2 {name} is at '{b.label}' ({b.zone}) until {hhmm(b.end)}; "
+                           f"+ {t_in} min travel = {hhmm(b.end + t_in)} > {hhmm(s)}")
         else:
-            reasons.append(f"R2 {name} duhet të jetë te '{b.label}' ({b.zone}) në {hhmm(b.start)}; "
-                           f"{hhmm(e)} + {t_out} min rrugë = {hhmm(e + t_out)} > {hhmm(b.start)}")
+            reasons.append(f"R2 {name} must be at '{b.label}' ({b.zone}) at {hhmm(b.start)}; "
+                           f"{hhmm(e)} + {t_out} min travel = {hhmm(e + t_out)} > {hhmm(b.start)}")
     worked = sum(b.end - b.start for b in busy) + (e - s)
     max_h = worker.get("max_hours", DEFAULT_MAX_HOURS)
     if worked > max_h * 60:
-        reasons.append(f"R3 {name} do të kishte {worked / 60:.1f} orë sot > maksimumi {max_h} orë")
+        reasons.append(f"R3 {name} do të kishte {worked / 60:.1f} h today > max {max_h} h")
     return reasons
 
 
@@ -133,7 +133,7 @@ def _free_resource(world: World, items: list[dict], window: tuple[int, int], tak
             continue
         clash = next((b for b in world.resources.get(it["id"], []) if b.start < e and s < b.end), None)
         if clash:
-            why.append(f"R6 {it['name']} i zënë te '{clash.label}' {hhmm(clash.start)}–{hhmm(clash.end)}")
+            why.append(f"R6 {it['name']} busy at '{clash.label}' {hhmm(clash.start)}–{hhmm(clash.end)}")
             continue
         return it, why
     return None, why
@@ -161,9 +161,9 @@ def plan_job(company: dict, job: dict, planned_jobs: list[dict], locked: dict[st
             if v:
                 resources["vehicle"] = v
                 taken.add(v["id"])
-                log.append(f"OK {v['name']} i lirë {hhmm(window[0])}–{hhmm(window[1])}")
+                log.append(f"OK {v['name']} free {hhmm(window[0])}–{hhmm(window[1])}")
             else:
-                log.append("❌ s'ka automjet të lirë")
+                log.append("❌ no free vehicle")
         for etype in t.get("equipment_types", []):
             key = f"eq:{etype}"
             if key in resources:
@@ -174,9 +174,9 @@ def plan_job(company: dict, job: dict, planned_jobs: list[dict], locked: dict[st
             if it:
                 resources[key] = it
                 taken.add(it["id"])
-                log.append(f"OK {it['name']} i lirë")
+                log.append(f"OK {it['name']} free")
             else:
-                log.append(f"❌ s'ka {etype} të lirë")
+                log.append(f"❌ no free {etype}")
 
     # candidates per task, with reasons for the rejected ones
     rejected: dict[str, list[dict]] = {}
@@ -262,7 +262,7 @@ def validate_manual(company: dict, job: dict, planned_jobs: list[dict], task_id:
     linked = list(task.get("not_same_as", [])) + [t["id"] for t in job["tasks"] if task_id in t.get("not_same_as", [])]
     for o in linked:
         if by_id.get(o, {}).get("worker_id") == worker_id:
-            reasons.append(f"R7 4-eyes: {wk['name']} e bën '{by_id[o]['role']}', prandaj s'mund ta bëjë edhe '{task['role']}'")
+            reasons.append(f"R7 4-eyes: {wk['name']} does '{by_id[o]['role']}', so can't also do '{task['role']}'")
     return reasons
 
 

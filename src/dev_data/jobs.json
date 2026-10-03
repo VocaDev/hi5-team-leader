@@ -1,18 +1,78 @@
 {
   "birthday_bounce": {
-    "label": "Ditëlindje me bounce",
+    "label": "Birthday with bounce house",
     "tasks": [
-      {"id": "drive",    "role": "Shofer",           "skills": ["driver"], "start_offset_min": -100, "end_offset_min": 150, "vehicle": true},
-      {"id": "setup",    "role": "Montimi i bounce", "skills": ["setup"],  "start_offset_min": -60,  "end_offset_min": 0,   "equipment": ["bounce", "compressor"]},
-      {"id": "mascot",   "role": "Maskota",          "skills": ["mascot"], "start_offset_min": 0,    "end_offset_min": 90,  "equipment": ["mascot_costume"]},
-      {"id": "teardown", "role": "Çmontimi",         "skills": ["setup"],  "start_offset_min": 120,  "end_offset_min": 150}
+      {
+        "id": "drive",
+        "role": "Driver",
+        "skills": [
+          "driver"
+        ],
+        "start_offset_min": -100,
+        "end_offset_min": 150,
+        "vehicle": true
+      },
+      {
+        "id": "setup",
+        "role": "Bounce setup",
+        "skills": [
+          "setup"
+        ],
+        "start_offset_min": -60,
+        "end_offset_min": 0,
+        "equipment": [
+          "bounce",
+          "compressor"
+        ]
+      },
+      {
+        "id": "mascot",
+        "role": "Mascot",
+        "skills": [
+          "mascot"
+        ],
+        "start_offset_min": 0,
+        "end_offset_min": 90,
+        "equipment": [
+          "mascot_costume"
+        ]
+      },
+      {
+        "id": "teardown",
+        "role": "Teardown",
+        "skills": [
+          "setup"
+        ],
+        "start_offset_min": 120,
+        "end_offset_min": 150
+      }
     ]
   },
   "birthday_mascot": {
-    "label": "Ditëlindje vetëm me maskotë",
+    "label": "Birthday with mascot only",
     "tasks": [
-      {"id": "drive",  "role": "Shofer",  "skills": ["driver"], "start_offset_min": -60, "end_offset_min": 120, "vehicle": true},
-      {"id": "mascot", "role": "Maskota", "skills": ["mascot"], "start_offset_min": 0,   "end_offset_min": 90,  "equipment": ["mascot_costume"]}
+      {
+        "id": "drive",
+        "role": "Driver",
+        "skills": [
+          "driver"
+        ],
+        "start_offset_min": -60,
+        "end_offset_min": 120,
+        "vehicle": true
+      },
+      {
+        "id": "mascot",
+        "role": "Mascot",
+        "skills": [
+          "mascot"
+        ],
+        "start_offset_min": 0,
+        "end_offset_min": 90,
+        "equipment": [
+          "mascot_costume"
+        ]
+      }
     ]
   }
 }

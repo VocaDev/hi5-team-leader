@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="sq">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Team Leader — Paneli i liderit</title>
+<title>AI Team Leader — Leader panel</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,18 +13,18 @@
     <div class="logo">Hi5</div>
     <div>
       <h1>AI Team Leader</h1>
-      <div class="sub">Paneli i liderit · <span id="company"></span></div>
+      <div class="sub">Leader panel · <span id="company"></span></div>
     </div>
   </div>
   <div class="pills">
     <div class="seg" hidden>
-      <button id="ind_events" class="btn btn-sm">Evente · pa PM</button>
-      <button id="ind_construction" class="btn btn-sm">Ndërtim · me PM</button>
-      <button id="ind_it_services" class="btn btn-sm" hidden>IT · me PM</button>
+      <button id="ind_events" class="btn btn-sm">Events · no PM</button>
+      <button id="ind_construction" class="btn btn-sm">Construction · with PM</button>
+      <button id="ind_it_services" class="btn btn-sm" hidden>IT · with PM</button>
     </div>
     <span id="jobPill" class="pill"></span>
-    <span id="busy" class="pill pill-busy" hidden>Agjenti po mendon…</span>
-    <span id="conn" class="pill pill-off">pa lidhje</span>
+    <span id="busy" class="pill pill-busy" hidden>Agent is thinking…</span>
+    <span id="conn" class="pill pill-off">offline</span>
     <button id="resetBtn" class="btn btn-sm">Reset</button>
   </div>
 </header>
@@ -32,25 +32,25 @@
 <main class="grid">
   <section class="col">
     <div class="card">
-      <h2>Puna e re</h2>
-      <textarea id="msg" rows="3" placeholder="p.sh. Ditëlindje, 25 fëmijë, e shtunë 16:00, Mitrovicë, bounce + maskotë"></textarea>
+      <h2>New job</h2>
+      <textarea id="msg" rows="3" placeholder="e.g. Birthday party this Saturday 16:00 in Mitrovica, bounce house + mascot, 25 kids. Can we do it?"></textarea>
       <div class="row">
         <span id="msgNote" class="note"></span>
-        <button id="sendBtn" class="btn">Dërgo</button>
+        <button id="sendBtn" class="btn">Send</button>
       </div>
     </div>
 
     <div class="card feedcard">
-      <h2>Si mendon agjenti</h2>
+      <h2>What the agent is doing</h2>
       <div id="feed" class="feed"></div>
     </div>
 
     <div class="card">
       <div class="row head">
-        <h2 id="jobTitle">Plani</h2>
+        <h2 id="jobTitle">Plan</h2>
         <div>
           <button id="checkinBtn" class="btn btn-sm" disabled>⏰ Check-in</button>
-          <button id="approveBtn" class="btn btn-go" disabled>MIRATO</button>
+          <button id="approveBtn" class="btn btn-go" disabled>APPROVE</button>
         </div>
       </div>
       <div id="summary" class="note"></div>
@@ -60,19 +60,19 @@
 
   <section class="col">
     <div class="card">
-      <h2>Punëtorët</h2>
+      <h2>Team</h2>
       <div id="workers" class="workers"></div>
     </div>
     <div class="card">
-      <h2>Punët ekzistuese</h2>
+      <h2>Already booked today</h2>
       <div id="existing" class="note"></div>
     </div>
     <div class="card">
-      <h2>Telefonat (rezervë)</h2>
+      <h2>Worker replies (panel)</h2>
       <div id="phones" class="note"></div>
     </div>
     <div class="card">
-      <h2>Historiku i punëve</h2>
+      <h2>Job history</h2>
       <div id="history" class="history"></div>
     </div>
   </section>

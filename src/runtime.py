@@ -38,7 +38,7 @@ def _log_plan(st: dict, job: dict, plan: dict, company: dict) -> None:
         if t.get("worker"):
             S.feed(st, "check", f"✓ {t['role']} {t['from']}–{t['to']} → {t['worker']}")
     for u in plan["uncovered"]:
-        S.feed(st, "blocked", f"❌ {u['role']}: s'ka njeri të lirë që i plotëson rregullat")
+        S.feed(st, "blocked", f"❌ {u['role']}: nobody free who meets the rules")
 
 
 def _summary(job: dict, company: dict) -> dict:
@@ -72,7 +72,7 @@ def create_job(template_id: str, title: str, client: str, zone: str, start: str,
         plan = plan_job(company, job, _other_jobs(st, job["id"]))
         _apply_plan(job, plan)
         st["jobs"].append(job)
-        S.feed(st, "tool", f"Puna e re: {title} · {zone} · {start} · {len(tasks)} detyra")
+        S.feed(st, "tool", f"New job: {title} · {zone} · {start} · {len(tasks)} tasks")
         _log_plan(st, job, plan, company)
         S.save(st)
         return _summary(job, company)
@@ -91,7 +91,7 @@ def assign_manual(job_id: str, task_id: str, worker_name: str) -> dict:
         reasons = validate_manual(company, job, _other_jobs(st, job_id), task_id, wk["id"])
         if reasons:
             st["blocked"].append({"text": f"BLOCKED: {wk['name']} → {task_id}. " + " · ".join(reasons)})
-            S.feed(st, "blocked", f"⛔ BLOCKED: {wk['name']} s'mund të marrë '{task_id}'. {reasons[0]}")
+            S.feed(st, "blocked", f"⛔ BLOCKED: {wk['name']} can't take '{task_id}'. {reasons[0]}")
             S.save(st)
             return {"status": "BLOCKED", "worker": wk["name"], "task_id": task_id, "rule_violations": reasons,
                     "note": "Rules are enforced in code and cannot be overridden by anyone."}
@@ -99,7 +99,7 @@ def assign_manual(job_id: str, task_id: str, worker_name: str) -> dict:
         locked[task_id] = wk["id"]
         plan = plan_job(company, job, _other_jobs(st, job_id), locked=locked)
         _apply_plan(job, plan)
-        S.feed(st, "tool", f"Lideri kërkoi {wk['name']} për '{task_id}' → rregullat OK, plani u rillogarit")
+        S.feed(st, "tool", f"Leader asked for {wk['name']} for '{task_id}' → rules OK, plan recalculated")
         S.save(st)
         return {"status": "OK", **_summary(job, company)}
 
@@ -119,7 +119,7 @@ def propose_plan(job_id: str, summary: str, notes: list[dict]) -> dict:
             t["note"] = by.get(t["id"], "")[:300]
         job["summary"] = summary
         job["status"] = "awaiting_approval"
-        S.feed(st, "tool", "📋 Plani gati — pret miratimin e liderit (butoni MIRATO)")
+        S.feed(st, "tool", "📋 Plan ready, waiting for the leader's approval (APPROVE)")
         S.save(st)
     if notifier:
         notifier.ask_approval(job_id, summary)
@@ -165,7 +165,7 @@ def approve(job_id: str | None = None, by: str = "leader") -> dict:
         if not job or job["status"] != "awaiting_approval":
             return {"error": "no plan awaiting approval"}
         job["status"] = "sent"
-        S.feed(st, "accepted", f"✅ Lideri e miratoi planin ({by}). Detyrat po dërgohen…")
+        S.feed(st, "accepted", f"✅ Leader approved the plan ({by}). Sending tasks…")
         to_send = []
         for t in job["tasks"]:
             t["status"] = "sent"
@@ -179,7 +179,7 @@ def approve(job_id: str | None = None, by: str = "leader") -> dict:
 def _dispatch(job: dict, task: dict, company: dict) -> None:
     name = (worker_by_id(company, task["worker_id"]) or {}).get("name", "?")
     delivered = notifier.send_task(task["worker_id"], job["id"], task["id"], briefing_text(job, task, company)) if notifier else False
-    S.log("sent", f"📨 {name}: '{task['role']}' {task['from']}–{task['to']}" + (" · Telegram" if delivered else " · paneli"))
+    S.log("sent", f"📨 {name}: '{task['role']}' {task['from']}–{task['to']}" + (" · Telegram" if delivered else " · panel"))
 
 
 def respond(job_id: str, task_id: str, worker_id: str | None, accept: bool) -> dict:
@@ -203,12 +203,12 @@ def respond(job_id: str, task_id: str, worker_id: str | None, accept: bool) -> d
                 accept = False
             else:
                 task["status"] = "accepted"
-                S.feed(st, "accepted", f"✅ {name} pranoi '{task['role']}'")
+                S.feed(st, "accepted", f"✅ {name} accepted '{task['role']}'")
                 if notifier:
                     notifier.send_progress(task["worker_id"], job_id, task_id, task["role"])
                 if all(t["status"] == "accepted" for t in job["tasks"]):
                     job["status"] = "confirmed"
-                    S.feed(st, "accepted", f"🎉 Të gjitha detyrat u pranuan. '{job['title']}' është konfirmuar.")
+                    S.feed(st, "accepted", f"🎉 All tasks accepted. '{job['title']}' is confirmed.")
                     S.save(st)
                     if notifier:
                         notifier.send_leader(f"🎉 '{job['title']}' u konfirmua: të gjithë pranuan.")
@@ -220,7 +220,7 @@ def respond(job_id: str, task_id: str, worker_id: str | None, accept: bool) -> d
         task["status"] = "planned"
         old = task["worker_id"]
         task["worker_id"] = None
-        S.feed(st, "blocked", f"↩️ {name} s'mundet për '{task['role']}' → po kërkoj tjetrin…")
+        S.feed(st, "blocked", f"↩️ {name} can't do '{task['role']}' → looking for someone else…")
         locked = {t["id"]: t["worker_id"] for t in job["tasks"] if t["id"] != task_id and t.get("worker_id")}
         plan = plan_job(company, job, _other_jobs(st, job_id), locked=locked)
         new = next(t for t in plan["tasks"] if t["id"] == task_id)
@@ -228,19 +228,19 @@ def respond(job_id: str, task_id: str, worker_id: str | None, accept: bool) -> d
             task["worker_id"] = new["worker_id"]
             task["status"] = "sent"
             new_name = new["worker"]
-            S.feed(st, "check", f"✓ '{task['role']}' → {new_name} (rregullat OK)")
+            S.feed(st, "check", f"✓ '{task['role']}' → {new_name} (rules OK)")
             S.save(st)
-            msg = f"↩️ {name} s'mundet për '{task['role']}'. Detyra iu dërgua {new_name}."
+            msg = f"↩️ {name} can't do '{task['role']}'. Detyra iu dërgua {new_name}."
             if notifier:
                 notifier.send_leader(msg)
             _dispatch(job, task, company)
             return {"status": "reassigned", "from": old, "to": new["worker_id"]}
         why = next((u["why"] for u in plan["uncovered"] if u["task_id"] == task_id), [])
-        st["blocked"].append({"text": f"S'ka zëvendësues për '{task['role']}': " + " · ".join(why[:3])})
-        S.feed(st, "blocked", f"🔺 S'ka zëvendësues për '{task['role']}' → vendos lideri")
+        st["blocked"].append({"text": f"S'ka zëvendësues for '{task['role']}': " + " · ".join(why[:3])})
+        S.feed(st, "blocked", f"🔺 No safe replacement for '{task['role']}' → leader decides")
         S.save(st)
         if notifier:
-            notifier.send_leader(f"🔺 {name} s'mundet për '{task['role']}' dhe s'ka tjetër që i plotëson rregullat. Duhet vendimi yt.")
+            notifier.send_leader(f"🔺 {name} can't do '{task['role']}' dhe s'ka tjetër që i plotëson rregullat. Duhet vendimi yt.")
         return {"status": "escalated", "why": why}
 
 
@@ -257,7 +257,7 @@ def checkin(job_id: str | None = None) -> dict:
         targets = [t for t in job["tasks"] if t.get("status") == "accepted" and t.get("worker_id")]
         for t in targets:
             t["checkin"] = "asked"
-        S.feed(st, "tool", f"⏰ Check-in para punës: {len(targets)} veta u pyetën 'A je gati?'")
+        S.feed(st, "tool", f"⏰ Pre-job check-in: {len(targets)} people asked 'Are you ready?'")
         S.save(st)
     for t in targets:
         text = (f"⏰ Check-in · {job['title']}\nRoli yt: {t['role']} {t['from']}–{t['to']}\n"
@@ -280,14 +280,14 @@ def checkin_answer(job_id: str, task_id: str, worker_id: str | None, ok: bool) -
         name = (worker_by_id(company, task["worker_id"]) or {}).get("name", "?")
         if ok:
             task["checkin"] = "ok"
-            S.feed(st, "accepted", f"👍 {name} është gati për '{task['role']}'")
+            S.feed(st, "accepted", f"👍 {name} is ready for '{task['role']}'")
             S.save(st)
             return {"status": "ready"}
         task["checkin"] = "problem"
         task["status"] = "sent"  # reopen, then the normal decline path finds the next safe person
         if job.get("status") == "confirmed":
             job["status"] = "sent"
-        S.feed(st, "blocked", f"⚠️ Check-in: {name} ka problem me '{task['role']}' → zgjidhet tani, jo në minutën e fundit")
+        S.feed(st, "blocked", f"⚠️ Check-in: {name} has a problem with '{task['role']}' → solved now, not at the last minute")
         S.save(st)
     return respond(job_id, task_id, None, accept=False)
 
@@ -309,13 +309,13 @@ def progress(job_id: str, task_id: str, worker_id: str | None, kind: str) -> dic
         now = _dt.datetime.now().strftime("%H:%M:%S")
         if kind == "start":
             task["started_at"] = now
-            S.feed(st, "tool", f"🚗 {name} e nisi '{task['role']}' ({now[:5]}, planifikuar {task['from']})")
+            S.feed(st, "tool", f"🚗 {name} started '{task['role']}' ({now[:5]}, planned {task['from']})")
         else:
             task["done_at"] = now
-            S.feed(st, "accepted", f"✅ {name} e përfundoi '{task['role']}' ({now[:5]}, planifikuar deri {task['to']})")
+            S.feed(st, "accepted", f"✅ {name} finished '{task['role']}' ({now[:5]}, planned deri {task['to']})")
             if all(x.get("done_at") for x in job["tasks"]):
                 job["status"] = "done"
-                S.feed(st, "accepted", f"🏁 '{job['title']}' përfundoi. Raporti: GET /api/report")
+                S.feed(st, "accepted", f"🏁 '{job['title']}' is done. Report: GET /api/report")
         S.save(st)
     if notifier:
         verb = "e nisi" if kind == "start" else "e përfundoi"

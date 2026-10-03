@@ -53,7 +53,7 @@ def reset() -> dict:
         st["history"] = _archive(old)
         save(st)
         # keep events.jsonl (evidence across scenes); the UI feed starts clean
-        feed(st, "system", "Gjendja u rivendos. Gati për punë të re.")
+        feed(st, "system", "State reset. Ready for a new job.")
         return st
 
 
