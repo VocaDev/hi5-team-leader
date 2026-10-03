@@ -1,174 +1,191 @@
-# PLAN — ShiftRescue (Team Hi5)
+# PLAN — AI Team Leader (Team Hi5)
 
-> Genpact × Agilyti AI Hackathon · Icon Tower, Prishtinë · e shtunë 3 tetor 2026 · track **AI Agent for Business**
-> **Kjo repo është burimi i së vërtetës.** Detajet teknike: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Repo e vjetër (`hi5-inbox-agent/weekend/`) mbetet vetëm si histori.
+> Genpact × Agilyti AI Hackathon · Prishtinë · e shtunë 3 tetor 2026 · track **AI Agent for Business**
+> **Ndryshim i idesë: 3 tetor ~13:50.** Pas mentorëve, ShiftRescue u bë pjesë e një ideje më të madhe: **AI Team Leader**. Motori i ShiftRescue-s (rregullat, koha, udhëtimi, riplanifikimi) mbetet bërthama.
+> `docs/ARCHITECTURE.md` dhe `docs/FLOW.md` janë shkruar për ShiftRescue. Motori dhe rregullat vlejnë ende, por rrjedha e re është këtu. Kur nuk përputhen, vlen **ky skedar**.
 > ✅ = i verifikuar · ⬜ = për t'u bërë · ❓ = ende i panjohur. Pa hamendje.
 
 ---
 
 ## 1. Ideja
 
-**"One person goes missing. Your operation doesn't have to."**
+**Njeriu flet me klientin. AI Team Leader e kthen marrëveshjen në një plan pa gabime dhe ia jep çdo punëtori detyrën e vet, në detaje.**
 
-Kur dikush mungon papritur, menaxheri sot fillon telefonatat dhe shpesh e zgjidh një problem duke krijuar tjetrin. ShiftRescue nuk pyet vetëm *"kush është i lirë?"*, por **"nëse e lëviz këtë person, çka prishet më pas?"** Gjen ndryshimin më të vogël të sigurt, ia ofron punën zëvendësuesit në Telegram, e rezervon vetëm pas **ACCEPT** dhe verifikon që eventet kritike janë mbuluar prapë. Kur s'ka zgjidhje të sigurt, **eskalon te pronari me opsione**, s'improvizon.
+1. **Lideri njerëzor** flet me klientin (telefon, takim, DM). Marrëdhënia me klientin mbetet njerëzore.
+2. Ia shkruan punën **AI Team Leader-it** me tekst të lirë: *"Ditëlindje, 25 fëmijë, e shtunë 16:00, Mitrovicë, bounce + maskotë."*
+3. AI Team Leader-i:
+   - **e kupton** dhe pyet vetëm atë që mungon;
+   - **e kontrollon** kapacitetin me kod: stafin, automjetet, pajisjet, udhëtimin, montimin, punët e tjera të ditës;
+   - **e ndan** punën në detyra dhe zgjedh kush e bën secilën;
+   - ia tregon planin liderit për **miratim**;
+   - u dërgon **4 punëtorëve detyrat në detaje** në Telegram (çka, ku, kur, çka marrin me vete, me kë punojnë, kontakti), dhe secili shtyp **ACCEPT**.
+4. Kur diçka prishet (dikush anulon ose mungon), **e riplanifikon**. Kjo është pjesa e ShiftRescue-s.
 
-**Parimi:** *AI-ja kupton dhe flet. Kodi vendos.* Rregullat e forta s'jetojnë në prompt, dhe asnjë urdhër, as i menaxherit, s'i anashkalon.
+**Parimi:** *AI-ja kupton, planifikon dhe shkruan. Kodi i kontrollon rregullat. Njeriu miraton.* Asnjë rregull s'jeton në prompt, dhe asnjë urdhër s'e anashkalon.
 
-**Përdoruesi i vërtetë:** biznesi i eventeve i Flutures. ✅ Të dy pronarët kanë dhënë leje që ta përmendim.
+**Pse "më i saktë se njeriu":** njeriu harron që vani është i zënë te eventi tjetër, ose që ekipi s'arrin në kohë pas montimit. Kodi i kontrollon **të gjitha kufizimet, çdo herë**, dhe çdo vendim e shpjegon me numra.
 
----
-
-## 2. Kriteret e jurisë (✅ slajdi i organizatorëve) dhe si i plotësojmë
-
-| % | Kriteri | Çka kërkojnë | Si e plotësojmë | Pronari |
-|---|---|---|---|---|
-| 25 | **Working demo** | Run it live. Show input, show output. | Telefon i vërtetë me tekst të lirë ("sot s'vij") → zinxhiri skuqet → oferta → ACCEPT → 100% e gjelbër. Pastaj **kurthi** (menaxheri "vendose gjithsesi" → BLOCKED) dhe **eskalimi** (s'ka njerëz → karta me opsione). Rreth gjysma e kohës. Plan B: butonat në ekran + video rezervë (16:00). | Genti · Erza · Tringa |
-| 20 | **Problem proof** | Name a real user who has this problem today. | Biznesi i Flutures **me emër** (✅ leja). 1–2 citate fjalë për fjalë: sa shpesh mungon dikush, sa zgjat rregullimi, çka prishet. | Flutura |
-| 20 | **Technical depth** | Explain one real decision under the hood. | **Vendimi:** *"AI kupton, kodi vendos."* Modeli zgjedh vetëm `plan_id` nga motori, rezervimi bëhet vetëm pas ACCEPT + ri-validimit, urdhri i menaxherit kalon nëpër të njëjtat rregulla. **Plus stack-u (§5):** gjuha, teknologjitë, mjetet dhe pse u zgjodh secila. Feed-i live e tregon. | Genti |
-| 15 | **Completeness** | What you pitched vs. what actually runs. | Pitch-ojmë vetëm atë që punon. Slajdi "What runs today" = skenat e demos. Pjesa tjetër shënohet "next". Numrat nga `evidence/`. Feature freeze 16:00. | Tringa · Devlete |
-| 10 | **Differentiation** | Why not just use an existing tool? | "Deputy/Skedulo e mbushin turnin. Ne shohim çka prishet pas lëvizjes, rregullat s'thyhen as me urdhër, eskalimi e njeh klientin, verifikojmë rikthimin. Në shqip, në Telegram." **Kurrë "askush s'e bën".** | Devlete |
-| 10 | **Next step** | One concrete next milestone. | **Pilot në shadow mode me biznesin e Flutures, 4 të shtunat e ardhshme.** Matim minutat nga "s'vij" te "u mbulua" + sa herë rregullimi me dorë prishi një event tjetër. ❓ pronarët ende po mendojnë për pilotin → deri atëherë: *"we've asked them for a pilot"*. | Tringa |
-
-Barazimi zgjidhet me **working demo**, pastaj me **problem proof**, prandaj këto dyja janë prioriteti.
+**Përdoruesi i vërtetë:** biznesi i eventeve i Flutures (✅ leja nga të dy pronarët).
 
 ---
 
-## 3. Eskalimi: kur s'ka njerëz (pyetja e mentorit)
+## 2. Demo (live, me tekst të lirë, pa përgjigje të gatshme)
 
-Agjenti **s'shpik njerëz dhe s'thyen rregulla**. Mbron eventet më të rëndësishme, i tregon pronarit saktë çka prishet, dhe i jep **2–3 opsione me pasoja**, një buton për secilin. Pa shtypje s'ndodh asgjë. Ekrani s'thotë kurrë 100% kur s'është.
-
-| # | Opsioni | Si e llogarit motori | Kush miraton | Sot? |
-|---|---|---|---|---|
-| 1 | **Ekip i lirë për një dritare kohe** ("ekipi X është i lirë 30 min, arrin te klienti Y dhe kthehet") | ora kur mbaron ekipi + `travel_min` te klienti tjetër → dritarja e lirë | **Pronari** e konfirmon me mesazh/buton | ✅ |
-| 2 | **Shtyrje me klientin** | `can_delay_min` i eventit + fleksibiliteti | Pronari. Agjenti e shkruan mesazhin, **pronari e dërgon**; agjenti s'i shkruan kurrë klientit vetë | ✅ |
-| 3 | **Ulja e shërbimit** (p.sh. pa maskotë te C) | slot-et jo kritike të eventit | Pronari | ✅ |
-| 4 | Orë shtesë me pëlqim brenda kufirit | orët javore të punonjësit | Punonjësi (ACCEPT) | ⛔ slajd |
-
-### Prioriteti i klientëve (i vendos pronari, jo AI-ja)
-Kur s'mbulohet gjithçka, renditja është **(criticality i eventit, pastaj client score)**. ❓ Flutura e konfirmon me pronarët a duhet të jetë kjo renditje apo shumë.
-
-| Fusha te klienti | Vlera | Efekti |
-|---|---|---|
-| `value_tier` | `high` / `normal` (klient që paguan më shumë; **pa shuma në €**) | +1 |
-| `prepaid` | `true` / `false` (ka paguar paraprakisht) | +1 |
-| `first_time` | `true` / `false` (klient i ri, përshtypja e parë) | +1 |
-
-Peshat jetojnë në `industries/events/priority.json`, prandaj pronari i ndryshon pa kod.
-
-### Fleksibiliteti (llogaritet, s'shkruhet me dorë)
-- **Kur mbaron secili ekip** → nga orari (`roster` + `to` i slot-it të fundit).
-- **Sa shpejt arrin te klienti tjetër** → `travel_min` ndërmjet zonave (❓ vlera të supozuara, shënohen si të tilla).
-Nga këto të dyja motori nxjerr **dritaret e lira**, që ushqejnë opsionin 1.
-
----
-
-## 4. Shkallëzimi: si përshtatet për çdo industri
-
-**Bërthama s'e di çka është "event".** Ajo njeh vetëm 5 koncepte; industria është paketë konfigurimi.
-
-| Koncepti i bërthamës | Events (sot) | Firmë sigurie | Kujdes në shtëpi | Restorant / retail | Servis në terren |
-|---|---|---|---|---|---|
-| **Job** | eventi | posti | vizita | turni | intervenimi |
-| **Slot** (roli + dritarja) | shofer, montim, maskotë | roja 06–18 | kujdestare 09–10 | kuzhinë, arkë | teknik |
-| **Needs** (aftësi/certifikata) | patentë, bounce | licencë sigurie | certifikatë kujdesi | higjienë ushqimi | certifikatë elektrike |
-| **Hard rules** | pa mbivendosje + udhëtim, orë maksimale | 12 orë pushim pas turnit, posti s'mbetet bosh | vazhdimësia e kujdestares | orët javore, rregullat e të miturve | udhëtimi, certifikata |
-| **Priority** | criticality + klienti (vlera, parapagim, i ri) | rëndësia e postit | nevoja e pacientit | orët e pikut | niveli i SLA-së |
-| **Escalation** | ekip i lirë, shtyrje, ulje e shërbimit | zgjatje me pëlqim, mbikëqyrësi | shtyrje e vizitës jo urgjente | mbyllje e një seksioni | ri-planifikim me klientin |
-
-**Paketa e një industrie** (`industries/<emri>/`):
-| Skedari | Çka mban |
+| Kush | Roli |
 |---|---|
-| `pack.json` | fjalori (job = "event"), rolet dhe aftësitë, nivelet e criticality, opsionet e lejuara të eskalimit |
-| `rules.json` | cilat rregulla të forta janë aktive + parametrat (pushimi, orët maksimale, udhëtimi) |
-| `priority.json` | peshat për renditjen kur s'mbulohet gjithçka |
-| `company.json` | bota e demos (njerëz, evente, orar), **vetëm e shpikur** |
-| `prompt.md` | fjalët e domenit dhe dialekti për modelin |
+| 1 person | **Lideri njerëzor**: flet me "klientin", pastaj i shkruan AI Team Leader-it |
+| 4 persona | **Punëtorët**: marrin detyrat në Telegram, shtypin ACCEPT |
+| Ekrani | **Paneli i liderit**: puna, plani, kush çka bën, statuset live |
 
-**Niveli korporativ** (`industries/corporate/`, vetëm slajd sot): turni i fundit (12 orë pushim), specializimi, orët javore + kufiri i orëve shtesë, drejtësia (s'thirret gjithmonë i njëjti).
+**Rrjedha (~2 min):**
+1. Lideri e merr kërkesën nga klienti dhe ia shkruan agjentit me fjalët e veta.
+2. Ekrani tregon si mendon agjenti: kapaciteti → detyrat → kush dhe pse ("pse jo Dritoni: 16:00 + 40 min = 16:40 > 16:30").
+3. Lideri e miraton planin me një buton.
+4. 4 telefona marrin detyrat në detaje dhe shtypin ACCEPT. Ekrani gjelbërohet.
+5. *(nëse ka kohë)* një punëtor anulon → agjenti riplanifikon dhe e njofton liderin.
+6. *(kurthi)* lideri: "vendose X gjithsesi" → **BLOCKED** me arsyen.
 
-**E ndershme për Q&A:** industri e re = **vetëm konfigurim**, kur rregullat e saj përdorin llojet ekzistuese. Lloj i ri rregulli = **një funksion i vogël Python + test**. *"Change the rules, not the code"* vlen për shumicën, jo për të gjitha.
+**E përgatitur:** bota (kompania, njerëzit, pajisjet, orari). **Live:** çdo mesazh, çdo vendim, çdo detyrë, çdo ACCEPT. Skenarin e demos e shkruan ekipi.
 
-**Implementimi në një kompani të vërtetë:** (1) të dhënat nga Excel/Sheets që përdorin sot → (2) rregullat dhe prioritetet i vendos pronari → (3) secili punonjës e shtyp `/start` në Telegram, me pëlqim → (4) **2 javë shadow mode** (agjenti propozon, menaxheri vendos) → (5) live me oferta.
+Shembull i një detyre në Telegram (formati, jo teksti final):
+```
+📋 Detyra jote — e shtunë 4 tetor
+Eventi: Ditëlindje (25 fëmijë), Mitrovicë, rr. ..., nis 16:00
+Roli: Montimi i bounce-it
+Mbërritja: 15:00 (montimi 45 min)
+Merr me vete: Bounce #2, kompresori, 4 kunja
+Shkon me: Erioni (shofer, Van 1, niset 14:20 nga depoja)
+Pas eventit: çmontimi 18:00–18:30, kthimi në depo
+Kontakti i klientit: te lideri
+[ACCEPT]  [S'MUNDEM]
+```
 
 ---
 
-## 5. Stack-u teknik (pjesë e Technical depth)
+## 3. Kriteret e jurisë (✅) dhe si i plotësojmë
+
+| % | Kriteri | Si e plotësojmë |
+|---|---|---|
+| 25 | **Working demo** | Rrjedha e §2, live: lideri → agjenti → 4 telefona → ACCEPT → ekrani i gjelbër. Plan B: butonat në ekran + video rezervë (16:00). |
+| 20 | **Problem proof** | Biznesi i Flutures me emër. Citate fjalë për fjalë: sa zgjat nga "po" e klientit deri te ekipi i informuar, sa shpesh harrohet ose ngatërrohet diçka. |
+| 20 | **Technical depth** | **Vendimi:** AI kupton dhe shkruan, kodi kontrollon rregullat, njeriu miraton. Modeli s'mund të caktojë njeri pa kaluar motorin. **Plus stack-u (§7).** |
+| 15 | **Completeness** | Pitch-ojmë vetëm atë që punon. Slajdi "What runs today". Korporata, spitalet dhe elektrikët shkruhen "next". |
+| 10 | **Differentiation** | §5: platformat e mëdha ekzistojnë. Ne jemi në chat, në shqip, pa projekt implementimi, me rregulla që s'thyhen dhe vendime që shpjegohen. **Kurrë "askush s'e bën".** |
+| 10 | **Next step** | Pilot me biznesin e Flutures, 4 të shtuna. Matim minutat nga "po" e klientit deri te ekipi i konfirmuar, dhe gabimet (diçka e harruar, konflikt). ❓ pronarët ende po mendojnë → *"we've asked them for a pilot"*. |
+
+---
+
+## 4. Pse do ta blente dikush (Demand)
+
+**Problemi që përsëritet:** çdo punë e re duhet kthyer në plan dhe çdo person duhet informuar. Sot kjo bëhet me telefonata, Viber dhe kokën e liderit. Gabimet (vani i zënë, pajisja e harruar, ekipi që s'arrin) kushtojnë një klient.
+
+| Pse e blen | Si e masim |
+|---|---|
+| **Saktësia:** asnjë konflikt, asnjë gjë e harruar, sepse kodi i kontrollon të gjitha kufizimet | gabimet para/pas në pilot |
+| **Shpejtësia:** nga "po" e klientit te ekipi i konfirmuar për 1–2 minuta, jo me një orë telefonatash | minutat, nga `evidence/` + intervista |
+| **Rritja pa koordinator të ri:** një lider menaxhon më shumë punë | punët në javë për një lider |
+| **Dija s'rri në një kokë:** kur lideri mungon, rregullat dhe plani janë në sistem | — |
+| **Kur prishet diçka:** riplanifikim në sekonda (ShiftRescue) | koha deri te rikthimi |
+
+**Tregu (✅):** kompanitë paguajnë tashmë për këtë: ServiceTitan (elektrikë dhe zanate), QGenda (spitale), ServiceNow dhe Atlassian (IT). Kjo dëshmon kërkesën. Por këto janë platforma të mëdha, në anglisht, të shtrenjta, me implementim të gjatë. **Bizneset e vogla dhe të mesme në rajon s'kanë asgjë dhe punojnë me Viber.**
+
+**Paraja:** asnjë numër i shpikur si fakt. Nëse përdoret shembull, shkruhet **"Shembull, me supozime"** dhe supozimet duken hapur. Numrat e vërtetë vijnë nga pronarët e Flutures.
+
+**Përgjigjja për "kemi tashmë team leader / plan / bench":**
+> *"Your team leader keeps the client. We take the part where they turn a yes into a plan for ten people at once, and that's where mistakes happen. The agent checks every constraint every time, and your leader just approves."*
+
+---
+
+## 5. Shkallëzimi: industritë, konkurrentët, si dallojmë
+
+Bërthama njeh vetëm **Punën → Detyrat → Aftësitë → Rregullat → Prioritetin**. Industria është paketë konfigurimi (`industries/<emri>/`).
+
+| Industria | Puna | Rregullat që kontrollon kodi | Kush e bën sot (✅ ekzistojnë) | Si dallojmë |
+|---|---|---|---|---|
+| **Evente** (demo) | eventi i klientit | staf + van + pajisje, udhëtimi, montimi, punët e tjera të ditës | DM, Viber, Excel; mjetet e qirasë (❓ s'janë kontrolluar në detaje) | në chat, në shqip, kontrollon disa burime njëherësh |
+| **Kompani elektrike / zanate** | intervenim, instalim | licenca/certifikata e elektricistit, pajisjet në van, udhëtimi, urgjenca para planifikimit | **ServiceTitan** ("agentic OS for the trades"), **Simpro** | punën e merr nga biseda; për firmat e vogla që s'i përballojnë platformat e mëdha |
+| **Spitale** | turne, mbulimi i repartit | certifikimi, raporti infermier/pacient, pushimi mes turneve, pa turne nate rresht | **QGenda**, **symplr**, **UKG** | rregullat shpjegohen me numra; shtresë mbi sistemin ekzistues. ❓ spitalet publike në Kosovë |
+| **IT / shërbime si Genpact** | rasti, tiketa, kërkesa e klientit | **SLA-ja**, aftësitë/gjuha, ngarkesa maksimale, **4-eyes** (kush e bën s'e miraton), qasja në të dhënat e klientit | **ServiceNow** (Advanced Work Assignment + AI agents), **Atlassian JSM** (intelligent routing) | për ekipet pa ServiceNow; puna nga biseda me klientin → detyra në detaje; rregullat s'thyhen as me urdhër |
+
+**E ndershme për Q&A:** te korporatat s'e mundim ServiceNow-in dhe s'e themi. Hyrja jonë janë bizneset e vogla dhe të mesme në rajon, që sot s'kanë asgjë. Korporata është vizioni: *"Same Team Leader, different rulebook."*
+**NDA:** shembujt korporativë janë IT, sigurimet dhe kujdesi ndaj klientit. Kurrë fatura, prokurim, financa ose karburant.
+
+---
+
+## 6. Arkitektura (e re)
+
+```
+Lideri (Telegram/konsola) ──► AI TEAM LEADER (Claude)
+                                 │  1. intake: teksti → punë e strukturuar (strict tool)
+                                 │  2. check_capacity ──► MOTORI (kod): burimet, koha, udhëtimi, rregullat R1–R6
+                                 │  3. build_plan ──────► MOTORI: detyrat nga shablloni i punës + kush i bën
+                                 │  4. propose → Lideri [MIRATO]
+                                 │  5. write_briefings: një mesazh i detajuar për secilin (LLM)
+                                 ▼
+                     Runtime ──► 4 punëtorët në Telegram [ACCEPT] [S'MUNDEM]
+                                 │  ACCEPT → ri-validim → rezervim → ekrani
+                                 │  S'MUNDEM → riplanifikim (ShiftRescue) → Lideri
+```
+- **LLM-i:** kupton kërkesën, pyet çka mungon, zgjedh planin nga ato që i jep motori, shkruan detyrat dhe shpjegimet.
+- **Kodi:** kapaciteti, rregullat, caktimi, rezervimi, verifikimi. **Modeli s'ka mjet për rezervim.**
+- **Shabllonet e punës** (`industries/events/jobs.json`): p.sh. "ditëlindje me bounce" = ngarkimi → udhëtimi → montimi 45 min → eventi → çmontimi 30 min, me rolet dhe pajisjet.
+
+## 7. Stack-u (pjesë e Technical depth)
 
 | Shtresa | Zgjedhja | Pse |
 |---|---|---|
-| Gjuha | **Python 3.11+** (backend) · **HTML/CSS/JS vanilla** (UI) | e njëjta gjuhë si skeleti i shtatorit; UI pa build, punon offline |
-| Modeli | **Claude `claude-opus-5-5`** përmes SDK-së zyrtare `anthropic` | arsyetim i fortë në shqip/gegërisht; adaptive thinking; `effort` i vendosur me dorë |
-| Tool use | mjete me **`strict: true`** + `additionalProperties: false`; `submit_decision` i fundit | modeli s'mund të dërgojë argumente të shpikura; identiteti injektohet nga runtime |
-| Prompt caching | `cache_control` në nivelin e lartë; gjendja **s'hyn** në prompt | prompt-i statik mbetet i cache-uar, gjendja vjen nga `get_snapshot` |
-| Motori | **Python i pastër, deterministik**: graf varësish, rregulla R1–R6, kërkim brute-force (deri në 2 lëvizje), objektiv leksikografik | për ~10 njerëz × ~10 slot-e mjaftojnë mikrosekonda; s'ka nevojë për OR-Tools; çdo refuzim vjen me aritmetikë ("16:00 + 40 min = 16:40 > 16:30") |
-| Serveri | **FastAPI + Uvicorn**, një proces, `ThreadPoolExecutor(4)` + një `STATE_LOCK` | Telegram, UI dhe konsola në të njëjtin proces; s'ka gara në gjendje |
-| Kanali | **Telegram Bot API** (long polling, inline keyboard, `callback_query`, `answerCallbackQuery`, `editMessageText`) përmes `requests` | falas, i menjëhershëm, butona ACCEPT/DECLINE; WhatsApp Business kërkon verifikim |
-| Gjendja | **JSON** me shkrim atomik (temp + `os.replace`) + **`events.jsonl`** (trace) | mjafton për demo; çdo hap ruhet si provë; DB vjen në pilot |
-| Konfigurimi | `python-dotenv`, `.env` (kurrë në git) | çelësat s'dalin kurrë jashtë |
-| Testet | **pytest** për motorin (T1–T6, pa LLM, falas) + `run_scenarios.py` për e2e me LLM (T7–T9) + `check_outputs.py` | rezultatet e pritura i shkruan Flutura **para kodit** |
-| Mjetet e punës | Git + GitHub (PR, `main` i mbrojtur), Claude Code për ndërtim | çdo ndryshim kalon nga review |
+| Gjuha | **Python 3.11+**, UI me **HTML/CSS/JS vanilla** | SDK-ja zyrtare e Claude-it; motori dhe agjenti në një gjuhë; UI pa build, offline |
+| Modeli | **Claude `claude-opus-5-5`** (SDK `anthropic`) | shqip/gegërisht, arsyetim me shumë hapa, adaptive thinking |
+| Mjetet | `strict: true` + `additionalProperties: false` | modeli s'mund të shpikë argumente; identiteti vjen nga kanali |
+| Motori | **Python deterministik**: kapaciteti, rregullat R1–R6, udhëtimi, kërkimi i caktimeve | rregullat e garantuara dhe të shpjeguara me numra; milisekonda |
+| Serveri | **FastAPI + Uvicorn**, një proces, një lock | Telegram, UI dhe konsola bashkë, pa gara në gjendje |
+| Kanali | **Telegram Bot API** (inline keyboard, callback_query) | falas, butona ACCEPT; Viber, WhatsApp, Slack, Teams = përshtatës më vonë |
+| Gjendja | JSON me shkrim atomik + `events.jsonl` | çdo hap ruhet si provë; DB te piloti |
+| Testet | **pytest** për motorin + skenarë e2e | rezultatet e pritura shkruhen me dorë para kodit |
 
 ---
 
-## 6. Çka ndërtojmë sot dhe çka jo
+## 8. Çka ndërtojmë sot dhe çka jo
 
-**Po:** mungesë → pasojat → plani → ofertë në Telegram → ACCEPT → rezervim → verifikim → "100% restored" · kurthi (BLOCKED) · eskalimi me opsionet 1–3 · prioriteti i klientëve · paketa `industries/events/`.
-**Slajd, jo kod:** orë shtesë, niveli korporativ, industritë e tjera, pilot.
-**Jo:** payroll, rekrutim, GPS/rrugë reale, login, databazë, **asnjë shumë parash**.
-**NDA:** asgjë nga puna e Gentit (sisteme, numra, karburant, furnitorë). Të dhënat janë vetëm të shpikura.
+**Po:** lideri → agjenti → kapaciteti → plani → miratimi → 4 detyra në Telegram → ACCEPT → ekrani · kurthi (BLOCKED) · *(nëse ka kohë)* anulimi → riplanifikimi.
+**Slajd, jo kod:** korporata/IT, spitalet, elektrikët, raporti javor, kanalet e tjera.
+**Jo:** pagesa, fatura, GPS, login, databazë, çmime nga puna e askujt.
 
----
+## 9. Ndarja e punës
 
-## 7. Ndarja
+**Në diskutim, e vendos Genti në chat.** Paketat e punës që duhen:
+- **Kodi** `src/`: motori (kapaciteti + plani), agjenti, Telegram, serveri
+- **Të dhënat** `industries/events/`: `company.json` (njerëzit, aftësitë, automjetet, pajisjet, zonat, `travel_min`, orari ekzistues), `jobs.json` (shabllonet e punëve), `rules.json`; `tests/expected.md` (rezultatet e pritura me dorë)
+- **Ekrani** `ui/`: puna, plani, kush çka bën, statuset live, butoni MIRATO, konsola
+- **Provat** `evidence/`, `scripts/`: run-et, numrat; `docs/competitors.md`
+- **Prezantimi** `pitch/` (Tringa): 2–3 slajde + demo live
+- **Demo** `demo/`: skenari (i shkruan ekipi), 5 telefona të lidhur me bot-in, video rezervë
 
-| Kush | Çka | Ku në repo | Zëvendës |
-|---|---|---|---|
-| **Genti** (+ Claude) | motori, agjenti, Telegram, serveri | `src/` | Flutura |
-| **Flutura** | `company.json`, `rules.json`, `priority.json`, rezultatet e pritura T1–T9 (me dorë, para kodit), intervista | `industries/events/`, `tests/expected.md`, `docs/interview/` | Devlete |
-| **Erza** | ekrani i menaxhmentit: health %, eventet, zinxhiri, feed-i live, karta e eskalimit, konsola | `ui/` | Tringa |
-| **Devlete** | ekzekutimi i testeve, `evidence/`, numrat nga JSON, konkurrentët për Q&A | `evidence/`, `scripts/` | Genti |
-| **Tringa** | prezantimi, teksti, provat; slajdet "What runs today", "Scale", "Next step" | `pitch/` | Erza |
-| **Erza + Tringa** | skenari i demos (e shkruani ju), telefonat, video rezervë, hotspot | `demo/` | Flutura |
-
-Një pronar për një skedë. Pas 16:00 s'shtohet asgjë.
-
----
-
-## 8. Ora për orë (e shtunë)
+## 10. Orari (i shtunë)
 
 | Ora | Çka |
 |---|---|
-| **12:00 G1** | mesazh nga konsola → agjenti → zinxhiri skuqet në ekran |
-| **13:00 G2** | vendosim çka presim |
-| **14:00 G3** | rast i plotë me telefon: ofertë → ACCEPT → verifikim → ekrani gjelbërohet |
-| 14:00–16:00 | kurthi, eskalimi, prioriteti i klientëve, lustrim |
-| 15:30 | mentor #2 |
+| 14:00 | ndarja e punës + kontratat (`company.json`, `jobs.json`, formati i ekranit) |
+| **14:45 G1** | lideri shkruan → agjenti → plani në ekran (pa Telegram) |
+| **15:30 G2** | 4 detyra në Telegram → ACCEPT → ekrani i gjelbër |
 | **16:00** | **FEATURE FREEZE.** Run-i final → `evidence/`, video rezervë |
-| 16:00–17:30 | prezantimi, Q&A |
-| 17:30 | provë e plotë me kronometër |
-| **17:50** | **DORËZIMI** (jo 17:59) |
+| 16:00–17:30 | prezantimi, provat |
+| **17:50** | **DORËZIMI** |
 
-Prerja nëse jemi vonë (hiqet e para → e fundit): drejtësia · broadcast · afati i ofertës · disa mungesa në një mesazh · "vetëm prej 15:00" · `what_if`. **Kurrë s'priten:** rregullat në kod, shpjegimi pse jo i pari që duket i lirë, pëlqimi, verifikimi, refuzimi i urdhrit të menaxherit, eskalimi.
-
----
-
-## 9. Rregullat e ekipit
+## 11. Rregullat e ekipit
 
 1. Tregojmë vetëm atë që punon.
-2. Çdo numër në prezantim vjen nga `evidence/`. Përgjigjet e agjentit s'redaktohen me dorë.
-3. **Bota është e simuluar, workflow-i është real.** S'pretendojmë që incidenti i demos ka ndodhur.
+2. Çdo numër vjen nga `evidence/` ose nga pronarët. Përgjigjet e agjentit s'redaktohen me dorë.
+3. **Bota është e simuluar, workflow-i është real.**
 4. `.env`, çelësat dhe token-at kurrë në GitHub dhe kurrë në chat.
-5. Punohet në branch `<emri>/<tema>`, pastaj PR te `main`.
-6. Shuma parash nuk ka. Orët shtesë maten në orë.
+5. Branch `<emri>/<tema>` → PR te `main`.
 
----
+## 12. ❓ Të hapura
 
-## 10. ❓ Të hapura
-
-| Çka | Kush | Kur |
-|---|---|---|
-| A pranojnë pronarët pilotin? (✅ leja për emrin është dhënë) | Flutura | para 16:00 |
-| Renditja: criticality pastaj klienti, apo shumë? | Flutura me pronarët | para G2 |
-| Çka përdorin sot për orarin (Excel / Sheets / letër)? | Flutura | sot |
-| Username-i GitHub i Tringës (ftesa) | Tringa | tani |
-| Çka dorëzohet saktësisht · gjuha e pitch-it · pronësia e kodit · repo publike? | organizatorët | sot |
+| Çka | Kush |
+|---|---|
+| Pronarët: sa zgjat nga "po" e klientit te ekipi i informuar? Sa shpesh harrohet/ngatërrohet diçka? | Flutura, **tani** |
+| A pranojnë pilotin? | Flutura |
+| Emri i produktit (punues: "AI Team Leader") | Genti |
+| Username-i GitHub i Tringës | Tringa |
+| Çka dorëzohet saktësisht, gjuha e pitch-it, repo publike? | organizatorët |
