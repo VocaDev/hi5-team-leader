@@ -204,6 +204,8 @@ def respond(job_id: str, task_id: str, worker_id: str | None, accept: bool) -> d
             else:
                 task["status"] = "accepted"
                 S.feed(st, "accepted", f"✅ {name} pranoi '{task['role']}'")
+                if notifier:
+                    notifier.send_progress(task["worker_id"], job_id, task_id, task["role"])
                 if all(t["status"] == "accepted" for t in job["tasks"]):
                     job["status"] = "confirmed"
                     S.feed(st, "accepted", f"🎉 Të gjitha detyrat u pranuan. '{job['title']}' është konfirmuar.")
@@ -288,3 +290,33 @@ def checkin_answer(job_id: str, task_id: str, worker_id: str | None, ok: bool) -
         S.feed(st, "blocked", f"⚠️ Check-in: {name} ka problem me '{task['role']}' → zgjidhet tani, jo në minutën e fundit")
         S.save(st)
     return respond(job_id, task_id, None, accept=False)
+
+
+# ---------------------------------------------------------------- real-time progress (started / done)
+
+def progress(job_id: str, task_id: str, worker_id: str | None, kind: str) -> dict:
+    import datetime as _dt
+    company, _, _ = load_pack()
+    with S.LOCK:
+        st = S.load()
+        job = S.job_by_id(st, job_id)
+        task = next((t for t in (job or {}).get("tasks", []) if t["id"] == task_id), None)
+        if not job or not task or task.get("status") != "accepted":
+            return {"error": "no active task", "stale": True}
+        if worker_id and task.get("worker_id") != worker_id:
+            return {"error": "this task is no longer yours", "stale": True}
+        name = (worker_by_id(company, task["worker_id"]) or {}).get("name", "?")
+        now = _dt.datetime.now().strftime("%H:%M:%S")
+        if kind == "start":
+            task["started_at"] = now
+            S.feed(st, "tool", f"🚗 {name} e nisi '{task['role']}' ({now[:5]}, planifikuar {task['from']})")
+        else:
+            task["done_at"] = now
+            S.feed(st, "accepted", f"✅ {name} e përfundoi '{task['role']}' ({now[:5]}, planifikuar deri {task['to']})")
+            if all(x.get("done_at") for x in job["tasks"]):
+                job["status"] = "done"
+                S.feed(st, "accepted", f"🏁 '{job['title']}' përfundoi. Raporti: GET /api/report")
+        S.save(st)
+    if notifier and kind == "done" and job.get("status") == "done":
+        notifier.send_leader(f"🏁 '{job['title']}' përfundoi. Të gjitha detyrat u kryen.")
+    return {"status": kind, "at": now}

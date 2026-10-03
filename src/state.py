@@ -95,7 +95,7 @@ def view() -> dict:
                           "from": t["from"], "to": t["to"],
                           "bring": [res_names.get(r, r) for r in ([t.get("vehicle")] if t.get("vehicle") else []) + (t.get("equipment") or [])],
                           "status": t.get("status", "planned"), "note": t.get("note", ""),
-                          "checkin": t.get("checkin")})
+                          "checkin": t.get("checkin"), "started_at": t.get("started_at"), "done_at": t.get("done_at")})
     return {"job": out_job, "tasks": tasks, "workers": workers, "feed": st["feed"][-60:], "blocked": st["blocked"][-10:],
             "existing_jobs": [{"title": e["title"], "zone": e["zone"], "from": e["from"], "to": e["to"],
                                "workers": [names.get(w, w) for w in e.get("assignments", {})]} for e in company.get("existing_jobs", [])],
