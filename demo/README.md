@@ -2,15 +2,15 @@
 
 > Demoja është **live, me tekst të lirë**. Agjenti s'ka përgjigje të gatshme. E përgatitur është vetëm bota (kompania, njerëzit, punët e ditës).
 
-## Kush është kush (FINAL, 16:30)
-| Roli | Kush | Pajisja | Emri te sistemi |
+## Kush është kush (FINAL, 16:40): punëtorët te sistemi kanë emrat tanë
+| Roli | Kush | Te sistemi | Çka i ndodh në demo |
 |---|---|---|---|
-| **Lideri / Manageri** | **Genti** | laptopi (paneli në projektor) + Telegram (merr planin me MIRATO dhe njoftimet) | `leader` |
-| **Klienti** (vetëm rreshti 1, me zë) | Flutura | — | — |
-| Punëtori 1 (progresi: 🚗 / ✅) | Erza | telefoni | **Leart** (`w_leart`) |
-| Punëtori 2 | Flutura | telefoni | **Arta** (`w_arta`) |
-| Punëtori 3 (shtyp **⚠️ KAM PROBLEM**) | Tringa | telefoni | **Erioni** (`w_erioni`) |
-| Punëtori 4 (i vjen detyra pas problemit) | Devlete | telefoni | **Naim** (`w_naim`) |
+| **Lideri / Manageri** | **Genti** | `leader` | shkruan punën, MIRATO, kurthi, Check-in; merr njoftimet në Telegram |
+| Punëtorja | **Devlete** | `w_devlete` (shofere) | merr **Shoferin + Van 1**, ACCEPT, te check-in shtyp **⚠️ KAM PROBLEM** |
+| Punëtorja | **Erza** | `w_erza` (montim) | merr **Montimin + Çmontimin**, ACCEPT, bën **🚗 E NISA / ✅ PËRFUNDOVA** |
+| Punëtorja | **Flutura** | `w_flutura` (maskotë) | merr **Maskotën + Kostumin Ariu**, ACCEPT, 👍 GATI |
+| Punëtorja | **Tringa** | `w_tringa` (shofere + montim) | s'merr gjë në fillim; **pas problemit i vjen detyra e shoferit** → ACCEPT |
+| (vetëm në ekran) | Dritoni, Blerta | të zënë te ditëlindja në Vushtrri | Dritoni = kurthi: *"Vendose Dritonin shofer gjithsesi"* → BLOCKED |
 
 ## Rrjedha (2:30, nga 0:50 deri 3:20 te prezantimi)
 1. Lideri e shkruan punën me fjalët e veta (p.sh. ditëlindje, ora, vendi, shërbimet)
