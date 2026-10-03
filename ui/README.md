@@ -7,27 +7,26 @@ S'MUNDEM dhe manager override mbeten të disponueshme, por **nuk janë pjesë e 
 
 Biznesi: Magic Events (shembull). Emrat e punëtorëve janë të shpikur.
 
-## Kush është kush (PROPOZIM, konfirmoje me ekipin)
-| Roli | Kush | Çka mban | Emri te sistemi (`company.json`) |
+## Kush është kush (FINAL, 16:30, zëvendëson propozimin)
+| Roli | Kush | Pajisja | Emri te sistemi |
 |---|---|---|---|
-| **Liderja** | Flutura | laptopi i demos (paneli) | — |
-| **Klienti** | Devlete | zë, vetëm rreshti 1 | — |
-| **Punëtori 1** (progresi) | Erza | telefoni 1 | ______ |
-| **Punëtori 2** | Genti | telefoni 2 | ______ |
-| **Punëtori 3** (shtyp KAM PROBLEM) | Tringa | telefoni 3 | ______ |
-| **Punëtori 4** | Devlete | telefoni 4 | ______ |
-| **Ekrani** | Genti | projektori, `localhost:8000`, zoom 125% | — |
+| **Lideri / Manageri** | **Genti** | laptopi (paneli në projektor) + Telegram (merr planin me MIRATO dhe njoftimet) | `leader` |
+| **Klienti** (vetëm rreshti 1, me zë) | Flutura | — | — |
+| Punëtori 1 (progresi: 🚗 / ✅) | Erza | telefoni | **Leart** (`w_leart`) |
+| Punëtori 2 | Flutura | telefoni | **Arta** (`w_arta`) |
+| Punëtori 3 (shtyp **⚠️ KAM PROBLEM**) | Tringa | telefoni | **Erioni** (`w_erioni`) |
+| Punëtori 4 (i vjen detyra pas problemit) | Devlete | telefoni | **Naim** (`w_naim`) |
 
 ## Rrjedha
 | # | Hapi | Kush | Çka thotë / bën | Çka duhet të shihet |
 |---|---|---|---|---|
-| 1 | **Request** | Klienti → Liderja | "A mund ta bëjmë një ditëlindje të shtunën në 16:00 në Mitrovicë me bounce dhe maskotë?" | — |
-| 2 | **Request te agjenti** | Liderja | Shkruan te paneli: "Ditëlindje të shtunën në 16:00 në Mitrovicë, bounce + maskotë. A mundemi?" → Dërgo | "Agjenti po mendon…" |
+| 1 | **Request** | Klienti (Flutura) → Lideri (Genti) | "A mund ta bëjmë një ditëlindje të shtunën në 16:00 në Mitrovicë me bounce dhe maskotë?" | — |
+| 2 | **Request te agjenti** | Lideri (Genti) | Shkruan te paneli: "Ditëlindje të shtunën në 16:00 në Mitrovicë, bounce + maskotë. A mundemi?" → Dërgo | "Agjenti po mendon…" |
 | 3 | **Conflict detected** | Agjenti | Kontrollon njerëzit, aftësitë, vanët, pajisjet, punët ekzistuese, udhëtimin; e kap konfliktin | Feed-i live + shiriti i kuq (blocked) me arsyen |
 | 4 | **Plan** | Agjenti | Krijon planin që e shmang konfliktin | Plani, detyrat sipas personit |
-| 5 | **MIRATO** | Liderja | E kontrollon planin dhe shtyp **MIRATO** | Statusi: dërguar |
+| 5 | **MIRATO** | Lideri (Genti) | E kontrollon planin dhe shtyp **MIRATO** | Statusi: dërguar |
 | 6 | **All ACCEPT** | Punëtorët 1–4 | 4 detyra në telefon; secili shtyp **ACCEPT** | Ekrani gjelbërohet, puna konfirmuar |
-| 7 | **Check-in** | Liderja | Shtyp **⏰ Check-in**; telefonat marrin "A je gati?" | Detyrat tregojnë "⏰ check-in" |
+| 7 | **Check-in** | Lideri (Genti) | Shtyp **⏰ Check-in**; telefonat marrin "A je gati?" | Detyrat tregojnë "⏰ check-in" |
 | 8 | **Një KAM PROBLEM** | Punëtori 3 | Shtyp **⚠️ KAM PROBLEM** (të tjerët 👍 GATI) | Feed: problemi |
 | 9 | **Agent replans** | Agjenti | E rillogarit planin dhe propozon zëvendësimin pa prishur punët tjera | Detyra kalon te tjetri, lideri njoftohet |
 | 10 | **Progress (opsional, ~20 s)** | Punëtori 1 | **🚗 E NISA**, pastaj **✅ PËRFUNDOVA** | Progresi në ekran |

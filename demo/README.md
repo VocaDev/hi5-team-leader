@@ -2,12 +2,15 @@
 
 > Demoja është **live, me tekst të lirë**. Agjenti s'ka përgjigje të gatshme. E përgatitur është vetëm bota (kompania, njerëzit, punët e ditës).
 
-## Rolet (6 veta)
-| Kush | Roli | Pajisja |
-|---|---|---|
-| ? | **Lideri**: flet me "klientin", pastaj i shkruan agjentit | laptopi (ekrani) ose Telegram |
-| ? × 4 | **Punëtorët**: marrin detyrat, shtypin ACCEPT / S'MUNDEM | telefonat (Telegram) |
-| Genti | tregon çka po ndodh në ekran | — |
+## Kush është kush (FINAL, 16:30)
+| Roli | Kush | Pajisja | Emri te sistemi |
+|---|---|---|---|
+| **Lideri / Manageri** | **Genti** | laptopi (paneli në projektor) + Telegram (merr planin me MIRATO dhe njoftimet) | `leader` |
+| **Klienti** (vetëm rreshti 1, me zë) | Flutura | — | — |
+| Punëtori 1 (progresi: 🚗 / ✅) | Erza | telefoni | **Leart** (`w_leart`) |
+| Punëtori 2 | Flutura | telefoni | **Arta** (`w_arta`) |
+| Punëtori 3 (shtyp **⚠️ KAM PROBLEM**) | Tringa | telefoni | **Erioni** (`w_erioni`) |
+| Punëtori 4 (i vjen detyra pas problemit) | Devlete | telefoni | **Naim** (`w_naim`) |
 
 ## Rrjedha (2:30, nga 0:50 deri 3:20 te prezantimi)
 1. Lideri e shkruan punën me fjalët e veta (p.sh. ditëlindje, ora, vendi, shërbimet)
