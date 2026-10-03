@@ -114,3 +114,27 @@ textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba
 .htitle{font-weight:700}
 .hright{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .feed{max-height:340px}
+
+/* ---- sharp edition (17:35): square corners, flat borders, calmer ink palette ---- */
+:root{
+  --bg:#efe9df; --card:#fbf8f2; --line:#d6c8b3; --line2:#bfae95;
+  --ink:#1c1510; --ink2:#4a3c30; --muted:#7c6a57; --accent:#1c1510;
+  --green:#2d6a4f; --green-bg:#dfeee5; --red:#a23b2a; --red-bg:#f3dfd9;
+  --amber:#9c6418; --amber-bg:#f3e6cf; --blue:#2f4f6b; --blue-bg:#dfe7ef; --grey:#9a8a77;
+  --shadow:none;
+}
+.top{border-bottom:2px solid var(--ink)}
+.logo{border-radius:2px;background:var(--ink)}
+.card{border-radius:2px;border:1px solid var(--line);box-shadow:none}
+.task,.worker,textarea{border-radius:2px}
+.btn{border-radius:2px}
+.badge,.pill{border-radius:2px}
+.avatar{border-radius:2px}
+.fi::before{border-radius:0;width:9px;height:9px;left:-5px}
+.fi.reply span:last-child{border-radius:0;border-left:2px solid var(--ink);background:#f3ece1}
+h2{color:var(--ink2);letter-spacing:.12em}
+.task{border-left-width:3px}
+#sendBtn,#approveBtn{background:var(--ink);border-color:var(--ink)}
+.redbar{background:var(--red);border-bottom:2px solid #7d2a1d}
+.seg[hidden],[hidden]{display:none !important}
+.feed{max-height:260px}
