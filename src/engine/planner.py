@@ -9,6 +9,7 @@ Rules (never overridable, not even by the leader):
   R4  consent: nobody is booked without ACCEPT (enforced by the runtime, not here)
   R5  not unavailable / not declined this task
   R6  vehicles and equipment: never double-booked
+  R7  four-eyes: a task marked not_same_as X can't go to the person doing X (e.g. code review)
 Every rejection comes back as a sentence with the arithmetic, so the UI and the agent can explain it.
 """
 from __future__ import annotations
@@ -206,6 +207,10 @@ def plan_job(company: dict, job: dict, planned_jobs: list[dict], locked: dict[st
             pool = [w for w in pool if w["id"] == locked[t["id"]]]
         pool = sorted(pool, key=lambda w: (load(w["id"]), w["name"]))
         for wk in pool:
+            if any(assign.get(o) == wk["id"] for o in t.get("not_same_as", [])):
+                continue  # R7 four-eyes
+            if any(x.get("not_same_as") and t["id"] in x["not_same_as"] and assign.get(x["id"]) == wk["id"] for x in order[:i]):
+                continue
             mine = [x for x in order[:i] if assign.get(x["id"]) == wk["id"]]
             extra = [Busy(x["from_min"], x["to_min"], zone, job["title"]) for x in mine]
             if extra and check_worker(world, wk, t, zone, extra):
@@ -252,7 +257,13 @@ def validate_manual(company: dict, job: dict, planned_jobs: list[dict], task_id:
     wk = worker_by_id(company, worker_id)
     others = [Busy(t["from_min"], t["to_min"], job["zone"], job["title"])
               for t in job["tasks"] if t["id"] != task_id and t.get("worker_id") == worker_id and t.get("status") != "declined"]
-    return check_worker(world, wk, task, job["zone"], others)
+    reasons = check_worker(world, wk, task, job["zone"], others)
+    by_id = {t["id"]: t for t in job["tasks"]}
+    linked = list(task.get("not_same_as", [])) + [t["id"] for t in job["tasks"] if task_id in t.get("not_same_as", [])]
+    for o in linked:
+        if by_id.get(o, {}).get("worker_id") == worker_id:
+            reasons.append(f"R7 4-eyes: {wk['name']} e bën '{by_id[o]['role']}', prandaj s'mund ta bëjë edhe '{task['role']}'")
+    return reasons
 
 
 def expand_job(template: dict, start: str) -> list[dict]:
@@ -263,6 +274,7 @@ def expand_job(template: dict, start: str) -> list[dict]:
         out.append({"id": t["id"], "role": t["role"], "skills": list(t.get("skills", [])),
                     "from": hhmm(a), "to": hhmm(b), "from_min": a, "to_min": b,
                     "vehicle_needed": bool(t.get("vehicle")), "equipment_types": list(t.get("equipment", [])),
+                    "not_same_as": list(t.get("not_same_as", [])),
                     "status": "planned", "declined_by": []})
     return out
 
