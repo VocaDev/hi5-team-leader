@@ -45,7 +45,7 @@ function render(v) {
   const job = v.job || {};
   $('checkinBtn').disabled = job.status !== 'confirmed';
   $('company').textContent = v.company || '';
-  ['events', 'it_services'].forEach(n => $('ind_' + n).classList.toggle('btn-go', v.industry === n));
+  ['events', 'construction', 'it_services'].forEach(n => $('ind_' + n).classList.toggle('btn-go', v.industry === n));
   $('jobTitle').textContent = job.title ? `${job.title} · ${job.zone || ''} · ${job.start || ''}` : 'Plani';
   const jp = $('jobPill');
   jp.textContent = job.status ? (JOB[job.status] || job.status) : 'S\'ka punë';
@@ -156,8 +156,8 @@ $('checkinBtn').onclick = async () => {
   try { await checkin(); } catch (e) { $('msgNote').textContent = 'Check-in dështoi.'; }
   poll();
 };
-['events', 'it_services'].forEach(n => $('ind_' + n).onclick = async () => {
-  try { await setIndustry(n); last = ''; $('msgNote').textContent = n === 'events' ? 'Evente (pa PM)' : 'IT (me PM)'; } catch (e) { $('msgNote').textContent = 'Ndërrimi dështoi.'; }
+['events', 'construction', 'it_services'].forEach(n => $('ind_' + n).onclick = async () => {
+  try { await setIndustry(n); last = ''; $('msgNote').textContent = {events: 'Evente (pa PM)', construction: 'Ndërtim (me PM)', it_services: 'IT (me PM)'}[n]; } catch (e) { $('msgNote').textContent = 'Ndërrimi dështoi.'; }
   poll();
 });
 

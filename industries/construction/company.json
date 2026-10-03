@@ -1,0 +1,26 @@
+{
+  "company": {"name": "Ndërtimi Kalaja (fictional construction company, PM per site)", "date": "2026-10-10", "day_label": "e shtunë 10 tetor", "depot_zone": "Prishtine"},
+  "zones": ["Prishtine", "Ferizaj", "Mitrovice"],
+  "travel_min": {"Prishtine-Ferizaj": 35, "Prishtine-Mitrovice": 45, "Ferizaj-Mitrovice": 70},
+  "workers": [
+    {"id": "w_agron",   "name": "Agroni",  "skills": ["rebar", "quality"]},
+    {"id": "w_bekim",   "name": "Bekimi",  "skills": ["rebar"]},
+    {"id": "w_fatmir",  "name": "Fatmiri", "skills": ["pump_operator"]},
+    {"id": "w_valon",   "name": "Valoni",  "skills": ["pump_operator", "concrete"]},
+    {"id": "w_shpend",  "name": "Shpendi", "skills": ["concrete"]},
+    {"id": "w_gezim",   "name": "Gëzimi",  "skills": ["concrete"]},
+    {"id": "w_arben",   "name": "Arbeni",  "skills": ["concrete"]},
+    {"id": "w_teuta",   "name": "Teuta",   "skills": ["quality"]}
+  ],
+  "vehicles": [],
+  "equipment": [
+    {"id": "pump1", "type": "concrete_pump", "name": "Pompa e betonit 1"},
+    {"id": "pump2", "type": "concrete_pump", "name": "Pompa e betonit 2"},
+    {"id": "vib1", "type": "vibrator", "name": "Vibratori 1"},
+    {"id": "vib2", "type": "vibrator", "name": "Vibratori 2"}
+  ],
+  "existing_jobs": [
+    {"id": "A1", "title": "Objekti A: betonimi i themeleve", "zone": "Prishtine", "from": "06:00", "to": "09:00",
+     "assignments": {"w_fatmir": "pump_operator", "w_shpend": "concrete"}, "equipment": ["pump1", "vib1"]}
+  ]
+}

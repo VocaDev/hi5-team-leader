@@ -98,7 +98,10 @@ def _on_message(n: Notifier, msg: dict) -> None:
     if text.startswith("/start") or not who:
         tg("sendMessage", chat_id=chat, text=f"Përshëndetje! chat_id: {chat}\n" +
            (f"Je lidhur si: {who}" if who else "Ky chat ende s'është i lidhur me ekipin."))
-        print(f"   /start from chat_id {chat} ({who or 'unmapped'})")
+        first = (msg.get("from") or {}).get("first_name", "")
+        print(f"   /start from chat_id {chat} ({who or 'unmapped'}) {first}", flush=True)
+        with open(S.EVENTS_FILE.parent / "telegram_starts.txt", "a", encoding="utf-8") as f:
+            f.write(f"{chat} | {first} | {who or 'unmapped'}\n")
         return
     if who == "leader":
         from ..agent.loop import run
