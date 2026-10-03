@@ -1,46 +1,44 @@
-# ui — Erza
+# Demo — skenari (~2:30, live, pa slajd)
 
-> **15:25: shtuar check-in + ndërruesi Evente/IT (shih tabelën).** Gjendja 14:40: ✅ `sample_view.json` (nga një run i vërtetë) · ⬜ `index.html` · ⬜ `style.css` · ⬜ `app.js`
-> **S'të duhet çelës dhe s'të duhet server.** Ti e ndërton faqen me `sample_view.json`; Genti dhe Claude e lidhin me agjentin.
+Një rrjedhë e vetme: **request → plan → approve → accept → problem → recovery → completion → report**
 
-## Hapat
-```bash
-git clone https://github.com/VocaDev/hi5-team-leader.git
-cd hi5-team-leader
-git checkout erza/ui
-```
-Puno vetëm këtu: `ui/index.html`, `ui/style.css`, `ui/app.js`. Te `app.js` lexo: `fetch("sample_view.json")`.
+Biznesi: Magic Events (shembull). Emrat e punëtorëve janë të shpikur.
 
-## Çka shfaq faqja (një ekran, dark navy glass, pa neon, pa CDN)
-| Pjesa | Nga `sample_view.json` |
-|---|---|
-| Kutia ku lideri shkruan + **Dërgo** | → `sendMessage(text)` |
-| "Agjenti po mendon…" | kur `busy == true` |
-| **Plani**: titulli, zona, ora, statusi, përmbledhja | `job.title`, `job.zone`, `job.start`, `job.status`, `job.summary` |
-| **Detyrat**: roli, kush, ora, çka merr me vete, shënimi, statusi | `tasks[]`: `role`, `worker`, `from`–`to`, `bring[]`, `note`, `status` (`planned` / `sent` / `accepted` ✅ / `declined` ❌) |
-| Butoni i madh **MIRATO** | vetëm kur `job.status == "awaiting_approval"` → `approve()` |
-| Te çdo detyrë `sent`: **ACCEPT** / **S'MUNDEM** | → `answer(task.id, "accept" \| "decline")` |
-| **Si mendon agjenti** (feed live, më i riu poshtë) | `feed[]`: `t`, `type`, `text`. Ngjyrat: `blocked` e kuqe · `accepted` jeshile · `check` gri · `tool` blu · `message`/`reply` e bardhë |
-| Shiriti i kuq | `blocked[].text` |
-| Punëtorët | `workers[]`: `name`, `skills`, `status` (`free` / `busy` / `assigned`) |
-| Punët ekzistuese të ditës | `existing_jobs[]`: `title`, `zone`, `from`–`to`, `workers` |
-| Butoni **Reset** (i vogël) | → `reset()` |
-| Butoni **⏰ Check-in** (kur `job.status == "confirmed"`) | → `checkin()` |
-| Te çdo detyrë: statusi i check-in-it | `tasks[].checkin`: `asked` / `ok` 👍 / `problem` ⚠️ |
-| Te paneli i telefonave, për çdo check-in `asked`: **👍 PO** / **⚠️ PROBLEM** | → `checkinAnswer(task.id, true\|false)` |
-| Ndërruesi **Evente / IT** (lart) | `industry` (`events` / `it_services`), `company` → `setIndustry(name)` |
+## Kush është kush (PROPOZIM, konfirmoje me ekipin)
+| Roli | Kush | Çka mban | Emri te sistemi (`company.json`) |
+|---|---|---|---|
+| **Liderja** | Flutura | laptopi i demos (paneli) | — |
+| **Klienti** | Devlete | zë, vetëm rreshti 1 | — |
+| **Punëtori 1** (e nisa / përfundova) | Erza | telefoni 1 | ______ |
+| **Punëtori 2** | Genti | telefoni 2 | ______ |
+| **Punëtori 3** (raporton PROBLEM) | Tringa | telefoni 3 | ______ |
+| **Punëtori 4** (Devlete pas rreshtit 1) | Devlete | telefoni 4 | ______ |
+| **Ekrani** | Genti | projektori, `localhost:8000`, zoom 125% | — |
 
-## Funksionet: lëri bosh, Claude i lidh
-```js
-function sendMessage(text) {}
-function approve() {}
-function answer(taskId, action) {}   // "accept" | "decline"
-function reset() {}
-function checkin() {}
-function checkinAnswer(taskId, ok) {}
-function setIndustry(name) {}   // "events" | "it_services"
-```
-Rifreskimi: një funksion `render(view)` që e vizaton gjithë faqen nga JSON-i. Kështu lidhja live bëhet duke e thirrur `render` çdo 1 sekondë.
+## Rrjedha
+| # | Kush | Çka thotë / bën | Çka duhet të shihet |
+|---|---|---|---|
+| 1 | **Klienti → Liderja** | "A mund ta bëjmë një ditëlindje të shtunën në 16:00 në Mitrovicë me bounce dhe maskotë?" | — |
+| 2 | **Liderja → Agjenti** | Shkruan te paneli: "Ditëlindje të shtunën në 16:00 në Mitrovicë, bounce + maskotë. A mundemi?" → Dërgo | "Agjenti po mendon…" |
+| 3 | **Agjenti** | Analizon kërkesën: kontrollon njerëzit, aftësitë, vanët, pajisjet, punët ekzistuese dhe udhëtimin, pastaj krijon planin | Feed-i live, plani del |
+| 4 | **Liderja** | E kontrollon planin dhe shtyp **MIRATO** | Statusi: dërguar |
+| 5 | **Punëtorët 1–4** | 4 detyra në telefon; secili shtyp **ACCEPT** | Ekrani gjelbërohet |
+| 6 | **Liderja + punëtori 3** | Liderja shtyp **⏰ Check-in**; telefonat marrin "A je gati?"; punëtori 3 shtyp **⚠️ PROBLEM** | Feed + shiriti i kuq |
+| 7 | **Agjenti** | E rillogarit planin dhe propozon zëvendësimin pa prishur punët tjera; zëvendësuesi shtyp ACCEPT | Detyra kalon te tjetri |
+| 8 | **Punëtori 1** | **🚗 E NISA**, pastaj **✅ PËRFUNDOVA** | Progresi në ekran |
+| 9 | **Liderja → Agjenti** | "Më jep raportin për pronarin." | — |
+| 10 | **Agjenti** | Raporti final: puna, kush u caktua, kush pranoi, çfarë problemi ndodhi, si u zgjidh, a përfundoi puna | Raporti në ekran |
 
-## Afatet
-Versioni i parë **15:00** → `git add ui/` → `git commit -m "ui"` → `git push` → Pull Request. Finali **15:45**. Freeze **16:00**.
+## Para se të fillojmë
+- [ ] Serveri ndezur, `.env` me çelësin, bot-i Telegram aktiv
+- [ ] 4 telefonat kanë shtypur /start te bot-i; njoftimet ndezur
+- [ ] Hotspot nga telefoni (jo Wi-Fi i sallës)
+- [ ] Telefonat janë te `TELEGRAM_IDENTITY_MAP` (Genti)
+- [ ] **Reset** i shtypur, fusha e punës bosh
+- [ ] Ekrani te `localhost:8000`, zoom 125%
+- [ ] Video rezervë e hapur në një tab tjetër
+
+## Nëse diçka dështon
+- Telegram s'e merr një telefon: Erza e shtyp ACCEPT / S'MUNDEM nga paneli i telefonave në ekran.
+- Agjenti vonon > 30 s: Liderja vazhdon të flasë; mos e shtyp Dërgo dy herë.
+- Gjithçka bie: video rezervë.

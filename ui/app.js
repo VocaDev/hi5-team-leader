@@ -143,7 +143,7 @@ $('sendBtn').onclick = async () => {
   if (!text) return;
   $('sendBtn').disabled = true; $('msgNote').textContent = '';
   try { await sendMessage(text); $('msg').value = ''; $('msgNote').textContent = 'Dërguar: "' + text + '" → shiko feed-in djathtas.'; }
-  catch (e) { $('msgNote').textContent = 'Dështoi (backend-i s\'është gati?)'; }
+  catch (e) { $('msgNote').textContent = 'Dështoi: ' + e.message; }
   $('sendBtn').disabled = false;
 };
 
