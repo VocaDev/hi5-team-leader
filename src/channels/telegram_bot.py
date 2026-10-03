@@ -114,10 +114,10 @@ def _on_message(n: Notifier, msg: dict) -> None:
         tg("sendMessage", chat_id=chat, text=res["reply_text"])
     else:
         from ..config import load_pack
+        from ..agent.worker_intent import handle as worker_handle
         name = next((w["name"] for w in load_pack()[0]["workers"] if w["id"] == who), who)
-        S.log("message", f"💬 {name} (punëtore): {text}")
-        n.send_leader(f"💬 {name}: {text}")
-        tg("sendMessage", chat_id=chat, text="E mora dhe ia kalova liderit. Për detyrat përdor butonat (ACCEPT, E NISA, PËRFUNDOVA).")
+        tg("sendChatAction", chat_id=chat, action="typing")
+        tg("sendMessage", chat_id=chat, text=worker_handle(who, name, text))
 
 
 def _on_callback(n: Notifier, cq: dict) -> None:

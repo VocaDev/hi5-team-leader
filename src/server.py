@@ -137,6 +137,22 @@ def api_report():
     return build()
 
 
+class WorkerMsg(BaseModel):
+    worker: str   # worker name or id
+    text: str
+
+
+@app.post("/api/worker_message")
+def api_worker_message(m: WorkerMsg):
+    from .agent.worker_intent import handle
+    from .engine.planner import find_worker
+    company, _, _ = load_pack()
+    w = find_worker(company, m.worker)
+    if not w:
+        return JSONResponse({"error": "unknown worker"}, status_code=400)
+    return {"reply": handle(w["id"], w["name"], m.text)}
+
+
 @app.post("/api/reset")
 def api_reset():
     global CONSOLE_HISTORY
