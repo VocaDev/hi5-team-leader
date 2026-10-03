@@ -50,14 +50,14 @@
       "id": "w_erza",
       "name": "Erza",
       "skills": [
-        "setup"
+        "driver"
       ]
     },
     {
       "id": "w_devlete",
       "name": "Devlete",
       "skills": [
-        "driver"
+        "setup"
       ]
     }
   ],

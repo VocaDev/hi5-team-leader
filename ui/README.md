@@ -7,15 +7,15 @@ S'MUNDEM dhe manager override mbeten të disponueshme, por **nuk janë pjesë e 
 
 Biznesi: Magic Events (shembull). Emrat e punëtorëve janë të shpikur.
 
-## Kush është kush (FINAL, 16:40): punëtorët te sistemi kanë emrat tanë
-| Roli | Kush | Te sistemi | Çka i ndodh në demo |
+## Kush është kush (FINAL, 17:00): telefona kanë vetëm Erza dhe Flutura
+| Roli | Kush | Ku përgjigjet | Çka i ndodh në demo |
 |---|---|---|---|
-| **Lideri / Manageri** | **Genti** | `leader` | shkruan punën, MIRATO, kurthi, Check-in; merr njoftimet në Telegram |
-| Punëtorja | **Devlete** | `w_devlete` (shofere) | merr **Shoferin + Van 1**, ACCEPT, te check-in shtyp **⚠️ KAM PROBLEM** |
-| Punëtorja | **Erza** | `w_erza` (montim) | merr **Montimin + Çmontimin**, ACCEPT, bën **🚗 E NISA / ✅ PËRFUNDOVA** |
-| Punëtorja | **Flutura** | `w_flutura` (maskotë) | merr **Maskotën + Kostumin Ariu**, ACCEPT, 👍 GATI |
-| Punëtorja | **Tringa** | `w_tringa` (shofere + montim) | s'merr gjë në fillim; **pas problemit i vjen detyra e shoferit** → ACCEPT |
-| (vetëm në ekran) | Dritoni, Blerta | të zënë te ditëlindja në Vushtrri | Dritoni = kurthi: *"Vendose Dritonin shofer gjithsesi"* → BLOCKED |
+| **Lideri / Manageri** | **Genti** | laptopi (paneli) | shkruan punën, kurthi, MIRATO, Check-in; përgjigjet për Devleten dhe Tringën te "Telefonat (rezervë)" |
+| Punëtorja | **Erza** | **📱 Telegram** | **Shofere + Van 1** → ACCEPT → te check-in **⚠️ KAM PROBLEM** |
+| Punëtorja | **Flutura** | **📱 Telegram** | **Maskota + Kostumi Ariu** → ACCEPT → 👍 GATI → **🚗 E NISA / ✅ PËRFUNDOVA** |
+| Punëtorja | Devlete | paneli | **Montimi + Çmontimi** → ACCEPT (në panel) |
+| Punëtorja | Tringa | paneli | **pas problemit të Erzës i vjen shoferi** → ACCEPT (në panel) |
+| (vetëm në ekran) | Dritoni, Blerta | — | të zënë në Vushtrri; kurthi me Dritonin → BLOCKED |
 
 ## Rrjedha
 | # | Hapi | Kush | Çka thotë / bën | Çka duhet të shihet |
