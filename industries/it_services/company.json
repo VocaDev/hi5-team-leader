@@ -1,0 +1,19 @@
+{
+  "company": {"name": "Nova Delivery (fictional IT services company)", "date": "2026-10-10", "day_label": "e shtunë 10 tetor", "depot_zone": "Remote"},
+  "zones": ["Remote"],
+  "travel_min": {},
+  "workers": [
+    {"id": "w_arbeni",  "name": "Arbeni",  "skills": ["backend", "python"]},
+    {"id": "w_drita",   "name": "Drita",   "skills": ["backend", "python", "ml"]},
+    {"id": "w_liridon", "name": "Liridoni", "skills": ["backend"]},
+    {"id": "w_elira",   "name": "Elira",   "skills": ["qa"]},
+    {"id": "w_blendi",  "name": "Blendi",  "skills": ["devops", "prod_access"]},
+    {"id": "w_vesa",    "name": "Vesa",    "skills": ["ml", "python", "qa"]}
+  ],
+  "vehicles": [],
+  "equipment": [],
+  "existing_jobs": [
+    {"id": "P1", "title": "Sprinti i klientit Telekom", "zone": "Remote", "from": "09:00", "to": "16:00",
+     "assignments": {"w_arbeni": "backend", "w_vesa": "ml"}, "equipment": []}
+  ]
+}

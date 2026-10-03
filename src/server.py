@@ -9,6 +9,11 @@ API (contract in TASKS.md):
   POST /api/message   {text}          leader message -> agent (async; watch /api/view)
   POST /api/approve   {job_id?}       human approval -> tasks sent to the crew
   POST /api/callback  {job_id, task_id, action: accept|decline}   panel fallback for the phones
+  POST /api/checkin   {job_id?}       ask everyone who accepted "are you ready?"
+  POST /api/checkin_answer {job_id, task_id, ok}   panel fallback for the check-in buttons
+  POST /api/industry  {name}          switch rulebook: "events" | "it_services" (resets state)
+  POST /api/progress {job_id, task_id, kind: start|done}   panel fallback for the progress buttons
+  GET  /api/report                    real-time supervision: hours per person (overtime risk), late starts, problems
   POST /api/reset                     clean state before a demo
 """
 from __future__ import annotations
@@ -41,6 +46,16 @@ class Approve(BaseModel):
     job_id: str | None = None
 
 
+class Industry(BaseModel):
+    name: str
+
+
+class CheckinAnswer(BaseModel):
+    job_id: str
+    task_id: str
+    ok: bool
+
+
 class Callback(BaseModel):
     job_id: str
     task_id: str
@@ -54,8 +69,9 @@ def api_view():
 
 @app.get("/api/health")
 def api_health():
+    from .config import current_industry
     _, _, src = load_pack()
-    return {"ok": True, "data": src, "telegram": R.notifier is not None}
+    return {"ok": True, "industry": current_industry(), "data": src, "telegram": R.notifier is not None}
 
 
 def _run_console(text: str) -> None:
@@ -83,6 +99,42 @@ def api_approve(a: Approve):
 @app.post("/api/callback")
 def api_callback(c: Callback):
     return R.respond(c.job_id, c.task_id, None, accept=c.action == "accept")
+
+
+@app.post("/api/checkin")
+def api_checkin(a: Approve):
+    return R.checkin(a.job_id)
+
+
+@app.post("/api/checkin_answer")
+def api_checkin_answer(c: CheckinAnswer):
+    return R.checkin_answer(c.job_id, c.task_id, None, ok=c.ok)
+
+
+@app.post("/api/industry")
+def api_industry(i: Industry):
+    from .config import ROOT, set_industry
+    if i.name != "events" and not (ROOT / "industries" / i.name / "company.json").exists():
+        return JSONResponse({"error": f"unknown industry {i.name}"}, status_code=400)
+    set_industry(i.name)
+    return {**api_reset(), "industry": i.name}
+
+
+class Progress(BaseModel):
+    job_id: str
+    task_id: str
+    kind: str  # "start" | "done"
+
+
+@app.post("/api/progress")
+def api_progress(p: Progress):
+    return R.progress(p.job_id, p.task_id, None, p.kind)
+
+
+@app.get("/api/report")
+def api_report():
+    from .report import build
+    return build()
 
 
 @app.post("/api/reset")

@@ -7,6 +7,20 @@
 > Pa `industries/events/` përdoren të dhënat e zhvillimit te `src/dev_data/`. Flutura: kopjo formatin prej aty. Data duhet të jetë **e shtunë** (`"date": "2026-10-10"`).
 > Erza: `GET /api/view` kthen edhe `job.summary`, `tasks[].note`, `existing_jobs`, `busy` (true = agjenti po mendon) përveç kontratës më poshtë. Butonat: MIRATO → `POST /api/approve {}`; telefonat e panelit → `POST /api/callback {job_id, task_id, action}`.
 
+## ⏱️ Gjendja 15:50 + detyrat finale (deri 17:50)
+
+**✅ Punon në `main`:** agjenti ("a mundemi?" → plani) · MIRATO · detyrat në detaje · ACCEPT / S'MUNDEM → zëvendësim · **check-in** (👍 / ⚠️) · **progresi live** (🚗 E NISA / ✅ PËRFUNDOVA) · **raporti** (orët për person, rreziku i orëve shtesë, vonesat, problemet) · **Evente pa PM / IT me PM** (4-eyes) · UI e Erzës e lidhur (`python -m src.server` → http://localhost:8000).
+
+| Kush | Detyra finale | Afati |
+|---|---|---|
+| **Genti** | Bot-i në Telegram (BotFather → token te `.env` → 5 telefona `/start` → `TELEGRAM_IDENTITY_MAP`) · run-i final → `evidence/` · video rezervë | 16:15 |
+| **Flutura** | PR #2 (intervista) → merge · citatet për slajdin 1 · roli në demo | 16:15 |
+| **Erza** | Demo: skenari (e shkruani ju) + rolet + prova në laptopin e Gentit; vetëm ndryshime të vogla stili te `ui/` | 16:30 |
+| **Devlete** | `scripts/numbers.py` → `evidence/numbers.md` (sekondat e planit, MIRATO → të gjithë ACCEPT, kostoja) · `docs/competitors.md` (Connecteam, Microsoft Planner agent, Asana, Rovo, ServiceTitan…) | 16:30 |
+| **Tringa** | 3 slajde sipas `pitch/BRIEF.md` (slajdi 3 = dy kolona: pa PM / me PM) · numri [X] nga Devlete | drafti 16:30 · finali 17:00 |
+| **Të gjithë** | 2 prova me kronometër (5:00) | 17:00–17:30 |
+| **Genti** | **Dorëzimi** | **17:50** |
+
 ## Si punojmë
 
 1. Secila punon **vetëm në folderin e vet**, në branch-in e vet: `flutura/data`, `erza/ui`, `devlete/tests`, `tringa/pitch`.

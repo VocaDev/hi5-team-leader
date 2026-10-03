@@ -17,6 +17,15 @@ except Exception:  # noqa: BLE001
     pass
 
 INDUSTRY = os.getenv("INDUSTRY", "events").strip() or "events"
+_CURRENT = {"industry": INDUSTRY}
+
+
+def set_industry(name: str) -> None:
+    _CURRENT["industry"] = name
+
+
+def current_industry() -> str:
+    return _CURRENT["industry"]
 MODEL = os.getenv("MODEL", "claude-opus-5-5").strip() or "claude-opus-5-5"
 RUNTIME = ROOT / "runtime"
 RUNTIME.mkdir(exist_ok=True)
@@ -27,8 +36,10 @@ UI_DIR = ROOT / "ui"
 
 def _pack_file(name: str) -> Path:
     """Flutura's pack in industries/<INDUSTRY>/ wins; src/dev_data/ is the fallback until it lands."""
-    real = ROOT / "industries" / INDUSTRY / name
-    return real if real.exists() else Path(__file__).resolve().parent / "dev_data" / name
+    real = ROOT / "industries" / _CURRENT["industry"] / name
+    if real.exists() or _CURRENT["industry"] != "events":
+        return real
+    return Path(__file__).resolve().parent / "dev_data" / name
 
 
 def load_pack() -> tuple[dict, dict, dict]:

@@ -1,6 +1,6 @@
 # ui — Erza
 
-> Gjendja 14:40: ✅ `sample_view.json` (nga një run i vërtetë) · ⬜ `index.html` · ⬜ `style.css` · ⬜ `app.js`
+> **15:25: shtuar check-in + ndërruesi Evente/IT (shih tabelën).** Gjendja 14:40: ✅ `sample_view.json` (nga një run i vërtetë) · ⬜ `index.html` · ⬜ `style.css` · ⬜ `app.js`
 > **S'të duhet çelës dhe s'të duhet server.** Ti e ndërton faqen me `sample_view.json`; Genti dhe Claude e lidhin me agjentin.
 
 ## Hapat
@@ -25,6 +25,10 @@ Puno vetëm këtu: `ui/index.html`, `ui/style.css`, `ui/app.js`. Te `app.js` lex
 | Punëtorët | `workers[]`: `name`, `skills`, `status` (`free` / `busy` / `assigned`) |
 | Punët ekzistuese të ditës | `existing_jobs[]`: `title`, `zone`, `from`–`to`, `workers` |
 | Butoni **Reset** (i vogël) | → `reset()` |
+| Butoni **⏰ Check-in** (kur `job.status == "confirmed"`) | → `checkin()` |
+| Te çdo detyrë: statusi i check-in-it | `tasks[].checkin`: `asked` / `ok` 👍 / `problem` ⚠️ |
+| Te paneli i telefonave, për çdo check-in `asked`: **👍 PO** / **⚠️ PROBLEM** | → `checkinAnswer(task.id, true\|false)` |
+| Ndërruesi **Evente / IT** (lart) | `industry` (`events` / `it_services`), `company` → `setIndustry(name)` |
 
 ## Funksionet: lëri bosh, Claude i lidh
 ```js
@@ -32,6 +36,9 @@ function sendMessage(text) {}
 function approve() {}
 function answer(taskId, action) {}   // "accept" | "decline"
 function reset() {}
+function checkin() {}
+function checkinAnswer(taskId, ok) {}
+function setIndustry(name) {}   // "events" | "it_services"
 ```
 Rifreskimi: një funksion `render(view)` që e vizaton gjithë faqen nga JSON-i. Kështu lidhja live bëhet duke e thirrur `render` çdo 1 sekondë.
 
