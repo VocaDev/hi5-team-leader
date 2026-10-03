@@ -210,3 +210,8 @@ Lideri (Telegram/konsola) ──► AI TEAM LEADER (Claude)
 
 ### Check-in (zakonet, jo heroizmat)
 Para punës, çdo kush që ka pranuar merr *"A je gati?"* [👍 PO] [⚠️ KAM PROBLEM]. Problemi del herët dhe kalon nëpër të njëjtin zëvendësim të sigurt (ose eskalohet). Kjo i përgjigjet gjetjes 3 të intervistës (anulim 30 min para).
+
+## 14. Mbikëqyrja live dhe raporti (15:45)
+- **Progresi:** pas ACCEPT, secili shtyp 🚗 E NISA / ✅ PËRFUNDOVA → ekrani dhe lideri e shohin live; kur mbarojnë të gjitha → "🏁 përfundoi".
+- **Raporti** (`GET /api/report`, edhe nga agjenti me `get_report`): orët për person sot, % e ngarkesës, **rreziku i orëve shtesë** (>80% e maksimumit), fillimet me vonesë, problemet e check-in-it, refuzimet, rregullat e bllokuara.
+- **Me kalimin e kohës (next):** i njëjti raport javor/mujor nga `events.jsonl`. Tregon ku ngec ekipi në strukturë (p.sh. vanët, rolet), jo fajtorë.

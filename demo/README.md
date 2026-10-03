@@ -26,6 +26,9 @@
 ## Check-in (te skena kryesore, pas ACCEPT)
 Butoni ⏰ Check-in → telefonat marrin "A je gati?" → njëri shtyp **⚠️ KAM PROBLEM** → zëvendësim ose eskalim.
 
+## Progresi live + raporti (opsional, 20 s)
+Pas ACCEPT: punëtori shtyp **🚗 E NISA** / **✅ PËRFUNDOVA** → ekrani përditësohet. Lideri: *"Më jep raportin për pronarin"* → orët për person, rreziku i orëve shtesë, problemet.
+
 ## Checklist para demos
 - [ ] `POST /api/reset` (butoni Reset)
 - [ ] 5 telefonat e kanë dërguar `/start` te bot-i dhe janë te `TELEGRAM_IDENTITY_MAP` (Genti)
