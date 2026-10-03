@@ -7,6 +7,7 @@ An AI agent that works as a team leader and task delegator: it takes a job in fr
 **The LLM understands, plans and writes. Code checks the rules. A human approves.**
 
 - Plan, criteria, demand, industries, stack: [`PLAN.md`](PLAN.md)
+- Who does what: [`TASKS.md`](TASKS.md)
 
 ## Layout
 

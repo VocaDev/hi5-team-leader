@@ -153,13 +153,7 @@ Lideri (Telegram/konsola) ──► AI TEAM LEADER (Claude)
 
 ## 9. Ndarja e punës
 
-**Në diskutim, e vendos Genti në chat.** Paketat e punës që duhen:
-- **Kodi** `src/`: motori (kapaciteti + plani), agjenti, Telegram, serveri
-- **Të dhënat** `industries/events/`: `company.json` (njerëzit, aftësitë, automjetet, pajisjet, zonat, `travel_min`, orari ekzistues), `jobs.json` (shabllonet e punëve), `rules.json`; `tests/expected.md` (rezultatet e pritura me dorë)
-- **Ekrani** `ui/`: puna, plani, kush çka bën, statuset live, butoni MIRATO, konsola
-- **Provat** `evidence/`, `scripts/`: run-et, numrat; `docs/competitors.md`
-- **Prezantimi** `pitch/` (Tringa): 2–3 slajde + demo live
-- **Demo** `demo/`: skenari (i shkruan ekipi), 5 telefona të lidhur me bot-in, video rezervë
+**Te [`TASKS.md`](TASKS.md):** kush çka bën, skedarët, teknologjia, afatet dhe kontratat JSON.
 
 ## 10. Orari (i shtunë)
 
