@@ -1,46 +1,88 @@
-# BRIEF — prezantimi (Tringa)
+# BRIEF — prezantimi: 3 slajde + demo live = 5 minuta (Tringa)
 
-> Burimet: intervista me **Magic Events** (`docs/interview/notes.md`, PR #2), `PLAN.md`, run-et në `evidence/`.
-> Kohëzgjatja ❓ (pyet organizatorët). Plani më poshtë është për **~5 min**: ~2 min demo, ~3 min slajde.
-> **Rregulli i artë i jurisë:** *"Score what you saw working."* Çdo slajd mbështet demon, s'e zëvendëson.
+> Burimet: intervista me **Magic Events** (`docs/interview/notes.md`), `PLAN.md`, numrat finalë nga `evidence/`.
+> **Rregulli i jurisë:** *"Score what you saw working."* Slajdet e mbështesin demon. Demoja është ylli.
 
-## Slajdet
+## Rrjedha dhe koha
 
-| # | Slajdi | Përmbajtja | Kush flet | Koha |
-|---|---|---|---|---|
-| 1 | **Titulli** | **AI Team Leader** · Team Hi5 · *"Your leader keeps the client. The agent turns the yes into a plan."* | Tringa | 10s |
-| 2 | **Problemi (përdoruesi real)** | **Magic Events** (Rinor & Elmonda Hyseni, ✅ leje). *"A confirmed event is not a calendar entry."* Pas "po"-së së klientit: njerëz + aftësi + van + pajisje + kohë + vend. Sot me WhatsApp, Viber, telefonata. **3 fakte nga intervista** (poshtë). | Flutura | 45s |
-| 3 | → **DEMO LIVE** ← | (asnjë slajd: ekrani + telefonat) | Genti + ekipi | 2:00 |
-| 4 | **Si punon** | Diagrami: **Lideri → Agjenti (kupton, planifikon, shkruan) → Kodi (rregullat) → Lideri MIRATON → Ekipi ACCEPT**. Fjalia: *"AI proposes, code decides, a human approves."* Stack-u në një rresht: Python · Claude Opus 5.5 · motor deterministik · FastAPI · Telegram | Genti | 40s |
-| 5 | **Pse e përdor** | **Sot** vs **me agjentin** (numrat poshtë) + *"Çka s'bën: s'flet me klientin, s'miraton vetë, s'cakton askënd pa ACCEPT."* | Devlete | 30s |
-| 6 | **Çdo industri** | Tabela: Evente · Elektrikë · Spitale · IT si Genpact. Te secila: **çka kontrollon kodi** (PLAN.md §5). *"Same Team Leader, different rulebook."* Implementimi: të dhënat → rregullat → kanali → 2 javë shadow mode → live | Devlete / Tringa | 30s |
-| 7 | **Pse ne + hapi tjetër** | *"Big platforms exist for big companies (ServiceTitan, QGenda, ServiceNow). We're the team leader in the chat you already use, in Albanian, live in a day."* **Next step:** pilot me Magic Events, 4 të shtuna, matim kohën e koordinimit + gabimet. | Tringa | 25s |
-
-## Faktet nga intervista (fjalë për fjalë, pa i zmadhuar)
-
-1. **Koordinimi mund të zgjasë orë:** *"Në një rast të vështirë, koordinimi i plotë mori afërsisht 4 orë."* Thuaje si **rast i vështirë real, jo mesatare**.
-2. **Një rregullim prish një event tjetër:** *"Për të zgjidhur një problem te një ekip u përdor një person i planifikuar për ekipin tjetër. Eventi tjetër u vonua rreth një orë."* Ndikoi te klienti, te serioziteti dhe te çmimi final. **Ky është fakti më i fortë**, sepse demoja e kap pikërisht këtë.
-3. **Ndryshimet në minutën e fundit:** rregulli është 4 orë paralajmërim, por *"ka raste kur njoftimi vjen vetëm rreth 30 minuta para nisjes."*
-
-**Rregullat e pronarëve = rregullat e kodit:** siguria nuk komprometohet · aftësia e duhur · askush (as vani, as pajisja) në dy vende njëherësh · koha e udhëtimit · premtimet ndaj klientit s'ndryshohen pa miratimin e tij.
-
-## Numrat: 3 lloje, mos i përziej
-
-| Lloji | Numri | Si shkruhet |
+| Koha | Çka | Kush flet |
 |---|---|---|
-| **Nga pronarët** | 3–4 orë (rast i vështirë) · vonesë 1 orë · 30 min paralajmërim | "Magic Events" |
-| **I matur nga ne** | plani në **~17 s** · kostoja **~$0.05** për plan ❓ | **vetëm numrat finalë nga `evidence/` (Devlete, 16:00)** |
-| **Shembull** | çdo shumë parash | **"Shembull, me supozime"** + supozimet në slajd |
+| 0:00–0:50 | **SLAJDI 1: Problemi** | Flutura |
+| 0:50–3:20 | **DEMO LIVE** (pa slajd: ekrani + telefonat) | Genti, ekipi luan rolet |
+| 3:20–4:10 | **SLAJDI 2: Si punon dhe pse e përdor** | Genti |
+| 4:10–4:50 | **SLAJDI 3: Çdo industri + hapi tjetër** | Tringa |
+| 4:50–5:00 | Mbyllja: një fjali, mbi slajdin 3 | Tringa |
 
-## Si mos të tingëllojë si AI slop
+---
 
-- Nis me momentin: *"E shtunë. Klienti thotë 'po'. Tani 4 veta duhet ta dinë çka bëjnë, me cilin van, në cilën orë."*
-- Çdo pretendim pasohet nga ekrani (demoja).
-- **Fjalë të ndaluara:** revolucionar, seamless, powerful, empower, cutting-edge, game-changer, "AI-powered solution".
-- Thuaj kufijtë: çka s'bën agjenti, dhe që bota e demos është e simuluar ndërsa workflow-i është real.
-- **NDA:** asnjë sistem, numër ose shembull nga puna e askujt në ekip.
+## SLAJDI 1: Problemi (0:50)
+
+**Titulli:** *Një "po" nga klienti = 10 gjëra që duhet të dalin mirë*
+
+**Majtas, përdoruesi real:**
+- **Magic Events**: Rinor & Elmonda Hyseni (✅ leje)
+- Pas çdo eventi të konfirmuar: **njerëz + aftësi + van + pajisje + orë + vend**
+- Sot: WhatsApp, Viber, telefonata, një nga një
+
+**Djathtas, 3 fakte nga intervista** (kuti të mëdha, fjalë për fjalë):
+1. **~4 orë** koordinim në një rast të vështirë
+2. **1 orë vonesë** te një event, sepse personi u mor për të rregulluar një ekip tjetër
+3. Anulimi vjen ndonjëherë **30 min** para nisjes
+
+**Fjalia e Flutures në fund:** *"Pyetja s'është 'a kemi dikë të lirë?' Është 'a mund ta kryejë kompania këtë punë pa prishur diçka tjetër?'"*
+
+---
+
+## DEMO LIVE (2:30): s'ka slajd
+Ekrani i Erzës në projektor, 4 telefona në duar. Skenarin e shkruan ekipi (`demo/README.md`). Genti flet. Tringa s'flet këtu.
+
+---
+
+## SLAJDI 2: Si punon dhe pse e përdor (0:50)
+
+**Titulli:** *AI planifikon. Kodi kontrollon. Njeriu miraton.*
+
+**Lart, diagram me 5 kuti dhe shigjeta:**
+`Lideri (flet me klientin)` → `Agjenti AI (kupton, planifikon, shkruan detyrat)` → `Kodi (rregullat: aftësia, rruga, orari, vani, pajisjet)` → `Lideri: MIRATO` → `Ekipi: ACCEPT në Telegram`
+
+**Poshtë majtas, "Sot → Me agjentin":**
+| Sot | Me agjentin |
+|---|---|
+| deri në ~4 orë telefonata (rast i vështirë) | plani në **[X] sekonda** ← numri nga `evidence/` |
+| konflikti zbulohet kur është vonë | konflikti kapet para se të ndodhë |
+| njëri nga një | 4 veta njëherësh, me detaje |
+
+**Poshtë djathtas, "Çka s'bën":** s'flet me klientin · s'miraton vetë · s'cakton askënd pa ACCEPT · rregullat s'i anashkalon askush
+
+**Shiriti i fundit (i vogël):** Python · Claude Opus 5.5 · motor deterministik · FastAPI · Telegram
+
+---
+
+## SLAJDI 3: Çdo industri + hapi tjetër (0:40 + mbyllja)
+
+**Titulli:** *I njëjti Team Leader, rregulla të tjera*
+
+**Tabela me 4 rreshta:**
+| Industria | Çka kontrollon kodi |
+|---|---|
+| Evente (sot) | njerëz, van, pajisje, rruga |
+| Elektrikë / servis | licenca, pajisjet në van, urgjenca |
+| Spitale | certifikimi, pushimi mes turneve |
+| IT, si Genpact | SLA, aftësitë, 4-eyes (kush e bën s'e miraton) |
+
+**Rreshti nën tabelë:** *Platforma të mëdha ekzistojnë për kompanitë e mëdha. Ne jemi team leader-i në chat-in që e keni, në shqip, i gatshëm brenda një dite.*
+
+**Hapi tjetër (kutia në fund):** *Pilot me Magic Events, 4 të shtuna: matim kohën e koordinimit dhe gabimet.*
+
+**Mbyllja (Tringa, 10s):** *"Lideri juaj mban klientin. Ne e kthejmë 'po'-në në një plan që s'prish asgjë."*
+
+---
+
+## Rregulla
+- **Numrat:** nga intervista ose nga `evidence/`. **[X] sekonda** e plotëson Devlete pas run-it të 16:00 (testi i parë: ~17 s). Pa shuma parash.
+- **Pa fjalë:** revolucionar, seamless, powerful, empower, cutting-edge, game-changer.
+- **Stili:** dark navy, i njëjtë me ekranin e Erzës; tekst i madh, pak fjalë. Asnjë slajd me më shumë se ~40 fjalë (përveç tabelave).
+- **NDA:** asnjë gjë nga puna e askujt në ekip.
 
 ## Afatet
-
-Drafti **15:30** (dërgoja Gentit) · numrat finalë nga `evidence/` në **16:15** · finali **17:00** (PDF) · provë me kronometër **17:30**.
-Puna në branch `tringa/pitch` → PR. Mjeti: Google Slides / PowerPoint / Canva, sipas zgjedhjes. Stili: dark navy, i njëjtë me ekranin e Erzës.
+Drafti **15:30** → Gentit · numri [X] **16:15** · finali **17:00** (PDF + PPT) · provë me kronometër **17:30** (5:00 saktë).

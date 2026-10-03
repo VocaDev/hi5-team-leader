@@ -9,7 +9,7 @@
 | ? × 4 | **Punëtorët**: marrin detyrat, shtypin ACCEPT / S'MUNDEM | telefonat (Telegram) |
 | Genti | tregon çka po ndodh në ekran | — |
 
-## Rrjedha (~2 min)
+## Rrjedha (2:30, nga 0:50 deri 3:20 te prezantimi)
 1. Lideri e shkruan punën me fjalët e veta (p.sh. ditëlindje, ora, vendi, shërbimet)
 2. Ekrani: "si mendon agjenti", përfshirë konfliktin që e kap (dikush s'arrin në kohë / vani i zënë)
 3. Plani → **MIRATO**
