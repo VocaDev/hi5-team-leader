@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Inter, Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1426"/><stop offset="1" stop-color="#101d36"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8fa3c7"/>
+    </marker>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f2b84b"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- title -->
+  <text x="800" y="80" text-anchor="middle" font-size="46" font-weight="800" fill="#ffffff">AI planifikon. Kodi kontrollon. Njeriu miraton.</text>
+  <text x="800" y="122" text-anchor="middle" font-size="22" fill="#8fa3c7">Si punon AI Team Leader, nga "po"-ja e klientit deri te ekipi në punë</text>
+
+  <!-- boxes: y 230..470 -->
+  <!-- 1 human leader -->
+  <g>
+    <rect x="40" y="230" width="270" height="250" rx="22" fill="#11263a" stroke="#3ecf8e" stroke-width="3"/>
+    <text x="175" y="282" text-anchor="middle" font-size="40">🧑‍💼</text>
+    <text x="175" y="330" text-anchor="middle" font-size="26" font-weight="800" fill="#3ecf8e">Lideri / PM</text>
+    <text x="175" y="366" text-anchor="middle" font-size="19" fill="#d6e1f5">flet me klientin</text>
+    <text x="175" y="394" text-anchor="middle" font-size="19" fill="#d6e1f5">shkruan punën</text>
+    <text x="175" y="422" text-anchor="middle" font-size="19" fill="#d6e1f5">me fjalët e veta</text>
+    <text x="175" y="458" text-anchor="middle" font-size="16" fill="#8fa3c7">"A mundemi?"</text>
+  </g>
+  <!-- 2 AI agent -->
+  <g>
+    <rect x="355" y="230" width="290" height="250" rx="22" fill="#16213f" stroke="#7c8cff" stroke-width="3"/>
+    <text x="500" y="282" text-anchor="middle" font-size="40">🧠</text>
+    <text x="500" y="330" text-anchor="middle" font-size="26" font-weight="800" fill="#9aa6ff">Agjenti AI</text>
+    <text x="500" y="366" text-anchor="middle" font-size="19" fill="#d6e1f5">kupton kërkesën</text>
+    <text x="500" y="394" text-anchor="middle" font-size="19" fill="#d6e1f5">e ndan në detyra</text>
+    <text x="500" y="422" text-anchor="middle" font-size="19" fill="#d6e1f5">shkruan detyrat dhe raportet</text>
+    <text x="500" y="458" text-anchor="middle" font-size="16" fill="#8fa3c7">Claude Opus 5.5</text>
+  </g>
+  <!-- 3 engine -->
+  <g>
+    <rect x="690" y="230" width="300" height="250" rx="22" fill="#2a1f12" stroke="#f2b84b" stroke-width="3"/>
+    <text x="840" y="282" text-anchor="middle" font-size="40">⚙️</text>
+    <text x="840" y="330" text-anchor="middle" font-size="26" font-weight="800" fill="#f2b84b">Kodi (pa AI)</text>
+    <text x="840" y="366" text-anchor="middle" font-size="19" fill="#d6e1f5">aftësia · rruga · orari</text>
+    <text x="840" y="394" text-anchor="middle" font-size="19" fill="#d6e1f5">vani · pajisjet · orët</text>
+    <text x="840" y="422" text-anchor="middle" font-size="19" fill="#d6e1f5">4-eyes</text>
+    <rect x="760" y="438" width="160" height="30" rx="15" fill="#5a1d1d" stroke="#ff6b6b"/>
+    <text x="840" y="459" text-anchor="middle" font-size="16" font-weight="700" fill="#ff8a8a">⛔ BLOCKED</text>
+  </g>
+  <!-- 4 approve -->
+  <g>
+    <rect x="1035" y="230" width="230" height="250" rx="22" fill="#11263a" stroke="#3ecf8e" stroke-width="3"/>
+    <text x="1150" y="282" text-anchor="middle" font-size="40">✅</text>
+    <text x="1150" y="330" text-anchor="middle" font-size="26" font-weight="800" fill="#3ecf8e">MIRATO</text>
+    <text x="1150" y="366" text-anchor="middle" font-size="19" fill="#d6e1f5">vetëm njeriu</text>
+    <text x="1150" y="394" text-anchor="middle" font-size="19" fill="#d6e1f5">e miraton planin</text>
+    <text x="1150" y="458" text-anchor="middle" font-size="16" fill="#8fa3c7">AI s'mund ta miratojë</text>
+  </g>
+  <!-- 5 team -->
+  <g>
+    <rect x="1310" y="230" width="250" height="250" rx="22" fill="#0f2a33" stroke="#38c6d9" stroke-width="3"/>
+    <text x="1435" y="282" text-anchor="middle" font-size="40">📱</text>
+    <text x="1435" y="330" text-anchor="middle" font-size="26" font-weight="800" fill="#38c6d9">Ekipi</text>
+    <text x="1435" y="366" text-anchor="middle" font-size="19" fill="#d6e1f5">detyra në detaje</text>
+    <text x="1435" y="394" text-anchor="middle" font-size="19" fill="#d6e1f5">ACCEPT · check-in</text>
+    <text x="1435" y="422" text-anchor="middle" font-size="19" fill="#d6e1f5">e nisa · përfundova</text>
+    <text x="1435" y="458" text-anchor="middle" font-size="16" fill="#8fa3c7">në Telegram</text>
+  </g>
+
+  <!-- forward arrows -->
+  <line x1="312" y1="355" x2="350" y2="355" stroke="#8fa3c7" stroke-width="4" marker-end="url(#arr)"/>
+  <line x1="647" y1="355" x2="685" y2="355" stroke="#8fa3c7" stroke-width="4" marker-end="url(#arr)"/>
+  <line x1="992" y1="355" x2="1030" y2="355" stroke="#8fa3c7" stroke-width="4" marker-end="url(#arr)"/>
+  <line x1="1267" y1="355" x2="1305" y2="355" stroke="#8fa3c7" stroke-width="4" marker-end="url(#arr)"/>
+
+  <!-- feedback loop: team problem -> engine -> reassign -->
+  <path d="M1435,484 C1435,600 840,600 840,488" fill="none" stroke="#f2b84b" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#arrRed)"/>
+  <rect x="905" y="560" width="530" height="44" rx="22" fill="#2a1f12" stroke="#f2b84b"/>
+  <text x="1170" y="589" text-anchor="middle" font-size="19" font-weight="700" fill="#f2b84b">⚠️ "kam problem" → detyra te tjetri, sipas rregullave</text>
+
+  <!-- report loop: back to leader -->
+  <path d="M1435,226 C1435,196 175,196 175,226" fill="none" stroke="#3ecf8e" stroke-width="3" stroke-dasharray="6 8" marker-end="url(#arr)"/>
+  <text x="800" y="186" text-anchor="middle" font-size="18" fill="#3ecf8e">raport live për liderin: kush pranoi, kush e nisi, problemet, orët</text>
+
+  <!-- legend -->
+  <g font-size="19">
+    <circle cx="300" cy="680" r="10" fill="#3ecf8e"/><text x="320" y="687" fill="#d6e1f5">njeriu vendos</text>
+    <circle cx="520" cy="680" r="10" fill="#7c8cff"/><text x="540" y="687" fill="#d6e1f5">AI kupton dhe shkruan</text>
+    <circle cx="800" cy="680" r="10" fill="#f2b84b"/><text x="820" y="687" fill="#d6e1f5">kodi garanton rregullat</text>
+    <circle cx="1100" cy="680" r="10" fill="#38c6d9"/><text x="1120" y="687" fill="#d6e1f5">ekipi vepron në chat</text>
+  </g>
+
+  <!-- stack strip -->
+  <rect x="40" y="760" width="1520" height="80" rx="20" fill="#0e1a30" stroke="#24375c"/>
+  <text x="800" y="809" text-anchor="middle" font-size="22" fill="#b9c7e3">Python  ·  Claude Opus 5.5 (strict tools)  ·  motor deterministik  ·  FastAPI  ·  Telegram Bot API  ·  JSON + log për çdo hap</text>
+</svg>

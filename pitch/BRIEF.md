@@ -42,6 +42,8 @@ Ekrani i Erzës në projektor, 4 telefona në duar. Skenarin e shkruan ekipi (`d
 
 **Titulli:** *AI planifikon. Kodi kontrollon. Njeriu miraton.*
 
+> **Figura e gatshme: `pitch/architecture.png`** (3200×1800, dark navy). Vendose në gjysmën e sipërme ose në gjithë slajdin; titulli dhe stack-u janë brenda figurës. `architecture.svg` = versioni që s'humbet cilësi.
+
 **Lart, diagram me 5 kuti dhe shigjeta:**
 `Lideri (flet me klientin)` → `Agjenti AI (kupton, planifikon, shkruan detyrat)` → `Kodi (rregullat: aftësia, rruga, orari, vani, pajisjet)` → `Lideri: MIRATO` → `Ekipi: ACCEPT në Telegram`
 
