@@ -113,7 +113,11 @@ def _on_message(n: Notifier, msg: dict) -> None:
         n.leader_history = res.get("history") or n.leader_history
         tg("sendMessage", chat_id=chat, text=res["reply_text"])
     else:
-        tg("sendMessage", chat_id=chat, text="Faleminderit. Për detyrat përdor butonat ACCEPT / S'MUNDEM. Për çdo gjë tjetër, shkruaji liderit.")
+        from ..config import load_pack
+        name = next((w["name"] for w in load_pack()[0]["workers"] if w["id"] == who), who)
+        S.log("message", f"💬 {name} (punëtore): {text}")
+        n.send_leader(f"💬 {name}: {text}")
+        tg("sendMessage", chat_id=chat, text="E mora dhe ia kalova liderit. Për detyrat përdor butonat (ACCEPT, E NISA, PËRFUNDOVA).")
 
 
 def _on_callback(n: Notifier, cq: dict) -> None:
