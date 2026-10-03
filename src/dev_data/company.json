@@ -1,8 +1,8 @@
 {
   "company": {
-    "name": "Biznes eventesh · demo (punët dhe orari janë të shpikura)",
+    "name": "Events business · demo (jobs and schedule are invented)",
     "date": "2026-10-10",
-    "day_label": "e shtunë 10 tetor",
+    "day_label": "Saturday 10 October",
     "depot_zone": "Prishtine"
   },
   "zones": [
@@ -61,33 +61,33 @@
     {
       "id": "bounce1",
       "type": "bounce",
-      "name": "Bounce Kështjella"
+      "name": "Bounce Castle"
     },
     {
       "id": "bounce2",
       "type": "bounce",
-      "name": "Bounce Pirati"
+      "name": "Bounce Pirate"
     },
     {
       "id": "comp1",
       "type": "compressor",
-      "name": "Kompresori 1"
+      "name": "Compressor 1"
     },
     {
       "id": "comp2",
       "type": "compressor",
-      "name": "Kompresori 2"
+      "name": "Compressor 2"
     },
     {
       "id": "mascot_bear",
       "type": "mascot_costume",
-      "name": "Kostumi Ariu"
+      "name": "Bear costume"
     }
   ],
   "existing_jobs": [
     {
       "id": "J1",
-      "title": "Ditëlindje (ekzistuese)",
+      "title": "Birthday (already booked)",
       "zone": "Vushtrri",
       "from": "13:00",
       "to": "17:00",

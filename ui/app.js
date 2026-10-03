@@ -22,9 +22,9 @@ async function progress(taskId, kind) { return post('/api/progress', {job_id: jo
 async function setIndustry(name) { return post('/api/industry', {name}); }
 
 const $ = id => document.getElementById(id);
-const STATUS = {planned: 'Planifikuar', sent: 'Dërguar', accepted: '✅ Pranuar', declined: '❌ Refuzuar'};
-const JOB = {draft: 'Draft', awaiting_approval: 'Pret miratimin', sent: 'Dërguar', confirmed: '✅ Konfirmuar', done: '🏁 Përfunduar'};
-const CHK = {asked: '⏰ check-in', ok: '👍 gati', problem: '⚠️ problem'};
+const STATUS = {planned: 'Planned', sent: 'Sent', accepted: '✅ Accepted', declined: '❌ Declined'};
+const JOB = {draft: 'Draft', awaiting_approval: 'Awaiting approval', sent: 'Sent', confirmed: '✅ Confirmed', done: '🏁 Done'};
+const CHK = {asked: '⏰ check-in sent', ok: '👍 ready', problem: '⚠️ problem'};
 let last = '';
 
 function el(tag, cls, text) {
@@ -36,7 +36,7 @@ function el(tag, cls, text) {
 
 function phoneBtn(label, cls, fn) {
   const b = el('button', 'btn btn-sm ' + cls, label);
-  b.onclick = async () => { b.disabled = true; try { await fn(); } catch (e) { $('msgNote').textContent = 'Dështoi: ' + e.message; } poll(); };
+  b.onclick = async () => { b.disabled = true; try { await fn(); } catch (e) { $('msgNote').textContent = 'Failed: ' + e.message; } poll(); };
   return b;
 }
 
@@ -46,9 +46,9 @@ function render(v) {
   $('checkinBtn').disabled = job.status !== 'confirmed';
   $('company').textContent = v.company || '';
   ['events', 'construction', 'it_services'].forEach(n => $('ind_' + n).classList.toggle('btn-go', v.industry === n));
-  $('jobTitle').textContent = job.title ? `${job.title} · ${job.zone || ''} · ${job.start || ''}` : 'Plani';
+  $('jobTitle').textContent = job.title ? `${job.title} · ${job.zone || ''} · ${job.start || ''}` : 'Plan';
   const jp = $('jobPill');
-  jp.textContent = job.status ? (JOB[job.status] || job.status) : 'S\'ka punë';
+  jp.textContent = job.status ? (JOB[job.status] || job.status) : 'No job';
   $('approveBtn').disabled = job.status !== 'awaiting_approval';
 
   $('busy').hidden = !v.busy;
@@ -57,33 +57,33 @@ function render(v) {
   const sent = (v.tasks || []).filter(t => t.status === 'sent');
   $('phones').replaceChildren(...(sent.length ? sent.map(t => {
     const r = el('div', 'ph'); r.append(el('span', '', `${t.worker}: ${t.role}`));
-    [['accept', 'ACCEPT', 'btn btn-go btn-sm'], ['decline', "S'MUNDEM", 'btn btn-sm']].forEach(([a, l, cls]) => {
+    [['accept', 'ACCEPT', 'btn btn-go btn-sm'], ['decline', "CAN'T", 'btn btn-sm']].forEach(([a, l, cls]) => {
       const b = el('button', cls, l);
-      b.onclick = async () => { b.disabled = true; try { await answer(t.id, a); } catch (e) { $('msgNote').textContent = 'Dështoi.'; } poll(); };
+      b.onclick = async () => { b.disabled = true; try { await answer(t.id, a); } catch (e) { $('msgNote').textContent = 'Failed.'; } poll(); };
       r.append(b);
     });
     return r;
   }) : []).concat((v.tasks || []).filter(t => t.status === 'accepted').map(t => {
     const r = el('div', 'ph'); r.append(el('span', '', `${t.worker}: ${t.role}`));
     if (t.checkin === 'asked') {
-      r.append(phoneBtn('👍 GATI', 'btn-go', () => checkinAnswer(t.id, true)), phoneBtn('⚠️ PROBLEM', '', () => checkinAnswer(t.id, false)));
+      r.append(phoneBtn('👍 READY', 'btn-go', () => checkinAnswer(t.id, true)), phoneBtn('⚠️ PROBLEM', '', () => checkinAnswer(t.id, false)));
     } else if (!t.done_at) {
-      r.append(phoneBtn(t.started_at ? '✅ PËRFUNDOVA' : '🚗 E NISA', '', () => progress(t.id, t.started_at ? 'done' : 'start')));
+      r.append(phoneBtn(t.started_at ? '✅ DONE' : '🚗 STARTED', '', () => progress(t.id, t.started_at ? 'done' : 'start')));
     } else r.append(el('span', 'badge b-accepted', '✅ ' + t.done_at.slice(0, 5)));
     return r;
   })));
-  if (!$('phones').children.length) $('phones').append(el('div', 'empty', 'S\'ka detyra në pritje.'));
+  if (!$('phones').children.length) $('phones').append(el('div', 'empty', 'No replies pending.'));
 
   const bl = $('blocked'), blocked = v.blocked || [];
   bl.hidden = !blocked.length;
-  bl.replaceChildren(...blocked.map(b => el('div', '', 'BLLOKUAR · ' + b.text.replace(/^BLOCKED:\s*/, ''))));
+  bl.replaceChildren(...blocked.map(b => el('div', '', 'BLOCKED · ' + b.text.replace(/^BLOCKED:\s*/, ''))));
 
   // plani: sipas personit, pastaj sipas orës
   const tasks = (v.tasks || []).slice().sort((a, b) => (a.from || '').localeCompare(b.from || ''));
   const byWorker = {};
   tasks.forEach(t => (byWorker[t.worker] = byWorker[t.worker] || []).push(t));
   const plan = $('plan');
-  if (!tasks.length) plan.replaceChildren(el('div', 'empty', 'Ende s\'ka plan. Shkruaje punën më lart.'));
+  if (!tasks.length) plan.replaceChildren(el('div', 'empty', 'No plan yet. Write the job above.'));
   else plan.replaceChildren(...Object.entries(byWorker).map(([name, list]) => {
     const p = el('div', 'person');
     p.append(el('h3', '', name));
@@ -92,10 +92,10 @@ function render(v) {
       row.append(el('div', 'time', `${t.from}–${t.to}`));
       const mid = el('div');
       mid.append(el('div', '', t.role));
-      if (t.bring && t.bring.length) mid.append(el('div', 'bring', 'Merr: ' + t.bring.join(', ')));
+      if (t.bring && t.bring.length) mid.append(el('div', 'bring', 'Bring: ' + t.bring.join(', ')));
       if (t.note) mid.append(el('div', 'bring', t.note));
       if (t.checkin) mid.append(el('div', 'bring', CHK[t.checkin] || t.checkin));
-      if (t.started_at) mid.append(el('div', 'bring', '🚗 nisi ' + t.started_at.slice(0, 5) + (t.done_at ? ' · ✅ ' + t.done_at.slice(0, 5) : '')));
+      if (t.started_at) mid.append(el('div', 'bring', '🚗 started ' + t.started_at.slice(0, 5) + (t.done_at ? ' · ✅ ' + t.done_at.slice(0, 5) : '')));
       row.append(mid, el('span', 'badge b-' + t.status, STATUS[t.status] || t.status));
       p.append(row);
     });
@@ -103,15 +103,15 @@ function render(v) {
   }));
 
   // punëtorët: statusi vjen nga detyrat e tyre
-  const SKILL = {driver: 'shofer', setup: 'montim', mascot: 'maskotë', rebar: 'armaturë', quality: 'cilësi', pump_operator: 'pompë', concrete: 'betonim', backend: 'backend', python: 'python', qa: 'QA', ml: 'ML', devops: 'devops', prod_access: 'prod'};
+  const SKILL = {driver: 'driver', setup: 'setup', mascot: 'mascot', rebar: 'rebar', quality: 'quality', pump_operator: 'pump', concrete: 'concrete', backend: 'backend', python: 'python', qa: 'QA', ml: 'ML', devops: 'devops', prod_access: 'prod'};
   $('workers').replaceChildren(...(v.workers || []).map(w => {
     const mine = tasks.filter(t => t.worker === w.name).map(t => t.status);
     let st = mine.includes('declined') ? 'declined' : mine.length && mine.every(s => s === 'accepted') ? 'accepted'
       : mine.includes('sent') ? 'sent' : 'planned';
     let cls, label;
-    if (mine.length) { cls = st === 'planned' ? 'assigned' : st; label = st === 'planned' ? 'në plan' : STATUS[st]; }
-    else if (w.status === 'busy') { cls = 'busy'; label = 'i zënë'; }
-    else { cls = 'free'; label = 'i lirë'; }
+    if (mine.length) { cls = st === 'planned' ? 'assigned' : st; label = st === 'planned' ? 'in plan' : STATUS[st]; }
+    else if (w.status === 'busy') { cls = 'busy'; label = 'busy'; }
+    else { cls = 'free'; label = 'free'; }
     const d = el('div', 'worker w-' + cls);
     const head = el('div', 'whead');
     head.append(el('span', 'avatar av-' + cls, w.name.slice(0, 1)), el('b', '', w.name));
@@ -119,7 +119,7 @@ function render(v) {
     return d;
   }));
 
-  const HST = {done: '🏁 Përfunduar', confirmed: '✅ Konfirmuar', sent: 'Në pritje'};
+  const HST = {done: '🏁 Done', confirmed: '✅ Confirmed', sent: 'In progress'};
   const hist = v.history || [];
   $('history').replaceChildren(...(hist.length ? hist.map(h => {
     const r = el('div', 'hrow');
@@ -127,10 +127,10 @@ function render(v) {
     left.append(el('div', 'htitle', `${h.title}`), el('div', 'bring', `${h.zone} · ${h.start} · ${h.people.join(', ')}`));
     const right = el('div', 'hright');
     right.append(el('span', 'badge b-' + (h.status === 'sent' ? 'sent' : 'accepted'), HST[h.status] || h.status),
-                 el('div', 'bring', `${h.accepted}/${h.total} pranuar · ${h.done}/${h.total} kryer` + (h.problems ? ` · ${h.problems} problem` : '')));
+                 el('div', 'bring', `${h.accepted}/${h.total} pranuar · ${h.done}/${h.total} done` + (h.problems ? ` · ${h.problems} problem(s)` : '')));
     r.append(left, right);
     return r;
-  }) : [el('div', 'empty', 'Ende s\'ka punë të kryera.')]));
+  }) : [el('div', 'empty', 'No finished jobs yet.')]));
 
   const feed = $('feed'), atBottom = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 20;
   feed.replaceChildren(...(v.feed || []).map(f => {
@@ -143,7 +143,7 @@ function render(v) {
 
 function setConn(ok) {
   const c = $('conn');
-  c.textContent = ok ? '● live' : '● pa lidhje';
+  c.textContent = ok ? '● live' : '● offline';
   c.className = 'pill ' + (ok ? 'pill-on' : 'pill-off');
 }
 
@@ -161,28 +161,28 @@ $('sendBtn').onclick = async () => {
   const text = $('msg').value.trim();
   if (!text) return;
   $('sendBtn').disabled = true; $('msgNote').textContent = '';
-  try { await sendMessage(text); $('msg').value = ''; $('msgNote').textContent = 'Dërguar: "' + text + '" → shiko feed-in djathtas.'; }
-  catch (e) { $('msgNote').textContent = 'Dështoi: ' + e.message; }
+  try { await sendMessage(text); $('msg').value = ''; $('msgNote').textContent = 'Sent. Watch "What the agent is doing".'; }
+  catch (e) { $('msgNote').textContent = 'Failed: ' + e.message; }
   $('sendBtn').disabled = false;
 };
 
 $('resetBtn').onclick = async () => {
-  try { await reset(); $('msgNote').textContent = 'U rivendos.'; } catch (e) { $('msgNote').textContent = 'Reset dështoi.'; }
+  try { await reset(); $('msgNote').textContent = 'Reset.'; } catch (e) { $('msgNote').textContent = 'Reset failed.'; }
   poll();
 };
 
 $('checkinBtn').onclick = async () => {
-  try { await checkin(); } catch (e) { $('msgNote').textContent = 'Check-in dështoi.'; }
+  try { await checkin(); } catch (e) { $('msgNote').textContent = 'Check-in failed.'; }
   poll();
 };
 ['events', 'construction', 'it_services'].forEach(n => $('ind_' + n).onclick = async () => {
-  try { await setIndustry(n); last = ''; $('msgNote').textContent = {events: 'Evente (pa PM)', construction: 'Ndërtim (me PM)', it_services: 'IT (me PM)'}[n]; } catch (e) { $('msgNote').textContent = 'Ndërrimi dështoi.'; }
+  try { await setIndustry(n); last = ''; $('msgNote').textContent = {events: 'Events (no PM)', construction: 'Construction (with PM)', it_services: 'IT (with PM)'}[n]; } catch (e) { $('msgNote').textContent = 'Switch failed.'; }
   poll();
 });
 
 $('approveBtn').onclick = async () => {
   $('approveBtn').disabled = true;
-  try { await approve(); } catch (e) { $('msgNote').textContent = 'Miratimi dështoi.'; }
+  try { await approve(); } catch (e) { $('msgNote').textContent = 'Approval failed.'; }
   poll();
 };
 
@@ -193,6 +193,6 @@ document.addEventListener('keydown', async e => {
   const n = {'1': 'events', '2': 'construction'}[e.key];
   if (!n) return;
   e.preventDefault();
-  try { await setIndustry(n); last = ''; } catch (err) { $('msgNote').textContent = 'Ndërrimi dështoi.'; }
+  try { await setIndustry(n); last = ''; } catch (err) { $('msgNote').textContent = 'Switch failed.'; }
   poll();
 });

@@ -126,7 +126,7 @@ def run(text: str, history: list | None = None) -> dict:
     with S.LOCK:
         st = S.load()
         st["busy"] = True
-        S.feed(st, "message", f"💬 Lideri: {text}")
+        S.feed(st, "message", f"💬 Leader: {text}")
     messages = list(history or []) + [{"role": "user", "content": f"LEADER MESSAGE:\n{text}"}]
     usage, t0, reply, calls = {}, time.time(), None, 0
     try:
@@ -169,7 +169,7 @@ def run(text: str, history: list | None = None) -> dict:
             raise RuntimeError("no submit_reply")
     except Exception as e:  # noqa: BLE001 — fail to a human, never to silence
         reply = {"status": "ERROR", "reply_text": SAFE_REPLY, "error": str(e)}
-        S.log("blocked", f"⚠️ Gabim i agjentit: {e}")
+        S.log("blocked", f"⚠️ Agent error: {e}")
     finally:
         with S.LOCK:
             st = S.load()

@@ -82,7 +82,7 @@ def handle(worker_id: str, name: str, text: str) -> str:
         how = "AI"
     except Exception:  # noqa: BLE001 — never ignore a worker
         c = {"intent": _keyword(text), "task_id": ""}
-        how = "fjalë kyçe"
+        how = "keywords"
     intent = c.get("intent", "other")
     task = next((t for t in tasks if t["id"] == c.get("task_id")), None)
     if not task:  # pick the most relevant task for the intent
@@ -91,7 +91,7 @@ def handle(worker_id: str, name: str, text: str) -> str:
         if intent == "done":
             cands = [t for t in cands if t.get("started_at") and not t.get("done_at")] or [t for t in cands if not t.get("done_at")]
         task = (cands or tasks)[0]
-    S.log("tool", f"🧠 Kuptova ({how}): {name} → {intent} · '{task['role']}'")
+    S.log("tool", f"🧠 Understood ({how}): {name} → {intent} · '{task['role']}'")
     jid, tid = job["id"], task["id"]
 
     if intent == "accept" and any(t["status"] == "sent" for t in tasks):
